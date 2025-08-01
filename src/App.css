@@ -101,11 +101,11 @@ nav {
 
 /* Intro Section Styles */
 .intro-content {
-  height: 82.5vh;
-  padding-top: 30vh;
+  height: 825px;
   display: flex;
   justify-content: space-between;
-  padding: 0 5vw;
+  align-items: flex-end;
+  padding: 0 100px;
 }
 
 .intro-content>img {
@@ -117,7 +117,9 @@ nav {
 .intro-text-wrapper {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  height: 590px;
+  justify-content: center;
+  gap: 20px;
 }
 
 .intro-title {

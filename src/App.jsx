@@ -13,7 +13,7 @@ function App() {
         <div className="intro-content">
           <div className="intro-text-wrapper">
             <h1 className="intro-title">Your Tech — Your Rules</h1>
-            <p className="intro-text">Smartphones and Laptops with Quality Guarantee</p>
+            <p className="intro-text">Smartphones and Laptops <br/> with Quality Guarantee</p>
             <button className='intro-button'>Catalog</button>
           </div>
           <img src={intro} alt="Intro-image" className="intro-image" />
