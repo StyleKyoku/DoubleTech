@@ -6,8 +6,6 @@ body {
   font-weight: 400;
   font-style: Regular;
   font-size: 16px;
-  line-height: 100%;
-  letter-spacing: 0%;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -25,7 +23,7 @@ body {
   padding: 0 5vw;
   min-height: 75px;
   border-bottom: 1px solid #000;
-  position: relative; /* обязательно */
+  position: relative;
 }
 
 .header-logo {
@@ -60,10 +58,8 @@ nav {
 
 .header-buttons {
   flex: 0 0 auto;
-  min-width: 140px; 
   display: flex;
   gap: 20px;
-  height: 28px;
   align-items: center;
 }
 
@@ -104,22 +100,27 @@ nav {
   height: 825px;
   display: flex;
   justify-content: space-between;
-  align-items: flex-end;
   padding: 0 100px;
 }
 
-.intro-content>img {
-  height: 590px;
+.intro-image {
   display: flex;
-  align-items: flex-end;
+  justify-content: flex-end;
+  align-self: flex-end;
+}
+
+.intro-image img {
+  height: 590px;
+  width: auto;
+  object-fit: contain;
 }
 
 .intro-text-wrapper {
   display: flex;
   flex-direction: column;
-  height: 590px;
-  justify-content: center;
+  align-self: center;
   gap: 20px;
+  margin-top: 10em;
 }
 
 .intro-title {
@@ -154,3 +155,171 @@ nav {
   background-color: #10B981;
   color: white;
 }
+
+/* Features */
+
+.features-section {
+  background-color: white;
+  padding: 5em 1.5em;
+  gap: 2.5em;
+  display: flex;
+  justify-content: center;
+}
+
+.feature {
+  position: relative;
+  box-sizing: border-box;
+}
+
+.feature-go-to-img {
+  position: absolute;
+  top: 2em;
+  right: 3.5em;
+}
+
+.feature-img {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  max-height: 61%; 
+  width: 100%;
+  object-fit: contain;
+}
+
+.feature h2 {
+  position: absolute;
+  top: 8vh;
+  left: 0;
+  width: 75%;
+  font-size: 7vh;
+  word-break: break-word;
+  white-space: normal;
+  line-height: 1.1;
+  color: white;
+}
+
+.green-words {
+  color: #10B981; /* Цвет для выделения */
+}
+
+.feature > img:first-child {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 12px;
+}
+
+.feature>h3 {
+  position: absolute;
+  bottom: 0;
+  right: -0.1em;
+  font-size: 20vh;
+  color: white;
+  margin: 0;
+  line-height: 0.7;
+}
+
+@media (max-width: 900px) {
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .header-logo {
+    flex: none;
+  }
+
+  .header-buttons {
+    flex: none;
+  }
+
+  .header-spacer {
+    display: none;
+  }
+
+  .header-nav {
+    position: relative;
+    left: auto;
+    top: auto;
+    height: 100%;
+    display: flex;
+    align-items: normal;
+    transform: none;
+  }
+
+  /* Intro */
+
+  .intro-content {
+    height: 450px;
+    padding: 0 24px;
+  }
+
+  .intro-text-wrapper {
+    margin-top: 4em;
+  }
+
+  .intro-title {
+    font-size: 32px;
+  }
+
+  .intro-text {
+    font-size: 22px;
+  }
+
+  .intro-image img {
+    max-height: 360px;
+  }
+
+  /* Features */
+
+  .features-section {
+    flex-wrap: wrap;
+  }
+
+  .feature {
+    min-width: 320px;
+    max-width: 50%;
+    flex: 1 1 45%;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .feature:last-child {
+    flex-basis: 100%; /* третий элемент занимает всю ширину */
+    max-width: 100%;
+  }
+
+  .feature:last-child h2 {
+    font-size: 7.2vh;
+    top: 50%;
+    margin: 0;
+    transform: translateY(-50%);
+  }
+
+  .feature:last-child .feature-img {
+    width: auto;
+    right: 0;
+    left: unset;
+    transform: none;
+  }
+
+  .feature > img:first-child {
+    max-height: 450px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .feature h2 {
+    font-size: 4vh;
+    top: 4vh;
+  }
+
+  .feature > h3 {
+    font-size: 10vh;
+    bottom: 0;
+    right: -0.1em;
+  }
+
+}
+
