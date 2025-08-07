@@ -1,0 +1,41 @@
+.footer {
+    padding: 3.25em 0;
+    background-color: #1A1A1A;
+    color: white;
+}
+
+.footer p {
+    line-height: 1.4;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer-container {
+    padding: 0 20em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-content-wrapper {
+    display: flex;
+}
+
+.footer-content {
+    max-width: 270px;
+    min-width: 200px
+
+}
+
+.footer-img {
+    width: 100%;
+    height: auto;
+    margin: 4em 0;
+}
+
+.footer-links {
+    list-style: none;
+    margin-bottom: 0.5em;
+}

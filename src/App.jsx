@@ -1,6 +1,15 @@
 import { useState } from 'react'
 import './App.css'
+import './Header.css'
+import "./main.css"
+import './products.css'
+import './collections.css'
+import './footer.css'
+
+
 import Header from './components/Header'
+import Card from './components/Card'
+import Footer from './components/Footer'
 
 import intro from '/assets/images/intro/intro.png'
 
@@ -52,9 +61,79 @@ function App() {
         </div>
       </section>
       <section className='products-section'>
+        <div className="products-wrapper">
+          <h2 className='product-title'>Best Sellers</h2>
+          <div className='products-list'>
+            <Card
+              title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
+              price="1299"
+              imageUrl="/assets/images/products/Phone.png"
+              liked="false"
+              inBasket="false"
+            />
+          </div>
+        </div>
+        <div className="products-wrapper">
+          <h2 className='product-title'>Sales</h2>
+          <div className='products-list'>
+            <Card
+              title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
+              price="1299"
+              imageUrl="/assets/images/products/Phone.png"
+              liked="false"
+              inBasket="false"
+            />
+          </div>
+        </div>
       </section>
       <section className='collections-section'>
+        <h2 className='collections-title'>Collections</h2>
+        <div className="collections-wrapper">
+          <div className="collection">
+            <img 
+              src="/assets/images/collections/rect1.svg" 
+              alt="School Collection" 
+              className="collection-bg" />
+            <img 
+              src="/assets/images/collections/school.svg" 
+              alt="Go to school collection" 
+              className='go-to-col' />
+            <img 
+              src="/assets/images/collections/school-img.png" 
+              alt="School img" 
+              className="collection-img"/>
+          </div>
+          <div className="collection">
+            <img 
+              src="/assets/images/collections/rect2.svg" 
+              alt="Work Collection" 
+              className="collection-bg" />
+            <img 
+              src="/assets/images/collections/work.svg" 
+              alt="Go to work collection" 
+              className='go-to-col' />
+            <img 
+              src="/assets/images/collections/work-img.png" 
+              alt="Work img" 
+              className="collection-img"/>
+          </div>
+          <div className="collection">
+            <img 
+              src="/assets/images/collections/rect3.svg" 
+              alt="Gaming Collection" 
+              className="collection-bg" />
+            <img 
+              src="/assets/images/collections/gaming.svg" 
+              alt="Go to gaming collection" 
+              className='go-to-col' />
+            <img 
+              src="/assets/images/collections/gaming-img.png" 
+              alt="Gaming img" 
+              className="collection-img"/>
+          </div>
+        </div>
       </section>
+      <Footer />
     </>
   )
 }
