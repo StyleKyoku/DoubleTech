@@ -91,43 +91,43 @@ function App() {
         <div className="collections-wrapper">
           <div className="collection">
             <img 
-              src="/assets/images/collections/rect1.svg" 
+              src={import.meta.env.BASE_URL + "/assets/images/collections/rect1.svg"}
               alt="School Collection" 
               className="collection-bg" />
             <img 
-              src="/assets/images/collections/school.svg" 
+              src={import.meta.env.BASE_URL + "/assets/images/collections/school.svg"}
               alt="Go to school collection" 
               className='go-to-col' />
             <img 
-              src="/assets/images/collections/school-img.png" 
+              src={import.meta.env.BASE_URL + "/assets/images/collections/school-img.png"} 
               alt="School img" 
               className="collection-img"/>
           </div>
           <div className="collection">
             <img 
-              src="/assets/images/collections/rect2.svg" 
+              src={import.meta.env.BASE_URL + "/assets/images/collections/rect2.svg"}
               alt="Work Collection" 
               className="collection-bg" />
             <img 
-              src="/assets/images/collections/work.svg" 
+              src={import.meta.env.BASE_URL + "/assets/images/collections/work.svg"}
               alt="Go to work collection" 
               className='go-to-col' />
             <img 
-              src="/assets/images/collections/work-img.png" 
+              src={import.meta.env.BASE_URL + "/assets/images/collections/work-img.png"}
               alt="Work img" 
               className="collection-img"/>
           </div>
           <div className="collection">
             <img 
-              src="/assets/images/collections/rect3.svg" 
+              src={import.meta.env.BASE_URL + "/assets/images/collections/rect3.svg"}
               alt="Gaming Collection" 
               className="collection-bg" />
             <img 
-              src="/assets/images/collections/gaming.svg" 
+              src={import.meta.env.BASE_URL + "/assets/images/collections/gaming.svg"}
               alt="Go to gaming collection" 
               className='go-to-col' />
             <img 
-              src="/assets/images/collections/gaming-img.png" 
+              src={import.meta.env.BASE_URL + "/assets/images/collections/gaming-img.png"}
               alt="Gaming img" 
               className="collection-img"/>
           </div>

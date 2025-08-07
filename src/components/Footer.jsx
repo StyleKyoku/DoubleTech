@@ -6,7 +6,7 @@ const Footer = () => {
         <div className="footer-container">
             <div className="footer-content-wrapper">
                 <div className="footer-content">
-                    <img src="/assets/images/footer-logo.svg" alt="footer logo" />
+                    <img src={import.meta.env.BASE_URL + "/assets/images/footer-logo.svg"} alt="footer logo" />
                 </div>
                 <div className="footer-content">
                     <ul>
@@ -30,7 +30,7 @@ const Footer = () => {
                 </div>
             </div>
         </div>
-        <img src="/assets/images/footer-img.svg" alt="Footer image" className="footer-img" />
+        <img src={import.meta.env.BASE_URL + "/assets/images/footer-img.svg"} alt="Footer image" className="footer-img" />
         <div className="footer-container">
             <div className="footer-content-wrapper">
                 <div className="footer-content">

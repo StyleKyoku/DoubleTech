@@ -29,7 +29,7 @@ const Card = ({ id, title, price, imageUrl, liked, inBasket}) => {
             className="like-icon"
           />
         </button>
-        <img src={imageUrl} alt={title} className="card-image" />
+        <img src={import.meta.env.BASE_URL + imageUrl} alt={title} className="card-image" />
       </div>
       <h3 className="card-title">{title}</h3>
       <p className="card-price">${price}</p>
