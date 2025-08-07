@@ -24,7 +24,7 @@ const Card = ({ id, title, price, imageUrl, liked, inBasket}) => {
       <div className="card-image-div">
         <button className="like-button" onClick={handleLike}>
           <img
-            src={isLiked ? "/assets/images/products/isLiked.svg" : "/assets/images/products/notLiked.svg"}
+            src={isLiked ? import.meta.env.BASE_URL + "/assets/images/products/isLiked.svg" : import.meta.env.BASE_URL + "/assets/images/products/notLiked.svg"}
             alt="like icon"
             className="like-icon"
           />
