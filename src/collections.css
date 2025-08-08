@@ -54,3 +54,36 @@
     margin: 0;
     line-height: 0.7;
 }
+
+@media (max-width: 900px) {
+    .collections-section{
+        padding: 6em 2em;
+    }
+    
+    .collections-wrapper {
+        flex-direction: column;
+        align-items: center;
+        gap: 1em;
+    }
+
+    .collection {
+        max-width: 100%;
+        margin: 0;
+        max-height: 270px;
+        overflow: hidden;
+        border-radius: 14px;
+    }
+
+    .collection-bg {
+        height: 340px;
+        width: auto;
+    }
+
+    .collection-img {
+        max-height: 270px;
+    }
+
+    .collection:last-child {
+        flex-basis: 100%;
+    }
+}

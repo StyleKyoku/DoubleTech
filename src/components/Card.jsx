@@ -4,6 +4,7 @@ const Card = ({ id, title, price, imageUrl, liked, inBasket}) => {
   const [isLiked, setIsLiked] = React.useState(liked);
 
   const handleLike = async () => {
+    setIsLiked(!isLiked)
     // try {
     //   const response = await fetch(`/api/products/${id}/like`, {
     //     method: "POST",
