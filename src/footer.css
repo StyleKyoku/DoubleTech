@@ -78,3 +78,24 @@
         text-align: left;
     }
 }
+
+@media (max-width: 600px) {
+    .footer-container {
+        padding: 0 2em;
+    }
+    
+    .footer-content {
+        max-width: 120px;
+        min-width: 90px;
+        font-size: 12px;
+    }
+    .footer-buttons {
+        display: none;
+    }
+
+    .footer-img {
+        width: 100%;
+        height: auto;
+        margin: 1.5em 0;
+    }
+}

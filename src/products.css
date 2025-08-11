@@ -68,3 +68,27 @@
     padding: 10px;
     border: none;
 }
+
+@media (max-width: 600px) {
+    .products-section {
+        padding: 0 2em;
+    }
+
+    .products-wrapper {
+        margin-top: 5em;
+    }
+
+    .product-title {
+        font-size: 24px;
+        margin-bottom: 1.5em;
+    }
+
+    .product-list {
+        align-items: center;
+    }
+
+    .card {
+        max-width: 100%;
+        padding: 1.5em;
+    }
+}

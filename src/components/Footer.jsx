@@ -8,7 +8,7 @@ const Footer = () => {
                 <div className="footer-content">
                     <img src={import.meta.env.BASE_URL + "/assets/images/footer-logo.svg"} alt="footer logo" className="footer-logo"/>
                 </div>
-                <div className="footer-content">
+                <div className="footer-content footer-buttons">
                     <ul>
                         <li className="footer-links">Home</li>
                         <li className="footer-links">Catalog</li>

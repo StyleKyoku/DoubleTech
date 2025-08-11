@@ -2,13 +2,20 @@
   display: flex;
   align-items: center;
   padding: 0 5vw;
-  min-height: 75px;
+  height: 75px;
   border-bottom: 1px solid #000;
   position: relative;
+  z-index: 1001;
+}
+
+.burger-button {
+  display: none;
+  z-index: 1001;
 }
 
 .header-logo {
   flex: 0 0 auto;
+  z-index: 1001;
 }
 
 nav {
@@ -48,7 +55,6 @@ nav {
   border: none;
   cursor: pointer;
   background: none;
-
 }
 .header-spacer {
   flex: 1 1 auto;
@@ -103,4 +109,68 @@ nav {
     align-items: normal;
     transform: none;
   }
+}
+
+@media (max-width: 600px) {
+  .header {
+    height: 50px;
+    background-color: white;
+    font-weight: bold;
+  }
+
+  .burger-button {
+    display: block;
+    left: 20px;
+    top: 10px;
+    border: none;
+    background: none;
+  }
+
+  .header-search {
+    display: none;
+  }
+
+  .header-search-icon {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    left: 0;
+    padding: 0 6px;
+  }
+
+  .header-nav {
+    position: fixed;
+    z-index: 1000;
+    left: -220px;
+    padding-top: 50px;
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: left;
+    transform: none;
+    width: 220px;
+    background-color: white;
+    transition: transform 0.1s linear;
+  }
+
+  .header-nav.active {
+    transform: translateX(100%);
+  }
+
+  .header-menu {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 2vw;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-menu li {
+    padding: 1em 1.5em;
+    border-bottom: 2px solid #000;
+  }
+
+
 }
