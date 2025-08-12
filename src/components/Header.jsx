@@ -3,48 +3,68 @@ import logo from "/assets/images/logo.svg";
 import login from "/assets/images/header/login.svg";
 import cart from "/assets/images/header/cart.svg";
 import search from "/assets/images/header/search.svg";
-import burgerIcon from "/assets/images/header/burger.svg"
+import burgerIcon from "/assets/images/header/burger.svg";
+
+// Универсальный хук авто-закрытия
+function useAutoClose(active, setActive, refs) {
+  React.useEffect(() => {
+    if (!active) return;
+
+    const handleClick = (e) => {
+      const clickedInside = refs.some(
+        (ref) => ref.current && ref.current.contains(e.target)
+      );
+      if (!clickedInside) setActive(false);
+    };
+
+    const handleScroll = () => setActive(false);
+
+    document.addEventListener("mousedown", handleClick);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [active, setActive, refs]);
+}
 
 const Header = () => {
-  const [Active, setActive] = React.useState(false);
+  const [burgerActive, setBurgerActive] = React.useState(false);
+  const [searchActive, setSearchActive] = React.useState(false);
+
   const navRef = React.useRef(null);
   const burgerRef = React.useRef(null);
 
-  React.useEffect(() => {
-    if (!Active) return;
+  const searchRef = React.useRef(null);
+  const searchButtonRef = React.useRef(null);
 
-    const handleClick = (e) => {
-      if (
-        navRef.current &&
-        !navRef.current.contains(e.target) &&
-        burgerRef.current &&
-        !burgerRef.current.contains(e.target)
-      ) {
-        setActive(false);
-      }
-    };
+  // Стабилизируем массивы рефов
+  const burgerRefs = React.useMemo(() => [navRef, burgerRef], []);
+  const searchRefs = React.useMemo(() => [searchRef, searchButtonRef], []);
 
-    document.addEventListener("mousedown", handleClick);
-    return () => {
-      document.removeEventListener("mousedown", handleClick);
-    };
-  }, [Active]);
+  // Подключаем авто-закрытие для обоих
+  useAutoClose(burgerActive, setBurgerActive, burgerRefs);
+  useAutoClose(searchActive, setSearchActive, searchRefs);
 
   return (
     <header className="header">
+      {/* Бургер */}
       <button
         className="burger-button"
         ref={burgerRef}
-        onClick={() => setActive(!Active)}
+        onClick={() => setBurgerActive((v) => !v)}
       >
         <img src={burgerIcon} alt="Menu" className="burger-icon" />
       </button>
+
       <div className="header-logo">
         <img src={logo} alt="Logo" />
       </div>
+
       <nav
         ref={navRef}
-        className={`header-nav ${Active ? "active" : ""}`}
+        className={`header-nav ${burgerActive ? "active" : ""}`}
       >
         <ul className="header-menu">
           <li>Home</li>
@@ -53,12 +73,27 @@ const Header = () => {
           <li>Contacts</li>
         </ul>
       </nav>
-      <div className="header-spacer"></div>
+
+      <div className="header-spacer" />
+
       <div className="header-buttons">
-        <div className="header-search-wrapper">
+
+        <button
+          className="search-button-mob"
+          ref={searchButtonRef}
+          onClick={() => setSearchActive((v) => !v)}
+        >
+          <img src={search} alt="Search" className="header-search-icon-mob" />
+        </button>
+
+        <div
+          ref={searchRef}
+          className={`header-search-wrapper ${searchActive ? "active" : ""}`}
+        >
           <img src={search} alt="Search" className="header-search-icon" />
           <input type="text" className="header-search" />
         </div>
+
         <button className="login-button">
           <img src={login} alt="Log in button" />
         </button>

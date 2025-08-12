@@ -70,6 +70,7 @@ function App() {
               imageUrl="/assets/images/products/Phone.png"
               liked="false"
               inBasket="false"
+              category="school"
             />
           </div>
         </div>
@@ -77,11 +78,12 @@ function App() {
           <h2 className='product-title'>Sales</h2>
           <div className='products-list'>
             <Card
+              id="123456"
               title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
               price="1299"
               imageUrl="/assets/images/products/Phone.png"
-              liked="false"
               inBasket="false"
+              category="school"
             />
           </div>
         </div>

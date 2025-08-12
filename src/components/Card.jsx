@@ -1,7 +1,7 @@
 import React from "react";
 
-const Card = ({ id, title, price, imageUrl, liked, inBasket}) => {
-  const [isLiked, setIsLiked] = React.useState(liked);
+const Card = ({ id, title, price, imageUrl, inBasket, category=""}) => {
+  const [isLiked, setIsLiked] = React.useState(inBasket);
 
   const handleLike = async () => {
     setIsLiked(!isLiked)
@@ -33,6 +33,7 @@ const Card = ({ id, title, price, imageUrl, liked, inBasket}) => {
         <img src={import.meta.env.BASE_URL + imageUrl} alt={title} className="card-image" />
       </div>
       <h3 className="card-title">{title}</h3>
+      {category && <p className="card-category">For {category}</p>}
       <p className="card-price">${price}</p>
       <button className="card-buy">Buy</button>
     </div>

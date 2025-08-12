@@ -39,7 +39,7 @@ const Footer = () => {
                 <div className="footer-content"></div>
             </div>
             <div className="footer-content-wrapper">
-                <div className="footer-content"></div>
+                <div className="footer-spacer"></div>
                 <div className="footer-content">
                     <ul>
                         <li className="footer-links"><a href="https://github.com/StyleKyoku">Front-end: Nikita Zhdanov</a></li>
