@@ -4,6 +4,8 @@ import login from "/assets/images/header/login.svg";
 import cart from "/assets/images/header/cart.svg";
 import search from "/assets/images/header/search.svg";
 import burgerIcon from "/assets/images/header/burger.svg";
+import { Link, NavLink } from 'react-router-dom'
+
 
 // Универсальный хук авто-закрытия
 function useAutoClose(active, setActive, refs) {
@@ -57,20 +59,21 @@ const Header = () => {
       >
         <img src={burgerIcon} alt="Menu" className="burger-icon" />
       </button>
-
-      <div className="header-logo">
-        <img src={logo} alt="Logo" />
-      </div>
+      <Link to="/">
+        <div className="header-logo">
+          <img src={logo} alt="Logo" />
+        </div>
+      </Link>
 
       <nav
         ref={navRef}
         className={`header-nav ${burgerActive ? "active" : ""}`}
       >
         <ul className="header-menu">
-          <li>Home</li>
-          <li>Catalog</li>
-          <li>Sales</li>
-          <li>Contacts</li>
+          <Link to="/"><li>Home</li></Link>
+          <Link to="/catalog"><li>Catalog</li></Link>
+          <Link to="/sales"><li>Sales</li></Link>
+          <Link to="/contacts"><li>Contacts</li></Link>
         </ul>
       </nav>
 
@@ -94,12 +97,16 @@ const Header = () => {
           <input type="text" className="header-search" />
         </div>
 
-        <button className="login-button">
-          <img src={login} alt="Log in button" />
-        </button>
-        <button className="cart-button">
-          <img src={cart} alt="Cart button" />
-        </button>
+        <Link to="/login">
+          <button className="login-button">
+            <img src={login} alt="Log in button" />
+          </button>
+        </Link>
+        <Link to="/cart">
+          <button className="cart-button">
+            <img src={cart} alt="Cart button" />
+          </button>
+        </Link>
       </div>
     </header>
   );

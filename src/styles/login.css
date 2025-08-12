@@ -1,0 +1,150 @@
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    background-image: url('/assets/images/login/login-bg.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.login-sec {
+    width: 500px;
+    height: 800px;
+    background-color: white;
+    border-radius: 24px;
+    padding: 4em;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.login-heading {
+    text-align: center;
+    margin-top: 2em;
+}
+
+.login-heading h1 {
+    font-size: 1.5em;
+    color: #333;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 3.5em;
+    flex: 1 1 auto;
+    /* форма займет все доступное пространство */
+    min-height: 0;
+    /* корректная работа флекса в контейнере фикс. высоты */
+}
+
+.form-input {
+    padding: 15px 15px 15px 0;
+    border-radius: 12px;
+    border: none;
+    font-size: 1.5em;
+    color: rgba(0, 0, 0, 0.3)
+}
+
+input::placeholder {
+    color: rgba(0, 0, 0, 0.3)
+}
+
+input:focus {
+    outline: none;
+    border: none;
+}
+
+.remember-me-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.login-remember-me {
+    margin: 0 1em 0 0;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.login-remember-me:checked {
+    background-color: #10B981;
+    border-color: #10B981;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23fff' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+}
+
+.login-remember-me:active {
+    filter: brightness(0.9);
+}
+
+.login-remember-me:hover:not(:disabled) {
+    border-color: #10B981;
+}
+
+.login-remember-me:focus {
+    border-color: #10B981;
+    outline: none;
+    box-shadow: 0 0 0 0.25rem rgba(16, 185, 129, 0.25);
+}
+
+.login-remember-me:disabled {
+    filter: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.login-button-submit {
+    background-color: #10B981;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.login-button-forgot {
+    background: none;
+    font-size: 1.5em;
+    color: rgba(0, 0, 0, 0.3);
+    border: none;
+    padding: 0;
+    margin-top: 1em;
+    cursor: pointer;
+    text-align: left;
+    transition: color 0.15s ease-in-out;
+}
+
+.login-button-forgot:hover {
+    color: rgba(0, 0, 0, 0.3);
+}
+
+.login-button-reg-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+
+}
+
+.login-button-reg {
+    background: none;
+    font-size: 1.5em;
+    color: rgba(0, 0, 0, 0.3);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: color 0.15s ease-in-out;
+}
+
+.login-button-reg:hover {
+    color: rgba(0, 0, 0, 0.3);
+}

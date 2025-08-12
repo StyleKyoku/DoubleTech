@@ -6,6 +6,7 @@
   border-bottom: 1px solid #000;
   position: sticky; 
   z-index: 1100;
+  background-color: #CBE0E5;
 }
 
 .burger-button {
@@ -178,7 +179,7 @@ nav {
     top: 0;
     height: 100%;
     display: flex;
-    align-items: left;
+    align-items: flex-start;
     transform: none;
     width: 220px;
     background-color: white;
