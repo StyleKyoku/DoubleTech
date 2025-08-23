@@ -15,7 +15,7 @@
     height: 800px;
     background-color: white;
     border-radius: 24px;
-    padding: 4em;
+    padding: 3em 4em;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -23,7 +23,7 @@
 
 .login-heading {
     text-align: center;
-    margin-top: 2em;
+    margin-top: 1.5em;
 }
 
 .login-heading h1 {
@@ -31,21 +31,19 @@
     color: #333;
 }
 
-.login-form {
+.sign-form-container {
     display: flex;
     flex-direction: column;
-    gap: 1em;
-    margin-top: 3.5em;
+    margin-top: 1em;
     flex: 1 1 auto;
-    /* форма займет все доступное пространство */
     min-height: 0;
-    /* корректная работа флекса в контейнере фикс. высоты */
 }
 
 .form-input {
-    padding: 15px 15px 15px 0;
+    margin-top: 0.5em;
+    padding: 15px;
     border-radius: 12px;
-    border: none;
+    border: 1px solid #E5E7EB;
     font-size: 1.5em;
     color: rgba(0, 0, 0, 0.3)
 }
@@ -55,12 +53,20 @@ input::placeholder {
 }
 
 input:focus {
-    outline: none;
-    border: none;
+    outline: 1px solid #E5E7EB;
+    border: 1px solid #E5E7EB;
 }
 
 .remember-me-wrapper {
     display: flex;
+    align-items: center;
+    margin-top: 1em;
+}
+
+.remember-me-wrapper .form-input {
+    border: none;
+    padding: 0;
+    height: 110%;
     align-items: center;
 }
 
@@ -101,10 +107,11 @@ input:focus {
     cursor: not-allowed;
 }
 
-.login-button-submit {
+.button-submit {
     background-color: #10B981;
     color: white;
     border: none;
+    margin-top: 1em;
     padding: 15px;
     border-radius: 12px;
     font-size: 1.5em;
@@ -147,4 +154,41 @@ input:focus {
 
 .login-button-reg:hover {
     color: rgba(0, 0, 0, 0.3);
+}
+
+.name-surname {
+    display: flex;
+    gap: 0;
+}
+
+.name-surname .form-input {
+    box-sizing: border-box;
+    min-width: 0;
+    max-width: 100%;
+}
+
+.name-surname .form-input:first-child {
+    border-radius: 12px 0 0 12px;
+}
+
+.name-surname .form-input:last-child {
+    border-radius: 0 12px 12px 0;
+}
+
+.name-surname-errors {
+    display: flex;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.input-error {
+  color: #d00;
+  font-size: 12px;
+  margin: 0.5em 0 0 0;
+  padding: 0;
+}
+
+.button-disabled {
+    background-color: #10b98164;
+    cursor: not-allowed;
 }
