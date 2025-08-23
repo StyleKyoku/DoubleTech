@@ -12,22 +12,13 @@
 }
 
 .products-list {
-    --card-w: 260px;
-    --gap-min: 1em;
-    --gap-max: 3em;
-    
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    
-    row-gap: var(--gap-min);
-    column-gap: clamp(var(--gap-min), calc((100% - 6 * var(--card-w)) / 5), var(--gap-max));
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1.5em;
 }
 
 .card {
-    flex: 0 0 var(--card-w);
-    max-width: var(--card-w);
-
+    width: 100%;
     background-color: #ffffff;
     border-radius: 16px;
     border: none;
@@ -66,6 +57,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 38px;
 }
 
 .card-category {
@@ -106,7 +98,7 @@
     color: white;
     font-weight: bold;
     border-radius: 8px;
-    padding: 10px;
+    padding: 0.8em;
     border: none;
     display: flex;
     justify-content: center;
@@ -119,27 +111,86 @@
     margin-right: 0.7em;
 }
 
-@media (max-width: 728px) {
+@media (max-width: 900px) {
     .products-section {
-        padding: 0 2em;
+        padding: 0 4em;
     }
+}
 
-    .products-wrapper {
-        margin-top: 5em;
-    }
+@media (max-width: 1024px) {
+  .products-list {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 
-    .product-title {
-        font-size: 24px;
-        margin-bottom: 1.5em;
-    }
+  .card {
+    gap: 0.5em;
+  }
 
-    .products-list {
-        align-items: center;
-    }
+  .card-image {
+    width: 100%;
+    height: auto;
+  }
 
-    .card {
-        max-width: 100%;
-        padding: 1.5em;
-        flex: 1 1 100%;
-    }
+  .like-icon {
+    width: 14px;
+    height: 14px;
+  }
+
+  .card-info {
+    height: 25px;
+  }
+
+  .card-category {
+    font-size: 8px;
+  }
+  
+  .card-price-container {
+    gap: 0.1em;
+  }
+
+  .card-sales-img {
+    width: 12px;
+    height: 12px;
+  }
+
+  .card-price {
+    font-size: 12px;
+  }
+
+  .card-original-price {
+    font-size: 8px;
+  }
+
+  .card-title {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 728px) {
+  .products-section { 
+    padding: 0 2em; 
+  }
+
+  .products-wrapper { 
+    margin-top: 5em; 
+  }
+
+  .product-title { 
+    font-size: 24px; 
+    margin-bottom: 1.5em; 
+  }
+
+  .products-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .card-buy {
+    font-size: 12px;
+    padding: 0.4em;
+  }
+
+  .cart-icon {
+    width: 14px;
+    height: 14px;
+  }
 }
