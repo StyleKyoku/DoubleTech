@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 
-import "../styles/main.css"
-import '../styles/products.css'
-import '../styles/collections.css'
+import "../styles/main.scss"
+import '../styles/products.scss'
+import '../styles/collections.scss'
 
 
 import Card from '../components/Card'
