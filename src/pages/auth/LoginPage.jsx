@@ -1,5 +1,6 @@
 import React from "react";
 import "../../styles/login.css";
+import { Link, NavLink } from 'react-router-dom'
 
 import logo from "/assets/images/logo.svg";
 
@@ -162,7 +163,7 @@ export default function LoginPage() {
     <div className="login-page">
       <section className="login-sec">
         <div className="login-heading">
-          <img src={logo} alt="Logo" className="login-logo" />
+          <Link to="/"><img src={logo} alt="Logo" className="login-logo" /></Link>
           <h1>
             {chooseAction === 'login' ? 'Sign in' : 'Sign up'} your account
           </h1>

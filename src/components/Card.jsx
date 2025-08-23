@@ -1,41 +1,46 @@
 import React from "react";
+import sale from '/assets/images/products/sales.svg'
+import cart from '/assets/images/products/cart.svg'
 
-const Card = ({ id, title, price, imageUrl, inBasket, category=""}) => {
-  const [isLiked, setIsLiked] = React.useState(inBasket);
+const Card = ({ id, title, price, imageUrl, inBasket = false, category = "everything", onSale, originalPrice="" }) => {
+  const [isInBasket, setIsInBasket] = React.useState(Boolean(inBasket));
 
-  const handleLike = async () => {
-    setIsLiked(!isLiked)
-    // try {
-    //   const response = await fetch(`/api/products/${id}/like`, {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify({ liked: !isLiked }),
-    //   });
-    //   if (response.ok) {
-    //     setIsLiked(!isLiked);
-    //   }
-    // } catch (e) {
-    //   // Можно добавить обработку ошибок
-    //   alert("Error liking product");
-    // }
+  const handleBasket = () => {
+    setIsInBasket(prev => !prev);
+  };
+
+  const handleBuy = () => {
+    setIsInBasket(true);
+    
   };
 
   return (
     <div className="card">
       <div className="card-image-div">
-        <button className="like-button" onClick={handleLike}>
+        <button className="like-button" onClick={handleBasket}>
           <img
-            src={isLiked ? import.meta.env.BASE_URL + "/assets/images/products/isLiked.svg" : import.meta.env.BASE_URL + "/assets/images/products/notLiked.svg"}
+            src={isInBasket
+              ? import.meta.env.BASE_URL + "/assets/images/products/isLiked.svg"
+              : import.meta.env.BASE_URL + "/assets/images/products/notLiked.svg"}
             alt="like icon"
             className="like-icon"
-          />
+          />  
         </button>
         <img src={import.meta.env.BASE_URL + imageUrl} alt={title} className="card-image" />
       </div>
+      <div className="card-info">
+        <div className="card-price-container">
+          {onSale ? <img src={sale} alt="Sales img" className="card-sales-img" /> : null}
+          <p className={`card-price ${onSale ? "on-sale" : ""}`}>${price}</p>
+          {onSale ? <p className="card-original-price">${originalPrice}</p> : null}
+        </div>
+        <p className="card-category">for {category}</p>
+      </div>
       <h3 className="card-title">{title}</h3>
-      {category && <p className="card-category">For {category}</p>}
-      <p className="card-price">${price}</p>
-      <button className="card-buy">Buy</button>
+      <button className="card-buy" onClick={handleBuy}>
+        <img src={cart} alt="Cart icon" className="cart-icon" />
+        Buy
+      </button>
     </div>
   );
 };

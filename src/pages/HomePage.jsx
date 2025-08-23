@@ -61,12 +61,24 @@ export default function HomePage() {
           <h2 className='product-title'>Best Sellers</h2>
           <div className='products-list'>
             <Card
+              id="654321"
               title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
               price="1299"
               imageUrl="/assets/images/products/Phone.png"
-              liked="false"
-              inBasket="false"
+              inBasket={false}
               category="school"
+              onSale={true}
+              originalPrice="1399"
+            />
+            <Card
+              id="123456"
+              title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
+              price="1299"
+              imageUrl="/assets/images/products/Phone.png"
+              inBasket={false}
+              category="school"
+              onSale={false}
+              originalPrice=""
             />
           </div>
         </div>
@@ -78,9 +90,62 @@ export default function HomePage() {
               title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
               price="1299"
               imageUrl="/assets/images/products/Phone.png"
-              inBasket="false"
+              inBasket={false}
               category="school"
+              onSale={false}
+              originalPrice=""
             />
+            <Card
+              id="123456"
+              title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
+              price="1299"
+              imageUrl="/assets/images/products/Phone.png"
+              inBasket={false}
+              category="school"
+              onSale={false}
+              originalPrice=""
+            />
+            <Card
+              id="123456"
+              title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
+              price="1299"
+              imageUrl="/assets/images/products/Phone.png"
+              inBasket={false}
+              category="school"
+              onSale={false}
+              originalPrice=""
+            />
+            <Card
+              id="123456"
+              title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
+              price="1299"
+              imageUrl="/assets/images/products/Phone.png"
+              inBasket={false}
+              category="school"
+              onSale={false}
+              originalPrice=""
+            />
+            <Card
+              id="123456"
+              title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
+              price="1299"
+              imageUrl="/assets/images/products/Phone.png"
+              inBasket={false}
+              category="school"
+              onSale={false}
+              originalPrice=""
+            />
+            <Card
+              id="123456"
+              title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
+              price="1299"
+              imageUrl="/assets/images/products/Phone.png"
+              inBasket={false}
+              category="school"
+              onSale={false}
+              originalPrice=""
+            />
+            
           </div>
         </div>
       </section>

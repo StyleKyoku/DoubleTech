@@ -11,68 +11,112 @@
     margin-bottom: 2.5em;
 }
 
-.product-list {
+.products-list {
+    --card-w: 260px;
+    --gap-min: 1em;
+    --gap-max: 3em;
+    
     display: flex;
     flex-wrap: wrap;
-    gap: 2em;
+    justify-content: flex-start;
+    
+    row-gap: var(--gap-min);
+    column-gap: clamp(var(--gap-min), calc((100% - 6 * var(--card-w)) / 5), var(--gap-max));
 }
 
 .card {
-    background-color: #E5E7EB;
-    border-radius: 10px;
+    flex: 0 0 var(--card-w);
+    max-width: var(--card-w);
+
+    background-color: #ffffff;
+    border-radius: 16px;
+    border: none;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+
     display: flex;
     flex-direction: column;
-    max-width: 280px;
-    padding: 2em 1.5em;
+
+    padding: 1em;
     gap: 1em;   
-    border: #DFD5D5 1px solid;
 }
 
-.card-image-div{
+.card-image-div {
     position: relative;
     display: flex;
     justify-content: center;
-    border: #DFD5D5 1px solid;
-    border-radius: 10px;
 }
 
 .like-button {
     position: absolute;
-    top: 10px;
-    right: 10px;
+    top: 0;
+    right: 0;
     background-color: transparent;
     cursor: pointer;
     border: none;
 }
 
 .card-title {
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     margin: 0;
+}
+
+.card-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .card-category {
     font-size: 12px;
     font-weight: 100;
     margin: 0;
+    color: rgba(31, 41, 55, 0.8);
+    font-weight: 300;
+}
+
+.card-price-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
 }
 
 .card-price {
-    font-size: 16px;
-    font-weight: 600;
-    padding: 8px;
-    background-color: rgba(16, 185, 129, 0.4);
-    border: #10B981 1px solid;
+    font-size: 20px;
+    font-weight: regular;
     border-radius: 8px;
     margin: 0;
+    color: #7CAD5E;
+}
+
+.card-price.on-sale {
+    color: #4FA671;
+}
+
+.card-original-price {
+    font-size: 12px;
+    font-weight: 400;
+    text-decoration: line-through;
+    color: #678487;
 }
 
 .card-buy {
-    background-color: #4F46E5;
+    background-color: #10B981;
     color: white;
+    font-weight: bold;
     border-radius: 8px;
     padding: 10px;
     border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 0.7em;
 }
 
 @media (max-width: 728px) {
@@ -89,12 +133,13 @@
         margin-bottom: 1.5em;
     }
 
-    .product-list {
+    .products-list {
         align-items: center;
     }
 
     .card {
         max-width: 100%;
         padding: 1.5em;
+        flex: 1 1 100%;
     }
 }
