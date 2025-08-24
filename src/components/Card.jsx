@@ -1,4 +1,7 @@
 import React from "react";
+
+import '../styles/Card.scss'
+
 import sale from '/assets/images/products/sales.svg'
 import cart from '/assets/images/products/cart.svg'
 
