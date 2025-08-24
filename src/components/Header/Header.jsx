@@ -4,7 +4,9 @@ import login from "/assets/images/header/login.svg";
 import cart from "/assets/images/header/cart.svg";
 import search from "/assets/images/header/search.svg";
 import burgerIcon from "/assets/images/header/burger.svg";
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+
+import '../../styles/Header.scss'
 
 
 // Универсальный хук авто-закрытия
