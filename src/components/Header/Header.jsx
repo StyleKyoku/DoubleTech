@@ -8,8 +8,6 @@ import { Link } from 'react-router-dom'
 
 import '../../styles/header.scss'
 
-
-// Универсальный хук авто-закрытия
 function useAutoClose(active, setActive, refs) {
   React.useEffect(() => {
     if (!active) return;
@@ -43,11 +41,9 @@ const Header = () => {
   const searchRef = React.useRef(null);
   const searchButtonRef = React.useRef(null);
 
-  // Стабилизируем массивы рефов
   const burgerRefs = React.useMemo(() => [navRef, burgerRef], []);
   const searchRefs = React.useMemo(() => [searchRef, searchButtonRef], []);
 
-  // Подключаем авто-закрытие для обоих
   useAutoClose(burgerActive, setBurgerActive, burgerRefs);
   useAutoClose(searchActive, setSearchActive, searchRefs);
 
