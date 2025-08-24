@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+$font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$font-sizes: (
+  h1: 4.5rem,
+  h2: 2.75rem,
+  h3: 2.25rem,
+  h4: 2rem,
+  h5: 1.5rem,
+  h6: 1.25rem,
+  body: 1rem,
+  small: 0.875rem,
+  vsmall: 0.625rem
+);
+
+$line-heights: (
+  tight: 1.2,
+  normal: 1.5
+);
+
+$font-weights: (
+  regular: 400,
+  semibold: 600,
+  bold: 700
+);

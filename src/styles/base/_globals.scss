@@ -1,0 +1,56 @@
+@use "sass:map";
+@use "../tokens" as t;
+
+body {
+  font-family: t.$font-stack;
+  font-size: map.get(t.$font-sizes, body);
+  font-weight: map.get(t.$font-weights, regular);
+  line-height: map.get(t.$line-heights, normal);
+  font-style: normal;
+  color: #1F2937;
+
+  background-color: white;
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: map.get(t.$font-weights, semibold);
+  line-height: map.get(t.$line-heights, tight);
+}
+
+h1 { 
+  font-size: map.get(t.$font-sizes, h1); 
+}
+h2 { 
+  font-size: map.get(t.$font-sizes, h2); 
+}
+h3 { 
+  font-size: map.get(t.$font-sizes, h3); 
+}
+h4 { 
+  font-size: map.get(t.$font-sizes, h4); 
+}
+h5 { 
+  font-size: map.get(t.$font-sizes, h5); 
+}
+h6 { 
+  font-size: map.get(t.$font-sizes, h6); 
+}
+
+p {
+  margin-bottom: map.get(t.$spacing, 4);
+  line-height: map.get(t.$line-heights, normal);
+}
+
+small {
+  font-size: map.get(t.$font-sizes, small);
+}
+
+button, input, textarea {
+  font: inherit;
+  color: inherit;
+}

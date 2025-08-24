@@ -146,6 +146,10 @@
   margin-bottom: 2.5em;
 }
 
+.collections-title {
+  margin-bottom: 2rem;
+}
+
 .collections-wrapper {
   display: flex;
   flex-wrap: wrap;
@@ -286,6 +290,10 @@
     flex-direction: column;
     align-items: center;
     gap: 1em;
+  }
+
+  .collections-title {
+    font-size: 24px;
   }
 
   .collection {

@@ -1,6 +1,6 @@
 import React from "react";
 
-import '../styles/Card.scss'
+import '../../styles/Card.scss'
 
 import sale from '/assets/images/products/sales.svg'
 import cart from '/assets/images/products/cart.svg'
@@ -39,7 +39,7 @@ const Card = ({ id, title, price, imageUrl, inBasket = false, category = "everyt
         </div>
         <p className="card-category">for {category}</p>
       </div>
-      <h3 className="card-title">{title}</h3>
+      <small className="card-title">{title}</small> 
       <button className="card-buy" onClick={handleBuy}>
         <img src={cart} alt="Cart icon" className="cart-icon" />
         Buy

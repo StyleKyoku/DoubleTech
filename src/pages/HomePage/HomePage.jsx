@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom'
 
-import "../styles/main.scss"
+import "../../styles/HomePage.scss"
 
-
-import Card from '../components/Card'
+import Card from '../../components/Card/Card.jsx'
 
 
 import intro from '/assets/images/intro/intro.png'
@@ -22,7 +21,7 @@ export default function HomePage() {
         <div className="intro-content">
           <div className="intro-text-wrapper">
             <h1 className="intro-title">Your Tech — Your Rules</h1>
-            <p className="intro-text">Smartphones and Laptops <br /> with Quality Guarantee</p>
+            <h2 className="intro-text">Smartphones and Laptops <br /> with Quality Guarantee</h2>
 
             <button className='intro-button'>Catalog</button>
           </div>
@@ -56,7 +55,7 @@ export default function HomePage() {
 
       <section className='products-section'>
         <div className="products-wrapper">
-          <h2 className='product-title'>Best Sellers</h2>
+          <h3 className='product-title'>Best Sellers</h3>
           <div className='products-list'>
             <Card
               id="654321"
@@ -81,7 +80,7 @@ export default function HomePage() {
           </div>
         </div>
         <div className="products-wrapper">
-          <h2 className='product-title'>Sales</h2>
+          <h3 className='product-title'>Sales</h3>
           <div className='products-list'>
             <Card
               id="123456"
@@ -149,7 +148,7 @@ export default function HomePage() {
       </section>
 
       <section className='collections-section'>
-        <h2 className='collections-title'>Collections</h2>
+        <h3 className='collections-title'>Collections</h3>
         <div className="collections-wrapper">
           <div className="collection">
             <img
