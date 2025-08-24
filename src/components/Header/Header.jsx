@@ -6,7 +6,7 @@ import search from "/assets/images/header/search.svg";
 import burgerIcon from "/assets/images/header/burger.svg";
 import { Link } from 'react-router-dom'
 
-import '../../styles/Header.scss'
+import '../../styles/header.scss'
 
 
 // Универсальный хук авто-закрытия
