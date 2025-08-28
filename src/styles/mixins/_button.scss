@@ -1,0 +1,74 @@
+@use "sass:map";
+@use "../tokens" as t;
+@use "../mixins/typography" as tx;
+
+$button-sizes: (
+  sm: (
+    pad: map.get(t.$spacing, 3),
+    font-s: btn-sm,
+    rad: map.get(t.$radius, md)
+  ),
+  md: (
+    pad: map.get(t.$spacing, 4),
+    font-s: btn-md,
+    rad: map.get(t.$radius, lg)
+  ),
+  lg: (
+    pad: map.get(t.$spacing, 4),
+    font-s: btn-lg,
+    rad: map.get(t.$radius, xl)
+  )
+);
+
+@mixin button-base(
+  $variant: primary,
+  $size: sm,
+  $fullwidth: false
+) {
+  $size-map: map.get($button-sizes, $size);
+  $padding: map.get($size-map, pad);
+  $radius: map.get($size-map, rad);
+  $font-size: map.get($size-map, font-s);
+
+  $bg: null;
+  $fc: null;
+  $bc: null;
+
+  @if $variant == primary {
+    $bg: map.get(t.$colors, primary);
+    $fc: map.get(t.$colors, white);
+    $bc: transparent;
+  } @else if $variant == ghost {
+    $bg: transparent;
+    $fc: map.get(t.$colors, ink-900);
+    $bc: transparent;
+    $padding: 0;
+  } @else {
+    @error "Unknown $variant `#{$variant}`";
+  }
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  padding: $padding;
+  border-radius: $radius;
+  border: 1px solid $bc;
+  background: $bg;
+  color: $fc;
+  @include tx.fluid-text($font-size);
+  font-weight: map.get(t.$font-weights, bold);
+  cursor: pointer;
+  user-select: none;
+
+  @if $fullwidth == true { width: 100%; }
+
+  &:disabled,
+  &[aria-disabled="true"] {
+    opacity: .6;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+}
+

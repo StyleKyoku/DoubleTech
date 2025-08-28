@@ -3,15 +3,26 @@
 $font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 $font-sizes: (
-  h1: 4.5rem,
-  h2: 2.75rem,
-  h3: 2.25rem,
-  h4: 2rem,
-  h5: 1.5rem,
-  h6: 1.25rem,
-  body: 1rem,
-  small: 0.875rem,
-  vsmall: 0.625rem
+  h1: (min: 2rem,    max: 4.5rem),
+  h2: (min: 1.5rem,  max: 2.75rem),
+  h3: (min: 1.25rem, max: 2.25rem),
+  h4: (min: 1.125rem, max: 2rem),
+  h5: (min: 1rem,    max: 1.5rem),
+  h6: (min: 0.875rem,max: 1.25rem),
+
+  body:   (min: 0.875rem, max: 1rem),
+  root: 16px,
+  small:  (min: 0.6rem,  max: 0.875rem),
+  vsmall: (min: 0.5rem,   max: 0.625rem),
+
+  btn-sm: (min: 0.75rem, max: 1rem),
+  btn-md: (min: 1rem, max: 1.5rem),
+  btn-lg: (min: 1rem, max: 2rem)
+);
+
+$viewport-range: (
+  min: 360,
+  max: 1440
 );
 
 $line-heights: (

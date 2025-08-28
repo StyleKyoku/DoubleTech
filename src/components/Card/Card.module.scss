@@ -1,0 +1,124 @@
+@use "sass:map";
+@use "../../styles/tokens" as t;
+@use "../../styles/mixins" as mx;
+@use "../../styles/mixins/elevation" as elev;
+
+.card {
+  width: 100%;
+  background-color: map.get(t.$colors, canvas);
+  border-radius: map.get(t.$radius, xl);
+  border: none;
+  @include elev.elevation(4);
+
+  display: flex;
+  flex-direction: column;
+
+  padding: map.get(t.$spacing, 4);
+  gap: map.get(t.$spacing, 4);
+
+  @include mx.mqDown(tb) {
+    gap: map.get(t.$spacing, 2);
+  }
+  
+  &-image-div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+  }
+
+  &-image {
+    width: 100%;
+    height: auto
+  }
+
+  &-title {
+    @include mx.fluid-text(small);
+    font-weight: map.get(t.$font-weights, regular);
+  }
+  &-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 38px;
+
+    @include mx.mqDown(tb) {
+      height: 25px;
+    }
+  }
+
+  &-category {
+    @include mx.fluid-text(vsmall);
+    font-weight: map.get(t.$font-weights, regular);
+    color: map.get(t.$colors, ink-900);
+  }
+
+  &-price-container {
+    display: flex;
+    align-items: center;
+    gap: map.get(t.$spacing, 2);
+
+    @include mx.mqDown(tb) {
+      gap: map.get(t.$spacing, 1);
+    }
+  }
+
+  &-sales-image {
+    width: 20px;
+    height: 20px;
+    @include mx.mqDown(tb) {
+      width: 12px;
+      height: 12px;
+    }
+  }
+
+  &-price {
+    @include mx.fluid-text(h6);
+    font-weight: map.get(t.$font-weights, regular);
+    color: map.get(t.$colors, secondary);
+
+    & .on-sale {
+      color: map.get(t.$colors, thirdly);
+    }
+
+    &-original {
+      @include mx.fluid-text(vsmall);
+      font-weight: map.get(t.$font-weights, regular);
+      color: map.get(t.$colors, ink-500);
+      text-decoration: line-through;
+    }
+  }
+  &-buy {
+    @include mx.button-base(primary, sm, false);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.like-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  @include mx.button-base(ghost, sm, false);
+}
+
+.like-icon {
+  width: 20px;
+  height: 20px;
+
+  @include mx.mqDown(tb) {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.cart-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.7em;
+
+  @include mx.mqDown(tb) {
+    width: 14px;
+    height: 14px;
+  }
+}

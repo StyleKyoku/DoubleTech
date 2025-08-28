@@ -1,0 +1,45 @@
+@use "sass:map";
+@use "sass:math";
+@use "../tokens/typography" as t;
+
+$root-font:map.get(t.$font-sizes, root);
+
+@function _fs-slot($key, $slot) {
+  $pair: map.get(t.$font-sizes, $key);
+  @if $pair == null { @error "_fs-slot: key `#{$key}` not found in $font-sizes"; }
+  @return map.get($pair, $slot);
+}
+
+@function _vw-slot($slot) {
+  $vw: map.get(t.$viewport-range, $slot);
+  @if $vw == null { @error "_vw-slot: slot `#{$slot}` not found in $viewport-range"; }
+  @return $vw;
+}
+
+@mixin fluid-text($key) {
+  $min-rem: _fs-slot($key, min);
+  $max-rem: _fs-slot($key, max);
+  $minW: _vw-slot(min);
+  $maxW: _vw-slot(max);
+  $range: $maxW - $minW;
+
+  // rem → px - correct slope
+  $min-px: math.div($min-rem, 1rem) * $root-font; // px
+  $max-px: math.div($max-rem, 1rem) * $root-font; // px
+  $delta-px: $max-px - $min-px;                   // px
+
+  // b_px: how many px we should add to 1vw
+  $b_px: math.div($delta-px, $range) * 100;
+
+  // a_px: when minW appears min
+  $a_px: $min-px - $b_px * math.div($minW, 100);
+
+  $a_rem: math.div($a_px, $root-font) * 1rem;
+  $b: math.div($b_px, 1px);
+
+  font-size: clamp(
+    #{$min-rem},
+    calc(#{$a_rem} + #{$b}vw),
+    #{$max-rem}
+  );
+}

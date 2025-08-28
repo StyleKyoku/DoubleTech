@@ -1,9 +1,10 @@
 @use "sass:map";
 @use "../tokens" as t;
+@use "../mixins" as mx;
 
 body {
   font-family: t.$font-stack;
-  font-size: map.get(t.$font-sizes, body);
+  font-size: map.get(t.$font-sizes, root);
   font-weight: map.get(t.$font-weights, regular);
   line-height: map.get(t.$line-heights, normal);
   font-style: normal;
@@ -23,31 +24,30 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 { 
-  font-size: map.get(t.$font-sizes, h1); 
+  @include mx.fluid-text(h1);
 }
 h2 { 
-  font-size: map.get(t.$font-sizes, h2); 
+  @include mx.fluid-text(h2);
 }
 h3 { 
-  font-size: map.get(t.$font-sizes, h3); 
+  @include mx.fluid-text(h3);
 }
 h4 { 
-  font-size: map.get(t.$font-sizes, h4); 
+  @include mx.fluid-text(h4);
 }
 h5 { 
-  font-size: map.get(t.$font-sizes, h5); 
+  @include mx.fluid-text(h5);
 }
 h6 { 
-  font-size: map.get(t.$font-sizes, h6); 
+  @include mx.fluid-text(h6);
 }
 
 p {
-  margin-bottom: map.get(t.$spacing, 4);
   line-height: map.get(t.$line-heights, normal);
 }
 
 small {
-  font-size: map.get(t.$font-sizes, small);
+  @include mx.fluid-text(small);
 }
 
 button, input, textarea {

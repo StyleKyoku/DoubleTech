@@ -1,0 +1,4 @@
+@use "../../styles/mixins/button" as btn;
+.btn-sm {
+  @include btn.button-base(primary, sm, true);
+}
