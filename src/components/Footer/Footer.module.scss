@@ -1,0 +1,58 @@
+@use "sass:map";
+@use "../../styles/tokens" as t;
+@use "../../styles/mixins" as mx;
+@use "../../styles/mixins/elevation" as elev;
+
+.footer {
+  padding: t.space(l) 0;
+
+  background-color: #1a1a1a;
+  color: t.color(white);
+
+  & p {
+    line-height: map.get(t.$line-heights, normal);
+  }
+
+  & a {
+    color: t.color(white);
+    text-decoration: none;
+  }
+
+  .footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+
+    padding: t.space(xl) t.space(4xl);
+
+    @include mx.mqDown(tb) {
+      padding: t.space(xl) t.space(2xl);
+    }
+
+    @include mx.mqDown(mb) {
+      padding: t.space(l) t.space(2xl);
+    }
+
+    .footer-content-wrapper {
+      display: flex;
+      flex-direction: column;
+
+      @include mx.mqDown(tb) {
+        margin-bottom: t.space(6);
+      }
+
+      .footer-content {
+        max-width: 220px;
+        min-width: 180px;
+
+        align-items: flex-start;
+
+        .footer-links {
+          list-style: none;
+          margin-bottom: t.space(2);
+        }
+      }
+    }
+  }
+}

@@ -5,21 +5,21 @@
 
 .card {
   width: 100%;
-  background-color: map.get(t.$colors, canvas);
-  border-radius: map.get(t.$radius, xl);
+  background-color: t.color(surface-1);
+  border-radius: t.rad(xl);
   border: none;
   @include elev.elevation(4);
 
   display: flex;
   flex-direction: column;
 
-  padding: map.get(t.$spacing, 4);
-  gap: map.get(t.$spacing, 4);
+  padding: t.space(4);
+  gap: t.space(4);
 
   @include mx.mqDown(tb) {
-    gap: map.get(t.$spacing, 2);
+    gap: t.space(2);
   }
-  
+
   &-image-div {
     position: relative;
     display: flex;
@@ -28,7 +28,7 @@
 
   &-image {
     width: 100%;
-    height: auto
+    height: auto;
   }
 
   &-title {
@@ -49,16 +49,16 @@
   &-category {
     @include mx.fluid-text(vsmall);
     font-weight: map.get(t.$font-weights, regular);
-    color: map.get(t.$colors, ink-900);
+    color: t.color(ink-900);
   }
 
   &-price-container {
     display: flex;
     align-items: center;
-    gap: map.get(t.$spacing, 2);
+    gap: t.space(2);
 
     @include mx.mqDown(tb) {
-      gap: map.get(t.$spacing, 1);
+      gap: t.space(1);
     }
   }
 
@@ -74,16 +74,16 @@
   &-price {
     @include mx.fluid-text(h6);
     font-weight: map.get(t.$font-weights, regular);
-    color: map.get(t.$colors, secondary);
+    color: t.color(secondary);
 
     & .on-sale {
-      color: map.get(t.$colors, thirdly);
+      color: t.color(thirdly);
     }
 
     &-original {
       @include mx.fluid-text(vsmall);
       font-weight: map.get(t.$font-weights, regular);
-      color: map.get(t.$colors, ink-500);
+      color: t.color(ink-500);
       text-decoration: line-through;
     }
   }

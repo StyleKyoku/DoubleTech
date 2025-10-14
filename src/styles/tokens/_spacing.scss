@@ -1,3 +1,5 @@
+@use "sass:map";
+
 $spacing: (
   0: 0,
   1: 4px,
@@ -8,6 +10,12 @@ $spacing: (
   6: 32px,
   7: 40px,
   8: 48px,
-  large: 96px,
-  vlarge: 320px
+  l: 56px,
+  xl: 64px,
+  2xl: 96px,
+  4xl: 320px,
 );
+
+@function space($size) {
+  @return map.get($spacing, $size);
+}
