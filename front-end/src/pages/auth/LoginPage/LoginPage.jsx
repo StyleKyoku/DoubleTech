@@ -1,10 +1,14 @@
 import React from "react";
 import styles from "./LoginPage.module.scss";
-import { Link } from "react-router-dom";
+
+import ProfilePage from "../../account/ProfilePage/ProfilePage";
+
+import { Link, useNavigate } from "react-router-dom";
 
 import logo from "/assets/images/logo.svg";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const [chooseAction, setChooseAction] = React.useState("login");
 
   const [formData, setFormData] = React.useState({
@@ -160,6 +164,24 @@ export default function LoginPage() {
       return;
     }
 
+    if (chooseAction === "login") {
+      const success = true; // Replace with actual login logic
+      if (success) {
+        navigate("/profile", {
+          state: {
+            name: "John",
+            surname: "Connor",
+            phone: "+353934343",
+            email: "testemail@mail.com",
+          },
+        });
+      } else {
+        // Handle login failure
+      }
+    } else {
+      // Perform registration action
+    }
+
     console.log("Submitting...");
     await sleep(1000);
     console.log("Success");
@@ -253,7 +275,6 @@ export default function LoginPage() {
                   setErrors({});
                 }}
               >
-                {" "}
                 Create an account
               </button>
             </div>

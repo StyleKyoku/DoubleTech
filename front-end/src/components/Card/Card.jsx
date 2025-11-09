@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Card.module.scss";
+import api from "../../api/api";
 
 import sale from "/assets/images/products/sales.svg";
 import cart from "/assets/images/products/cart.svg";
@@ -21,12 +22,20 @@ const Card = ({
     description: "",
   });
 
-  React.useEffect(() => {
-    fetch("http://127.0.0.1:8000/api/card")
-      .then((res) => res.json())
-      .then((data) => setCardInfo(data))
-      .catch((err) => console.error("Error: ", err));
-  }, []);
+  /*  React.useEffect(() => {
+    async function fetchCard() {
+      try {
+        const response = await api.get("/card");
+        setCardInfo((data) => ({
+          title: response.data.title || "",
+          description: response.data.description || "",
+        }));
+      } catch (error) {
+        console.error("Error: ", error);
+      }
+    }
+    fetchCard();
+  }, []);*/
 
   const handleBasket = () => {
     setIsInBasket((prev) => !prev);
