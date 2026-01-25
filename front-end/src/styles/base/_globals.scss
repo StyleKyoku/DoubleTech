@@ -1,0 +1,56 @@
+@use "sass:map";
+@use "../tokens" as t;
+@use "../mixins" as mx;
+
+body {
+  font-family: t.$font-stack;
+  font-size: map.get(t.$font-sizes, root);
+  font-weight: map.get(t.$font-weights, regular);
+  line-height: map.get(t.$line-heights, normal);
+  font-style: normal;
+  color: #1F2937;
+
+  background-color: white;
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: map.get(t.$font-weights, semibold);
+  line-height: map.get(t.$line-heights, tight);
+}
+
+h1 { 
+  @include mx.fluid-text(h1);
+}
+h2 { 
+  @include mx.fluid-text(h2);
+}
+h3 { 
+  @include mx.fluid-text(h3);
+}
+h4 { 
+  @include mx.fluid-text(h4);
+}
+h5 { 
+  @include mx.fluid-text(h5);
+}
+h6 { 
+  @include mx.fluid-text(h6);
+}
+
+p {
+  line-height: map.get(t.$line-heights, normal);
+}
+
+small {
+  @include mx.fluid-text(small);
+}
+
+button, input, textarea {
+  font: inherit;
+  color: inherit;
+}

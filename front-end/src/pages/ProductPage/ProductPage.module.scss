@@ -1,0 +1,171 @@
+@use "sass:map";
+@use "../../styles/tokens" as t;
+@use "../../styles/mixins" as mx;
+@use "../../styles/mixins/elevation" as elev;
+
+.header {
+  background-color: t.color(white);
+}
+.product-page {
+  padding: 0 t.space(4);
+}
+
+.product-section {
+  display: grid;
+  height: 50rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: t.space(7);
+
+  @include mx.mqDown(mb) {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: 0;
+  }
+
+  .product-image-wrapper {
+    grid-column: span 2;
+    min-width: 0;
+    padding: t.space(2xl);
+    background-color: t.color(surface-3);
+    display: flex;
+    justify-content: center;
+
+    .product-image {
+      width: 25rem;
+      display: block;
+      object-fit: contain;
+    }
+  }
+
+  .product-details {
+    height: 100%;
+    grid-column: span 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: t.space(4);
+    padding-right: t.space(2xl);
+
+    @include mx.mqDown(tb) {
+      padding-right: t.space(4);
+    }
+
+    @include mx.mqDown(mb) {
+      padding: t.space(5) t.space(6);
+      align-items: center;
+      text-align: center;
+    }
+
+    .product-title-section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .product-title {
+        @include mx.fluid-text(h2);
+        font-weight: map.get(t.$font-weights, regular);
+        margin: 0;
+
+        @include mx.mqDown(mb) {
+          margin-right: t.space(3);
+        }
+      }
+
+      .cart-button {
+        & img {
+          width: 32px;
+          height: 32px;
+        }
+      }
+    }
+
+    .product-price-section {
+      .product-price-container {
+        .product-sales-wrapper {
+          display: flex;
+          align-items: center;
+          gap: t.space(1);
+
+          .product-sales-icon {
+            width: 50px;
+            height: 50px;
+          }
+
+          .product-new-price {
+            @include mx.fluid-text(h3);
+            color: t.color(thirdly);
+          }
+
+          .product-old-price {
+            @include mx.fluid-text(h6);
+            color: t.color(ink-500);
+            text-decoration: line-through;
+          }
+        }
+      }
+    }
+
+    .product-memory-section {
+      .product-memory-button {
+        @include mx.fluid-text(body);
+        margin-right: t.space(3);
+        padding: t.space(1) t.space(2);
+        border: none;
+        background-color: t.color(surface-3);
+        border-radius: t.rad(lg);
+        cursor: pointer;
+
+        &.selected {
+          color: t.color(white);
+          background-color: t.color(primary);
+        }
+      }
+    }
+
+    .product-color-section {
+      margin-top: t.space(1);
+      .product-color-button {
+        width: 52px;
+        height: 52px;
+        margin-right: t.space(3);
+        border: 1px solid t.color(black);
+        border-radius: t.rad(md);
+        cursor: pointer;
+        position: relative;
+
+        & img {
+          position: absolute;
+          width: 36px;
+          height: 36px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          overflow: hidden;
+        }
+
+        &.selected {
+          border-color: t.color(primary);
+        }
+      }
+    }
+
+    .product-description {
+      @include mx.fluid-text(body);
+      color: t.color(text-ghost);
+    }
+
+    .add-to-cart-button {
+      @include mx.button-base(primary, lg, true);
+
+      &.active {
+        background-color: t.color(surface-3);
+        color: t.color(text);
+      }
+
+      & img {
+        width: 42px;
+        height: 42px;
+      }
+    }
+  }
+}

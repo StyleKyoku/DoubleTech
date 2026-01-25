@@ -1,0 +1,15 @@
+@use "sass:map";
+@use "../tokens/breakpoints" as bp;
+
+@mixin mq($from) {
+  @media (min-width: map.get(bp.$breakpoints, $from)) {
+    @content;
+  }
+}
+
+@mixin mqDown($to) {
+  @media (max-width: map.get(bp.$breakpoints, $to)) {
+    @content;
+  }
+}
+

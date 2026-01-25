@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+
+$font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+$font-sizes: (
+  h1: (
+    min: 2rem,
+    max: 4.5rem,
+  ),
+  h2: (
+    min: 1.5rem,
+    max: 2.75rem,
+  ),
+  h3: (
+    min: 1.25rem,
+    max: 2.25rem,
+  ),
+  h4: (
+    min: 1.125rem,
+    max: 2rem,
+  ),
+  h5: (
+    min: 1rem,
+    max: 1.5rem,
+  ),
+  h6: (
+    min: 0.875rem,
+    max: 1.25rem,
+  ),
+  body: (
+    min: 0.875rem,
+    max: 1rem,
+  ),
+  root: 16px,
+  small: (
+    min: 0.6rem,
+    max: 0.875rem,
+  ),
+  vsmall: (
+    min: 0.5rem,
+    max: 0.625rem,
+  ),
+  btn-sm: (
+    min: 0.75rem,
+    max: 1rem,
+  ),
+  btn-md: (
+    min: 1rem,
+    max: 1.5rem,
+  ),
+  btn-lg: (
+    min: 1rem,
+    max: 2rem,
+  ),
+);
+
+$viewport-range: (
+  min: 360,
+  max: 1440,
+);
+
+$line-heights: (
+  super-tight: 0.7,
+  tight: 1.1,
+  normal: 1.5,
+);
+
+$font-weights: (
+  regular: 400,
+  semibold: 600,
+  bold: 700,
+);
