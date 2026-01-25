@@ -157,11 +157,6 @@
     .add-to-cart-button {
       @include mx.button-base(primary, lg, true);
 
-      &.active {
-        background-color: t.color(surface-3);
-        color: t.color(text);
-      }
-
       & img {
         width: 42px;
         height: 42px;

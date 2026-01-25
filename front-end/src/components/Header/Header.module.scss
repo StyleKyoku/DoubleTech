@@ -3,7 +3,6 @@
 @use "../../styles/mixins" as mx;
 @use "../../styles/mixins/elevation" as elev;
 
-<<<<<<< HEAD
 .header--home {
   background-color: t.color(surface-2);
 }
@@ -12,8 +11,6 @@
   background-color: t.color(white);
 }
 
-=======
->>>>>>> origin/main
 .header {
   display: flex;
   align-items: center;
@@ -24,11 +21,6 @@
 
   padding: 0 t.space(2xl);
 
-<<<<<<< HEAD
-=======
-  background-color: t.color(surface-2);
-
->>>>>>> origin/main
   border-bottom: 1px solid t.color(black);
 
   @include mx.mqDown(tb) {
@@ -215,7 +207,6 @@
         pointer-events: none;
       }
 
-<<<<<<< HEAD
       .header-search--home {
         background-color: t.color(surface-2);
       }
@@ -226,14 +217,6 @@
 
       .header-search {
         height: 28px;
-
-=======
-      .header-search {
-        height: 28px;
-
-        background-color: t.color(surface-2);
-
->>>>>>> origin/main
         border: 1px solid t.color(black);
         border-radius: t.rad(3xl);
 

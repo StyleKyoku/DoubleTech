@@ -147,9 +147,7 @@ export default function ProductPage({
           <p className={styles["product-description"]}>
             {testData.smallDescription}
           </p>
-          <button
-            className={`${styles["add-to-cart-button"]} ${product.inBasket ? styles["active"] : ""}`}
-          >
+          <button className={styles["add-to-cart-button"]}>
             <img src={cartIcon} className="cart-icon" alt="cart icon" />
             Buy
           </button>
