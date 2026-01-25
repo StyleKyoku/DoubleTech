@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+/*
+>>>>>>> origin/main
 import { Routes, Route } from "react-router-dom";
 import RootLayout from "./layouts/RootLayout.jsx";
 import ProfileLayout from "./layouts/ProfileLayout.jsx";
@@ -5,7 +9,11 @@ import HomePage from "./pages/HomePage/HomePage.jsx";
 import LoginPage from "./pages/auth/LoginPage/LoginPage";
 import Catalog from "./pages/Catalog/Catalog";
 import ProfilePage from "./pages/account/ProfilePage/ProfilePage";
+<<<<<<< HEAD
 import ProductPage from "./pages/ProductPage/ProductPage.jsx";
+=======
+import ApiExample from "./apiExample";
+>>>>>>> origin/main
 
 export default function App() {
   return (
@@ -13,7 +21,10 @@ export default function App() {
       <Route element={<RootLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/catalog" element={<Catalog />} />
+<<<<<<< HEAD
         <Route path="/product" element={<ProductPage />} />
+=======
+>>>>>>> origin/main
       </Route>
       <Route path="/login" element={<LoginPage />} />
       <Route element={<ProfileLayout />}>
@@ -22,11 +33,18 @@ export default function App() {
     </Routes>
   );
 }
+<<<<<<< HEAD
 
 
 // api things
 // so here are some tests I tried to do, this shit was made by chatgpt, it doesnt work. Hopefully it gives u the idea of how to use api tho
 /*
+=======
+*/
+
+// api things
+// so here are some tests I tried to do, this shit was made by chatgpt, it doesnt work. Hopefully it gives u the idea of how to use api tho
+>>>>>>> origin/main
 import React, { useState, useEffect } from "react";
 import api from "./api/api"; 
 
@@ -120,5 +138,8 @@ function App() {
 }
 
 export default App;
+<<<<<<< HEAD
 
 */
+=======
+>>>>>>> origin/main

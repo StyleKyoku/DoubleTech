@@ -1,7 +1,12 @@
 import React from "react";
+<<<<<<< HEAD
 import { Link } from "react-router-dom";
 import styles from "./Card.module.scss";
 // import api from "../../api/api";
+=======
+import styles from "./Card.module.scss";
+import api from "../../api/api";
+>>>>>>> origin/main
 
 import sale from "/assets/images/products/sales.svg";
 import cart from "/assets/images/products/cart.svg";
@@ -88,11 +93,19 @@ const Card = ({
         </div>
         <p className={styles["card-category"]}>for {category}</p>
       </div>
+<<<<<<< HEAD
       <small className={styles["card-title"]}>{title}</small>
       <Link to="/product"><button className={styles["card-buy"]} onClick={handleBuy}>
         <img src={cart} alt="Cart icon" className={styles["cart-icon"]} />
         Buy
       </button></Link>
+=======
+      <small className={styles["card-title"]}>{cardInfo.title}</small>
+      <button className={styles["card-buy"]} onClick={handleBuy}>
+        <img src={cart} alt="Cart icon" className={styles["cart-icon"]} />
+        Buy
+      </button>
+>>>>>>> origin/main
     </div>
   );
 };

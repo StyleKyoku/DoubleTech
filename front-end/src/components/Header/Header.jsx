@@ -31,7 +31,11 @@ function useAutoClose(active, setActive, refs) {
   }, [active, setActive, refs]);
 }
 
+<<<<<<< HEAD
 const Header = ({ variant = "default" }) => {
+=======
+const Header = () => {
+>>>>>>> origin/main
   const [burgerActive, setBurgerActive] = React.useState(false);
   const [searchActive, setSearchActive] = React.useState(false);
 
@@ -48,7 +52,12 @@ const Header = ({ variant = "default" }) => {
   useAutoClose(searchActive, setSearchActive, searchRefs);
 
   return (
+<<<<<<< HEAD
     <header className={`${styles["header"]} ${styles[`header--${variant}`]}`}>
+=======
+    <header className={styles["header"]}>
+      {/* Бургер */}
+>>>>>>> origin/main
       <button
         className={styles["burger-button"]}
         ref={burgerRef}
@@ -106,10 +115,14 @@ const Header = ({ variant = "default" }) => {
             alt="Search"
             className={styles["header-search-icon"]}
           />
+<<<<<<< HEAD
           <input
             type="text"
             className={`${styles["header-search"]} ${styles[`header-search--${variant}`]}`}
           />
+=======
+          <input type="text" className={styles["header-search"]} />
+>>>>>>> origin/main
         </div>
 
         <Link to="/login">
