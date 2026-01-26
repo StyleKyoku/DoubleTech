@@ -1,5 +1,5 @@
 import styles from "./HomePage.module.scss";
-
+import { Link } from "react-router-dom";
 import Card from "../../components/Card/Card.jsx";
 
 import intro from "/assets/images/intro/intro.png";
@@ -21,7 +21,9 @@ export default function HomePage() {
             <h2 className={styles["intro-text"]}>
               Smartphones and Laptops <br /> with Quality Guarantee
             </h2>
-            <button className={styles["intro-button"]}>Catalog</button>
+            <Link to="/test1">
+              <button className={styles["intro-button"]}>Catalog</button>
+            </Link>
           </div>
           <div className={styles["intro-image"]}>
             <img src={intro} alt="Intro-image" />
