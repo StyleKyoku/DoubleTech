@@ -16,6 +16,11 @@
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: t.space(7);
 
+  @include mx.mqDown(tb) {
+    height: 40rem;
+    gap: t.space(5);
+  }
+
   @include mx.mqDown(mb) {
     grid-template-columns: 1fr;
     height: auto;
@@ -160,6 +165,89 @@
       & img {
         width: 42px;
         height: 42px;
+      }
+    }
+  }
+}
+
+.product-details-section {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: t.space(7);
+  margin-bottom: t.space(8);
+
+  @include mx.mqDown(tb) {
+    gap: t.space(5);
+  }
+
+  @include mx.mqDown(mb) {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: t.space(5) t.space(6);
+  }
+
+  .spacer {
+    grid-column: span 2;
+  }
+
+  .product-details {
+    grid-column: span 1;
+    padding-right: t.space(2xl);
+    box-sizing: border-box;
+
+    @include mx.mqDown(tb) {
+      padding-right: t.space(4);
+    }
+
+    .product-details-desc {
+      margin-bottom: t.space(4);
+      .details-desc-title {
+        @include mx.fluid-text(h3);
+        font-weight: map.get(t.$font-weights, regular);
+        margin-bottom: t.space(2);
+      }
+
+      .details-desc-text {
+        @include mx.fluid-text(body);
+      }
+    }
+
+    .product-details-specs {
+      .details-specs-title {
+        @include mx.fluid-text(h3);
+        font-weight: map.get(t.$font-weights, regular);
+        margin-bottom: t.space(2);
+      }
+
+      .details-specs-list {
+        .spec-item {
+          @include mx.fluid-text(body);
+          margin-bottom: t.space(1);
+          display: grid;
+          grid-template-columns: auto 1fr auto;
+          align-items: baseline;
+          column-gap: 10px;
+          overflow: hidden;
+        }
+
+        .spec-name,
+        .spec-value {
+          @include mx.fluid-text(body);
+          white-space: nowrap;
+        }
+
+        .dot-spacer {
+          overflow: hidden;
+          white-space: nowrap;
+          position: relative;
+          top: -1px;
+        }
+
+        .dot-spacer::before {
+          content: "................................................................................................................................................................................................";
+          letter-spacing: 2px;
+          opacity: 0.45;
+        }
       }
     }
   }

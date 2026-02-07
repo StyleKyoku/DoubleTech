@@ -153,6 +153,41 @@ export default function ProductPage({
           </button>
         </div>
       </section>
+      <section className={styles["product-details-section"]}>
+        <div className={styles["spacer"]}></div>
+        <div className={styles["product-details"]}>
+          <div className={styles["product-details-desc"]}>
+            <h2 className={styles["details-desc-title"]}>Description</h2>
+            <p className={styles["details-desc-text"]}>
+              {testData.FullDescription}
+            </p>
+          </div>
+          <div className={styles["product-details-specs"]}>
+            <h2 className={styles["details-specs-title"]}>Specifications</h2>
+            <dl className={styles["details-specs-list"]}>
+              {Object.entries(testData.productSpecs).map(
+                ([spec, specValue]) => {
+                  const label = spec[0].toUpperCase() + spec.slice(1);
+                  const value = Array.isArray(specValue)
+                    ? specValue.join(", ")
+                    : specValue;
+
+                  return (
+                    <div key={spec} className={styles["spec-item"]}>
+                      <dt className={styles["spec-name"]}>{label}</dt>
+                      <span
+                        className={styles["dot-spacer"]}
+                        aria-hidden="true"
+                      />
+                      <dd className={styles["spec-value"]}>{value}</dd>
+                    </div>
+                  );
+                },
+              )}
+            </dl>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

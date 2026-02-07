@@ -10,7 +10,7 @@
     height: 825px;
     display: flex;
     justify-content: space-between;
-    padding: 0 t.space(2xl);
+    padding: 0 t.space(4xl);
 
     @include mx.mqDown(tb) {
       height: 450px;
@@ -115,9 +115,7 @@
   display: flex;
   justify-content: center;
 
-  background-color: t.color(surface);
-
-  padding: t.space(2xl) t.space(5) 0 t.space(5);
+  padding: t.space(3xl) t.space(5) 0 t.space(5);
   gap: t.space(7);
 
   @include mx.mqDown(tb) {
@@ -285,7 +283,7 @@
 }
 
 .products-section {
-  padding: 0 t.space(2xl);
+  padding: 0 t.space(4xl);
 
   @include mx.mqDown(tb) {
     padding: 0 t.space(8);
@@ -328,7 +326,7 @@
 }
 
 .collections-section {
-  padding: t.space(3xl) t.space(2xl);
+  padding: t.space(3xl) t.space(4xl);
 
   @include mx.mqDown(tb) {
     padding: t.space(2xl) t.space(6);
