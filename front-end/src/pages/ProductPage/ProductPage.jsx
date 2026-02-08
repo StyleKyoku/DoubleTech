@@ -7,6 +7,8 @@ import tick1 from "/assets/images/products/tick1.svg";
 import tick2 from "/assets/images/products/tick2.svg";
 import cartIcon from "/assets/images/products/cart.svg";
 
+import Card from "../../components/Card/Card.jsx";
+
 export default function ProductPage({
   id,
   title,
@@ -186,6 +188,21 @@ export default function ProductPage({
               )}
             </dl>
           </div>
+        </div>
+      </section>
+      <section className={styles["product-recs"]}>
+        <h2 className={styles["product-recs-title"]}>You may also like</h2>
+        <div className={styles["product-recs-wrapper"]}>
+          <Card
+            id="654321"
+            title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
+            price="1299"
+            imageUrl="/assets/images/products/Phone.png"
+            inBasket={false}
+            category="school"
+            onSale={true}
+            originalPrice="1399"
+          />
         </div>
       </section>
     </main>
