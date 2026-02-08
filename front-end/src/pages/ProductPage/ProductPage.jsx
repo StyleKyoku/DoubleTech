@@ -64,21 +64,47 @@ export default function ProductPage({
     quantity: quantity,
   };
 
+  /* Слайдер сделаем через объявление переменной с дефолт картинкой. Главная картинка будет браться из этой переменной.
+   * Нажимая на кнопку в слайдере - нынешняя картинка заменяется на ту, что стоит в кнопке (легко и просто через handleClick и useState)*/
+
   const [product, setProduct] = React.useState(testData);
   const cart = product.inBasket ? isInCart : notInCart;
   const handleClick = () => {
     setProduct((prev) => ({ ...prev, inBasket: !prev.inBasket }));
   };
 
+  const [currentImage, setCurrentImage] = React.useState(
+    import.meta.env.BASE_URL + testData.imageUrls[0],
+  );
+
   return (
     <main className={styles["product-page"]}>
       <section className={styles["product-section"]}>
         <div className={styles["product-image-wrapper"]}>
           <img
-            src={import.meta.env.BASE_URL + "/assets/images/products/Phone.png"}
+            src={currentImage}
             alt="item"
             className={styles["product-image"]}
           />
+          <div className={styles["product-image-thumbnails"]}>
+            <div className={styles["product-image-thumbnails-wrapper"]}>
+              {testData.imageUrls.map((url, index) => (
+                <button
+                  key={index}
+                  className={styles["product-thumbnail-button"]}
+                  onClick={() =>
+                    setCurrentImage(import.meta.env.BASE_URL + url)
+                  }
+                >
+                  <img
+                    src={import.meta.env.BASE_URL + url}
+                    alt={`thumbnail ${index + 1}`}
+                    className={`${styles["product-thumbnail"]} ${currentImage === import.meta.env.BASE_URL + url ? styles["selected"] : ""}`}
+                  />
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
         <div className={styles["product-details"]}>
           <div className={styles["product-title-section"]}>
