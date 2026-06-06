@@ -1,4 +1,7 @@
 import React from "react";
+import { useCart } from "../../context/CartContext";
+import { useProducts } from "../../context/ProductContext";
+
 import styles from "./Catalog.module.scss";
 import Card from "../../components/Card/Card.jsx";
 import arrowIcon from "/assets/images/global_icons/arrow-down.svg";
@@ -11,128 +14,9 @@ const Catalog = () => {
   const MaxPrice = 3000;
   const step = 50;
 
-  const testCards = [
-    {
-      id: 123432,
-      title: "Product Title 1",
-      price: 999,
-      imageUrl: "/assets/images/products/sample1.png",
-      inBasket: false,
-      type: "laptop",
-      category: "games",
-      brand: "Apple",
-      onSale: true,
-      originalPrice: 1111,
-    },
-    {
-      id: 123433,
-      title: "Product Title 2",
-      price: 1099,
-      imageUrl: "/assets/images/products/sample2.png",
-      inBasket: false,
-      type: "smartphone",
-      category: "education",
-      brand: "Samsung",
-      onSale: true,
-      originalPrice: 1250,
-    },
-    {
-      id: 123434,
-      title: "Product Title 3",
-      price: 799,
-      imageUrl: "/assets/images/products/sample3.png",
-      inBasket: false,
-      type: "tablet",
-      category: "business",
-      brand: "Lenovo",
-      onSale: false,
-      originalPrice: 799,
-    },
-    {
-      id: 123435,
-      title: "Product Title 4",
-      price: 1499,
-      imageUrl: "/assets/images/products/sample4.png",
-      inBasket: true,
-      type: "laptop",
-      category: "games",
-      brand: "ASUS",
-      onSale: true,
-      originalPrice: 1699,
-    },
-    {
-      id: 123436,
-      title: "Product Title 5",
-      price: 299,
-      imageUrl: "/assets/images/products/sample1.png",
-      inBasket: false,
-      type: "smartphone",
-      category: "everyday",
-      brand: "Sony",
-      onSale: false,
-      originalPrice: 299,
-    },
-    {
-      id: 123437,
-      title: "Product Title 6",
-      price: 459,
-      imageUrl: "/assets/images/products/sample3.png",
-      inBasket: false,
-      type: "tablet",
-      category: "business",
-      brand: "Xiaomi",
-      onSale: true,
-      originalPrice: 520,
-    },
-    {
-      id: 123438,
-      title: "Product Title 7",
-      price: 1299,
-      imageUrl: "/assets/images/products/sample2.png",
-      inBasket: true,
-      type: "smartphone",
-      category: "education",
-      brand: "Google",
-      onSale: true,
-      originalPrice: 1399,
-    },
-    {
-      id: 123439,
-      title: "Product Title 8",
-      price: 189,
-      imageUrl: "/assets/images/products/sample1.png",
-      inBasket: false,
-      type: "laptop",
-      category: "everyday",
-      brand: "Logitech",
-      onSale: false,
-      originalPrice: 189,
-    },
-    {
-      id: 123440,
-      title: "Product Title 9",
-      price: 999,
-      imageUrl: "/assets/images/products/sample4.png",
-      inBasket: false,
-      type: "smartphone",
-      category: "everyday",
-      brand: "LG",
-      onSale: true,
-      originalPrice: 1149,
-    },
-    {
-      id: 123441,
-      title: "Product Title 10",
-      price: 649,
-      imageUrl: "/assets/images/products/sample2.png",
-      type: "tablet",
-      inBasket: false,
-      category: "gaming",
-      brand: "Nintendo",
-      onSale: true,
-      originalPrice: 749,
-    },
-  ];
+  const { cartItems } = useCart();
+  const { products, productsLoading } = useProducts();
+
   const [isMenuOpen, setIsMenuOpen] = React.useState("None");
 
   const [minValue, setMinValue] = React.useState(MinPrice);
@@ -388,20 +272,25 @@ const Catalog = () => {
       </div>
       <div className={styles["catalog-content"]}>
         <div className={styles["product-list"]}>
-          {testCards.map((card) => (
-            <Card
-              key={card.id}
-              id={card.id}
-              title={card.title}
-              price={card.price}
-              imageUrl={card.imageUrl}
-              inBasket={card.inBasket}
-              category={card.category}
-              brand={card.brand}
-              onSale={card.onSale}
-              originalPrice={card.originalPrice}
-            />
-          ))}
+          {products.map((card) => {
+            const isInCart = cartItems.some((item) => {
+              return item.productId === card.id;
+            });
+            return (
+              <Card
+                key={card.id}
+                id={card.id}
+                title={card.title}
+                price={card.price}
+                imageUrl={card.imageUrls[0]}
+                inBasket={isInCart}
+                category={card.category}
+                brand={card.brand}
+                onSale={card.onSale}
+                originalPrice={card.originalPrice}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   position: sticky;
-  z-index: t.zindex(sticky);
+  z-index: t.zindex(fixed);
 
   height: 75px;
 
@@ -58,10 +58,28 @@
 
   .header-logo {
     flex: 0 0 auto;
+    padding-top: t.space(3);
     z-index: t.zindex(sticky);
 
     @include mx.mqDown(tb) {
       flex: none;
+      padding-top: t.space(2);
+    }
+
+    @include mx.mqDown(mb) {
+      padding: t.space(1) 0 0 t.space(2);
+    }
+
+    & img {
+      display: block;
+
+      @include mx.mqDown(tb) {
+        width: 90%;
+      }
+
+      @include mx.mqDown(mb) {
+        width: 80%;
+      }
     }
   }
 
@@ -119,6 +137,7 @@
 
       @include mx.mqDown(tb) {
         padding: 0;
+        gap: t.space(4);
       }
 
       @include mx.mqDown(mb) {

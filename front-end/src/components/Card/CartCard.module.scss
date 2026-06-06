@@ -1,0 +1,95 @@
+@use "sass:map";
+@use "../../styles/tokens" as t;
+@use "../../styles/mixins" as mx;
+@use "../../styles/mixins/elevation" as elev;
+
+.cart-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid t.color(surface-3);
+  padding-top: t.space(4);
+  margin-top: t.space(4);
+
+  .product-info {
+    display: flex;
+    flex-direction: row;
+    gap: t.space(4);
+
+    .product-image {
+      width: 100px;
+      height: 100px;
+      background-color: t.color(surface-3);
+      border-radius: t.rad(md);
+      object-fit: cover;
+
+      @include mx.mqDown(tb) {
+        width: 80px;
+        height: 80px;
+      }
+
+      @include mx.mqDown(mb) {
+        width: 70px;
+        height: 70px;
+      }
+    }
+
+    .product-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: t.space(2);
+
+      .product-title {
+        @include mx.fluid-text(h5);
+      }
+
+      .product-price {
+        @include mx.fluid-text(h5);
+        color: t.color(thirdly);
+      }
+    }
+  }
+
+  .product-controls {
+    display: flex;
+    flex-direction: column;
+    gap: t.space(2);
+
+    .quantity-controls {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: t.space(2);
+      padding: t.space(1) t.space(2);
+      border-radius: t.rad(md);
+      border: 1px solid t.color(surface-3);
+
+      .quantity-button {
+        width: 32px;
+        height: 32px;
+        background-color: t.color(surface-3);
+        border-radius: t.rad(md);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &:hover {
+          background-color: t.color(surface-2);
+        }
+      }
+
+      .quantity-display {
+        @include mx.fluid-text(body);
+      }
+    }
+
+    .remove-button {
+      @include mx.button-base(primary, sm);
+      background-color: t.color(danger);
+      padding: t.space(1) t.space(2);
+      cursor: pointer;
+    }
+  }
+}

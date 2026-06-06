@@ -4,7 +4,10 @@ import login from "/assets/images/header/login.svg";
 import cart from "/assets/images/header/cart.svg";
 import search from "/assets/images/header/search.svg";
 import burgerIcon from "/assets/images/header/burger.svg";
+
 import { Link } from "react-router-dom";
+import Cart from "../Cart/Cart";
+import { useCart } from "../../context/CartContext";
 
 import styles from "./Header.module.scss";
 
@@ -34,6 +37,7 @@ function useAutoClose(active, setActive, refs) {
 const Header = ({ variant = "default" }) => {
   const [burgerActive, setBurgerActive] = React.useState(false);
   const [searchActive, setSearchActive] = React.useState(false);
+  const { toggleCart } = useCart();
 
   const navRef = React.useRef(null);
   const burgerRef = React.useRef(null);
@@ -118,11 +122,10 @@ const Header = ({ variant = "default" }) => {
             <img src={login} alt="Log in button" />
           </button>
         </Link>
-        <Link to="/cart">
-          <button className={styles["cart-button"]}>
-            <img src={cart} alt="Cart button" />
-          </button>
-        </Link>
+
+        <button className={styles["cart-button"]} onClick={toggleCart}>
+          <img src={cart} alt="Cart button" />
+        </button>
       </div>
     </header>
   );

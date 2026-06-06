@@ -1,5 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
+@use "sass:map";
 
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap");
 $font-stack: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 $font-sizes: (
@@ -70,3 +71,7 @@ $font-weights: (
   semibold: 600,
   bold: 700,
 );
+
+@function font-weight($size) {
+  @return map.get($font-weights, $size);
+}

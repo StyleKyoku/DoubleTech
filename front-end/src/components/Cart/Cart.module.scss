@@ -1,0 +1,105 @@
+@use "sass:map";
+@use "../../styles/tokens" as t;
+@use "../../styles/mixins" as mx;
+@use "../../styles/mixins/elevation" as elev;
+
+.cart {
+  height: 100vh;
+  width: 100vw;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: t.zindex(modal);
+
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  &-content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    inset: 0;
+    padding: t.space(6);
+    height: min(720px, calc(100dvh - 8rem));
+    width: min(520px, calc(100vw - 3rem));
+    background-color: t.color(white);
+
+    box-sizing: border-box;
+    border-radius: t.rad(5xl);
+
+    .cart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .cart-title {
+        @include mx.fluid-text(h3);
+        font-weight: t.font-weight(regular);
+      }
+
+      .close-button {
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        & img {
+          width: 25px;
+          height: 25px;
+          margin: 0;
+        }
+      }
+    }
+
+    .cart-items {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+    }
+    .cart-footer {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      margin-top: t.space(4);
+      padding-top: t.space(4);
+      border-top: 2px solid t.color(surface-3);
+
+      .total-price {
+        @include mx.fluid-text(h3);
+        font-weight: t.font-weight(regular);
+        display: flex;
+        justify-content: space-between;
+
+        & p:last-child {
+          color: t.color(thirdly);
+        }
+      }
+
+      .continue-shopping {
+        margin-top: t.space(3);
+        display: flex;
+        justify-content: center;
+
+        .checkout-button {
+          @include mx.button-base(primary, md, true);
+        }
+      }
+    }
+  }
+}

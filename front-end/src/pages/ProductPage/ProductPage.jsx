@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./ProductPage.module.scss";
+
 import notInCart from "/assets/images/products/notLiked.svg";
 import isInCart from "/assets/images/products/isLiked.svg";
 import sale from "/assets/images/products/sales.svg";
@@ -9,145 +10,236 @@ import cartIcon from "/assets/images/products/cart.svg";
 
 import Card from "../../components/Card/Card.jsx";
 
-export default function ProductPage({
-  id,
-  title,
-  smallDescription,
-  FullDescription,
-  onSale,
-  oldPrice,
-  newPrice,
-  imageUrls,
-  inBasket = false,
-  category,
-  productSpecs,
-}) {
-  const testData = {
-    id: 1,
-    title: "Sample Product",
-    smallDescription: "This is a sample product.",
-    FullDescription: "This is a detailed description of the sample product.",
-    onSale: true,
-    oldPrice: 1200,
-    newPrice: 999,
-    imageUrls: [
-      "/assets/images/products/sample1.png",
-      "/assets/images/products/sample2.png",
-      "/assets/images/products/sample3.png",
-      "/assets/images/products/sample4.png",
-    ],
-    inBasket: false,
-    category: "everything",
-    productSpecs: {
-      weight: "1kg",
-      dimensions: "10x20x5 cm",
-      manufacturer: "Sample Manufacturer",
-      color: ["Black", "White", "Blue"],
-      memory: ["64GB", "128GB", "256GB"],
-    },
+import { useCart } from "../../context/CartContext";
+import { useProducts } from "../../context/ProductContext";
+
+const colorMap = {
+  midnight: "#1f2937",
+  silver: "#c0c0c0",
+  "space gray": "#6b7280",
+
+  black: "#111111",
+  gray: "#9ca3af",
+  grey: "#9ca3af",
+  violet: "#8b5cf6",
+
+  "storm grey": "#6b7280",
+  oat: "#d6c7aa",
+
+  "eclipse gray": "#4b5563",
+  "volt green": "#84cc16",
+
+  white: "#ffffff",
+  blue: "#2563eb",
+
+  "gravity gray": "#4b5563",
+  "mist blue": "#93c5fd",
+  gold: "#d4af37",
+
+  obsidian: "#111827",
+  porcelain: "#f5f5f0",
+  bay: "#60a5fa",
+
+  graphite: "#374151",
+  "pale gray": "#d1d5db",
+  rose: "#f9a8d4",
+
+  "aurora gray": "#9ca3af",
+  "illusion sunset": "linear-gradient(135deg, #f97316, #ec4899, #8b5cf6)",
+  "aurora white": "#f9fafb",
+
+  "neon red/blue": "linear-gradient(90deg, #ef4444 0 50%, #2563eb 50% 100%)",
+};
+
+const lightColors = [
+  "white",
+  "silver",
+  "oat",
+  "gold",
+  "porcelain",
+  "pale gray",
+  "aurora white",
+  "mist blue",
+];
+
+const getColorValue = (color) => {
+  const lowerColor = color.toLowerCase();
+  return colorMap[lowerColor] || color;
+};
+
+const getPublicPath = (path) => {
+  if (!path) return "";
+
+  if (path.startsWith("http") || path.startsWith("data:")) {
+    return path;
+  }
+
+  return `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
+};
+
+export default function ProductPage({ id }) {
+  const { cartItems, addToCart, removeFromCart, openCart, cartActionLoading } =
+    useCart();
+
+  const { products, productsLoading, productsError } = useProducts();
+
+  const productData = id
+    ? products.find((product) => String(product.id) === String(id))
+    : products[0];
+
+  const [memorySelect, setMemorySelect] = React.useState("");
+  const [colorSelect, setColorSelect] = React.useState("");
+  const [currentImage, setCurrentImage] = React.useState("");
+
+  React.useEffect(() => {
+    if (!productData) return;
+
+    setMemorySelect(productData.productSpecs.memory[0]);
+    setColorSelect(productData.productSpecs.color[0]);
+    setCurrentImage(getPublicPath(productData.imageUrls[0]));
+  }, [productData]);
+
+  if (productsLoading) {
+    return (
+      <main className={styles["product-page"]}>
+        <p>Loading...</p>
+      </main>
+    );
+  }
+
+  if (productsError) {
+    return (
+      <main className={styles["product-page"]}>
+        <p>{productsError}</p>
+      </main>
+    );
+  }
+
+  if (!productData) {
+    return (
+      <main className={styles["product-page"]}>
+        <p>Product not found.</p>
+      </main>
+    );
+  }
+
+  const inBasket = cartItems.some((item) => {
+    return String(item.productId) === String(productData.id);
+  });
+
+  const cart = inBasket ? isInCart : notInCart;
+
+  const handleCartClick = () => {
+    if (inBasket) {
+      removeFromCart(productData.id);
+    } else {
+      addToCart(productData.id);
+    }
   };
 
-  const [memorySelect, setMemorySelect] = React.useState(
-    testData.productSpecs.memory[0],
-  );
-  const [colorSelect, setColorSelect] = React.useState(
-    testData.productSpecs.color[0],
-  );
-  const [quantity, setQuantity] = React.useState(1);
-
-  const finalProduct = {
-    id: testData.id,
-    title: testData.title,
-    price: testData.onSale ? testData.newPrice : testData.oldPrice,
-    memory: memorySelect,
-    color: colorSelect,
-    quantity: quantity,
+  const handleBuyClick = () => {
+    addToCart(productData.id);
+    openCart();
   };
 
-  /* Слайдер сделаем через объявление переменной с дефолт картинкой. Главная картинка будет браться из этой переменной.
-   * Нажимая на кнопку в слайдере - нынешняя картинка заменяется на ту, что стоит в кнопке (легко и просто через handleClick и useState)*/
-
-  const [product, setProduct] = React.useState(testData);
-  const cart = product.inBasket ? isInCart : notInCart;
-  const handleClick = () => {
-    setProduct((prev) => ({ ...prev, inBasket: !prev.inBasket }));
-  };
-
-  const [currentImage, setCurrentImage] = React.useState(
-    import.meta.env.BASE_URL + testData.imageUrls[0],
-  );
+  const recommendedProducts = products
+    .filter((product) => product.id !== productData.id)
+    .slice(0, 4);
 
   return (
     <main className={styles["product-page"]}>
       <section className={styles["product-section"]}>
         <div className={styles["product-image-wrapper"]}>
-          <img
-            src={currentImage}
-            alt="item"
-            className={styles["product-image"]}
-          />
+          {currentImage && (
+            <img
+              src={currentImage}
+              alt="item"
+              className={styles["product-image"]}
+            />
+          )}
+
           <div className={styles["product-image-thumbnails"]}>
             <div className={styles["product-image-thumbnails-wrapper"]}>
-              {testData.imageUrls.map((url, index) => (
+              {productData.imageUrls.map((url, index) => (
                 <button
                   key={index}
                   className={styles["product-thumbnail-button"]}
-                  onClick={() =>
-                    setCurrentImage(import.meta.env.BASE_URL + url)
-                  }
+                  onClick={() => setCurrentImage(getPublicPath(url))}
                 >
                   <img
-                    src={import.meta.env.BASE_URL + url}
+                    src={getPublicPath(url)}
                     alt={`thumbnail ${index + 1}`}
-                    className={`${styles["product-thumbnail"]} ${currentImage === import.meta.env.BASE_URL + url ? styles["selected"] : ""}`}
+                    className={`${styles["product-thumbnail"]} ${
+                      currentImage === getPublicPath(url)
+                        ? styles["selected"]
+                        : ""
+                    }`}
                   />
                 </button>
               ))}
             </div>
           </div>
         </div>
+
         <div className={styles["product-details"]}>
           <div className={styles["product-title-section"]}>
-            <h1 className={styles["product-title"]}>{testData.title}</h1>
-            <button className={styles["cart-button"]} onClick={handleClick}>
+            <h1 className={styles["product-title"]}>{productData.title}</h1>
+
+            <button
+              className={styles["cart-button"]}
+              onClick={handleCartClick}
+              disabled={cartActionLoading}
+            >
               <img src={cart} alt="in cart icon" />
             </button>
           </div>
+
           <div className={styles["product-price-section"]}>
             <div className={styles["product-price-container"]}>
-              {testData.onSale ? (
+              {productData.onSale ? (
                 <div className={styles["product-sales-wrapper"]}>
                   <img
                     src={sale}
                     alt="Sales img"
                     className={styles["product-sales-icon"]}
                   />
+
                   <span className={styles["product-new-price"]}>
-                    ${testData.newPrice}
+                    ${productData.price}
                   </span>
-                  <span className={styles["product-old-price"]}>
-                    ${testData.oldPrice}
-                  </span>
+
+                  {productData.oldPrice && (
+                    <span className={styles["product-old-price"]}>
+                      ${productData.oldPrice}
+                    </span>
+                  )}
                 </div>
               ) : (
                 <span className={styles["product-default-price"]}>
-                  ${testData.oldPrice}
+                  ${productData.price}
                 </span>
               )}
             </div>
           </div>
+
           <div className={styles["product-color-section"]}>
             <div className={styles["product-color-icons"]}>
-              {testData.productSpecs.color.map((color, index) => (
+              {productData.productSpecs.color.map((color, index) => (
                 <button
                   key={index}
-                  className={`${styles["product-color-button"]} ${colorSelect === color ? styles["selected"] : ""}`}
-                  style={{ backgroundColor: color.toLowerCase() }}
+                  className={`${styles["product-color-button"]} ${
+                    colorSelect === color ? styles["selected"] : ""
+                  }`}
+                  style={{ background: getColorValue(color) }}
                   onClick={() => setColorSelect(color)}
                 >
                   {colorSelect === color ? (
                     <img
-                      src={color.toLowerCase() === "white" ? tick1 : tick2}
+                      src={
+                        lightColors.includes(color.toLowerCase())
+                          ? tick1
+                          : tick2
+                      }
                       className={styles["color-tick"]}
                       alt="selected color tick"
                     />
@@ -157,43 +249,58 @@ export default function ProductPage({
                 </button>
               ))}
             </div>
+
             <p className={styles["product-color"]}>
               color: {colorSelect.toLowerCase()}
             </p>
           </div>
+
           <div className={styles["product-memory-section"]}>
-            {testData.productSpecs.memory.map((mem, index) => (
+            {productData.productSpecs.memory.map((mem, index) => (
               <button
                 key={index}
-                className={`${styles["product-memory-button"]} ${memorySelect === mem ? styles["selected"] : ""}`}
+                className={`${styles["product-memory-button"]} ${
+                  memorySelect === mem ? styles["selected"] : ""
+                }`}
                 onClick={() => setMemorySelect(mem)}
               >
                 {mem}
               </button>
             ))}
           </div>
+
           <p className={styles["product-description"]}>
-            {testData.smallDescription}
+            {productData.smallDescription}
           </p>
-          <button className={styles["add-to-cart-button"]}>
+
+          <button
+            className={styles["add-to-cart-button"]}
+            onClick={handleBuyClick}
+            disabled={cartActionLoading}
+          >
             <img src={cartIcon} className="cart-icon" alt="cart icon" />
             Buy
           </button>
         </div>
       </section>
+
       <section className={styles["product-details-section"]}>
         <div className={styles["spacer"]}></div>
+
         <div className={styles["product-details"]}>
           <div className={styles["product-details-desc"]}>
             <h2 className={styles["details-desc-title"]}>Description</h2>
+
             <p className={styles["details-desc-text"]}>
-              {testData.FullDescription}
+              {productData.fullDescription}
             </p>
           </div>
+
           <div className={styles["product-details-specs"]}>
             <h2 className={styles["details-specs-title"]}>Specifications</h2>
+
             <dl className={styles["details-specs-list"]}>
-              {Object.entries(testData.productSpecs).map(
+              {Object.entries(productData.productSpecs).map(
                 ([spec, specValue]) => {
                   const label = spec[0].toUpperCase() + spec.slice(1);
                   const value = Array.isArray(specValue)
@@ -203,10 +310,12 @@ export default function ProductPage({
                   return (
                     <div key={spec} className={styles["spec-item"]}>
                       <dt className={styles["spec-name"]}>{label}</dt>
+
                       <span
                         className={styles["dot-spacer"]}
                         aria-hidden="true"
                       />
+
                       <dd className={styles["spec-value"]}>{value}</dd>
                     </div>
                   );
@@ -216,19 +325,31 @@ export default function ProductPage({
           </div>
         </div>
       </section>
+
       <section className={styles["product-recs"]}>
         <h2 className={styles["product-recs-title"]}>You may also like</h2>
+
         <div className={styles["product-recs-wrapper"]}>
-          <Card
-            id="654321"
-            title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
-            price="1299"
-            imageUrl="/assets/images/products/Phone.png"
-            inBasket={false}
-            category="school"
-            onSale={true}
-            originalPrice="1399"
-          />
+          {recommendedProducts.map((product) => {
+            const productInBasket = cartItems.some((item) => {
+              return String(item.productId) === String(product.id);
+            });
+
+            return (
+              <Card
+                key={product.id}
+                id={product.id}
+                title={product.title}
+                price={product.price}
+                imageUrl={product.imageUrls[0]}
+                inBasket={productInBasket}
+                category={product.category}
+                brand={product.brand}
+                onSale={product.onSale}
+                originalPrice={product.oldPrice}
+              />
+            );
+          })}
         </div>
       </section>
     </main>

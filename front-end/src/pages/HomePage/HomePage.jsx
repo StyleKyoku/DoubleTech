@@ -1,6 +1,9 @@
+import React from "react";
+
 import styles from "./HomePage.module.scss";
 import { Link } from "react-router-dom";
 import Card from "../../components/Card/Card.jsx";
+import Cart from "../../components/Cart/Cart.jsx";
 
 import intro from "/assets/images/intro/intro.png";
 import redRect from "/assets/images/features/rect1.svg";
@@ -84,31 +87,6 @@ export default function HomePage() {
       </section>
 
       <section className={styles["products-section"]}>
-        <div className={styles["products-wrapper"]}>
-          <h3 className={styles["product-title"]}>Best Sellers</h3>
-          <div className={styles["products-list"]}>
-            <Card
-              id="654321"
-              title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
-              price="1299"
-              imageUrl="/assets/images/products/Phone.png"
-              inBasket={false}
-              category="school"
-              onSale={true}
-              originalPrice="1399"
-            />
-            <Card
-              id="123456"
-              title='iPhone 16 Pro Max, 256 GB, 8 GB RAM, A18 Pro, 6.9" OLED, 48 MP, USB-C, Titanium, iOS 18'
-              price="1299"
-              imageUrl="/assets/images/products/Phone.png"
-              inBasket={false}
-              category="school"
-              onSale={false}
-              originalPrice=""
-            />
-          </div>
-        </div>
         <div className={styles["products-wrapper"]}>
           <h3 className={styles["product-title"]}>Sales</h3>
           <div className={styles["products-list"]}>
