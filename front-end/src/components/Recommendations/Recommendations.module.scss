@@ -1,0 +1,40 @@
+@use "sass:map";
+@use "../../styles/tokens" as t;
+@use "../../styles/mixins" as mx;
+@use "../../styles/mixins/elevation" as elev;
+
+.product-recs {
+  width: 100%;
+  padding: t.space(8) 0;
+
+  @include mx.mqDown(tb) {
+    padding: t.space(5) t.space(0);
+  }
+
+  @include mx.mqDown(mb) {
+    padding: t.space(5) t.space(0);
+  }
+
+  .product-recs-title {
+    @include mx.fluid-text(h2);
+    margin-bottom: t.space(8);
+
+    @include mx.mqDown(mb) {
+      margin-bottom: t.space(5);
+    }
+  }
+
+  .product-recs-wrapper {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: t.space(5);
+
+    @include mx.mqDown(tb) {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    @include mx.mqDown(mb) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+}

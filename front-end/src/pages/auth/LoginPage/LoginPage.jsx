@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./LoginPage.module.scss";
 
-import ProfilePage from "../../account/ProfilePage/ProfilePage";
+import { useAuth } from "../../../context/AuthContext";
 
 import { Link, useNavigate } from "react-router-dom";
 
@@ -9,6 +9,7 @@ import logo from "/assets/images/logo.svg";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const { login, register, isAuth, authActionLoading } = useAuth();
   const [chooseAction, setChooseAction] = React.useState("login");
 
   const [formData, setFormData] = React.useState({
@@ -25,6 +26,12 @@ export default function LoginPage() {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const [errors, setErrors] = React.useState({});
+
+  React.useEffect(() => {
+    if (isAuth) {
+      navigate("/profile", { replace: true });
+    }
+  }, [isAuth, navigate]);
 
   const validate = (data, mode) => {
     const err = {};
@@ -146,7 +153,6 @@ export default function LoginPage() {
   };
 
   const handleSubmit = async (e) => {
-    const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
     e.preventDefault();
     setIsSubmitting(true);
 
@@ -164,27 +170,27 @@ export default function LoginPage() {
       return;
     }
 
-    if (chooseAction === "login") {
-      const success = true; // Replace with actual login logic
-      if (success) {
-        navigate("/profile", {
-          state: {
-            name: "John",
-            surname: "Connor",
-            phone: "+353934343",
-            email: "testemail@mail.com",
-          },
-        });
+    try {
+      if (chooseAction === "login") {
+        await login(formData.email, formData.password);
       } else {
-        // Handle login failure
+        await register(
+          formData.name,
+          formData.surname,
+          formData.email,
+          formData.phone,
+          formData.password,
+        );
       }
-    } else {
-      // Perform registration action
+      navigate("/profile", { replace: true });
+    } catch (error) {
+      setErrors((prev) => ({
+        ...prev,
+        form: error.message || "Something went wrong",
+      }));
+    } finally {
+      setIsSubmitting(false);
     }
-
-    console.log("Submitting...");
-    await sleep(1000);
-    console.log("Success");
 
     setFormData({
       email: "",
@@ -195,7 +201,6 @@ export default function LoginPage() {
       confirmPassword: "",
       rememberMe: false,
     });
-    setErrors({});
     setTouched({});
     setIsSubmitting(false);
   };
@@ -255,20 +260,24 @@ export default function LoginPage() {
                 remember me
               </label>
             </div>
+            {errors.form && (
+              <div className={styles["input-error"]}>{errors.form}</div>
+            )}
             <button
-              disabled={Object.keys(errors).length > 0 || isSubmitting}
+              disabled={isSubmitting || authActionLoading}
               type="submit"
               className={`${styles["button-submit"]} ${Object.keys(errors).length > 0 || isSubmitting ? styles["button-disabled"] : ""}`}
             >
               Sign in
             </button>
 
-            <button className={styles["login-button-forgot"]}>
+            <button type="button" className={styles["login-button-forgot"]}>
               Forgot password?
             </button>
 
             <div className={styles["login-button-reg-wrapper"]}>
               <button
+                type="button"
                 className={styles["login-button-reg"]}
                 onClick={() => {
                   setChooseAction("register");
@@ -364,8 +373,11 @@ export default function LoginPage() {
                   {errors.confirmPassword}
                 </div>
               )}
+            {errors.form && (
+              <div className={styles["input-error"]}>{errors.form}</div>
+            )}
             <button
-              disabled={Object.keys(errors).length > 0 || isSubmitting}
+              disabled={isSubmitting || authActionLoading}
               type="submit"
               className={`${styles["button-submit"]} ${Object.keys(errors).length > 0 || isSubmitting ? styles["button-disabled"] : ""}`}
             >

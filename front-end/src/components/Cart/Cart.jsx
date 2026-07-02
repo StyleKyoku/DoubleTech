@@ -40,7 +40,8 @@ const Cart = () => {
       >
         <div className={styles["cart-header"]}>
           <h2 className={styles["cart-title"]}>
-            {cartItems.length} items in your cart
+            {cartItems.length} {cartItems.length === 1 ? "item" : "items"} in
+            your cart
           </h2>
           <button onClick={closeCart} className={styles["close-button"]}>
             <img src={closeIcon} alt="close icon" />

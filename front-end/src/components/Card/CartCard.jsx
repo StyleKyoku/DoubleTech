@@ -12,7 +12,6 @@ const CartCard = ({ product, quantity, onUpdateQuantity }) => {
 
     return `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
   };
-  console.log("CartCard product:", product);
 
   return (
     <section className={styles["cart-card"]}>

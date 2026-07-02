@@ -144,7 +144,7 @@ export default function ProductPage({ id }) {
 
   const recommendedProducts = products
     .filter((product) => product.id !== productData.id)
-    .slice(0, 4);
+    .slice(0, 6);
 
   return (
     <main className={styles["product-page"]}>

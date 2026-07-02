@@ -2,3 +2,108 @@
 @use "../../../styles/tokens" as t;
 @use "../../../styles/mixins" as mx;
 @use "../../../styles/mixins/elevation" as elev;
+
+.profile {
+  padding: t.space(l) t.space(4xl);
+
+  @include mx.mqDown(tb) {
+    padding: t.space(l) t.space(l);
+  }
+
+  @include mx.mqDown(mb) {
+    padding: t.space(l) t.space(6);
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    gap: t.space(6);
+
+    @include mx.mqDown(tb) {
+      gap: t.space(4);
+    }
+
+    @include mx.mqDown(mb) {
+      gap: t.space(3);
+    }
+
+    img {
+      width: 50px;
+      border-radius: 50%;
+
+      @include mx.mqDown(tb) {
+        width: 40px;
+      }
+
+      @include mx.mqDown(mb) {
+        width: 30px;
+      }
+    }
+
+    .username {
+      @include mx.fluid-text(h6);
+      font-weight: t.font-weight(regular);
+    }
+  }
+
+  .actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: t.space(4);
+    margin: t.space(8) 0;
+
+    .action-buttons-group {
+      width: 100%;
+      display: flex;
+      align-items: center;
+
+      .action-button {
+        @include mx.button-base(ghost, md, true);
+        justify-content: space-between;
+        height: 75px;
+        padding: t.space(2) t.space(4);
+        border: 1px solid t.color(border-dark);
+        border-radius: 0;
+        box-sizing: border-box;
+        overflow: hidden;
+
+        @include mx.mqDown(tb) {
+          height: 60px;
+          padding: t.space(2) t.space(3);
+        }
+
+        @include mx.mqDown(mb) {
+          height: 50px;
+          padding: t.space(1) t.space(2);
+        }
+
+        .button-text {
+          display: flex;
+          flex-direction: column;
+          align-items: start;
+
+          & p:last-child {
+            @include mx.fluid-text(body);
+            font-weight: t.font-weight(regular);
+            margin-top: - t.space(2);
+          }
+        }
+
+        img {
+          width: 25px;
+
+          @include mx.mqDown(tb) {
+            width: 20px;
+          }
+
+          @include mx.mqDown(mb) {
+            width: 15px;
+          }
+        }
+      }
+    }
+  }
+}

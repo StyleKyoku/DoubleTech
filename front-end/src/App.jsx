@@ -6,8 +6,8 @@ import LoginPage from "./pages/auth/LoginPage/LoginPage";
 import Catalog from "./pages/Catalog/Catalog";
 import ProfilePage from "./pages/account/ProfilePage/ProfilePage";
 import Test1 from "./pages/Tests/test1.jsx";
-
 import ProductPage from "./pages/ProductPage/ProductPage.jsx";
+import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 
 export default function App() {
   return (
@@ -18,9 +18,13 @@ export default function App() {
         <Route path="/test1" element={<Test1 />} />
         <Route path="/product" element={<ProductPage />} />
       </Route>
-      <Route path="/login" element={<LoginPage />} />
       <Route element={<ProfileLayout />}>
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/login" element={<LoginPage />} />
+      </Route>
+      <Route element={<ProtectedRoute />}>
+        <Route element={<ProfileLayout />}>
+          <Route path="/profile" element={<ProfilePage />} />
+        </Route>
       </Route>
     </Routes>
   );

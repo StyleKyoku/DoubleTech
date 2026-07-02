@@ -4,6 +4,7 @@ import Footer from "../components/Footer/Footer";
 import Cart from "../components/Cart/Cart";
 import { CartProvider } from "../context/CartContext";
 import { ProductProvider } from "../context/ProductContext";
+import { AuthProvider } from "../context/AuthContext";
 
 export default function RootLayout() {
   const { pathname } = useLocation();
@@ -13,16 +14,12 @@ export default function RootLayout() {
   if (pathname === "/") headerVariant = "home";
   return (
     <>
-      <ProductProvider>
-        <CartProvider>
-          <Header variant={headerVariant} />
-          <Cart />
-          <main>
-            <Outlet />
-          </main>
-          <Footer />
-        </CartProvider>
-      </ProductProvider>
+      <Header variant={headerVariant} />
+      <Cart />
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
     </>
   );
 }

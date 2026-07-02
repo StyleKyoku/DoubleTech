@@ -1,48 +1,63 @@
 import React from "react";
 import styles from "./ProfilePage.module.scss";
+import { Link } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
+import { useCart } from "../../../context/CartContext";
 import { useLocation } from "react-router-dom";
 
 import Card from "../../../components/Card/Card";
-import ChangeWindow from "./ProfileChangeWindow/ProfileChangeWindow";
+import Recommendations from "../../../components/Recommendations/Recommendations";
+import AccountSettings from "./Modals/AccountSettings";
 
 import defaultAvatar from "/assets/images/profile/default-avatar.svg";
 import cartIcon from "/assets/images/profile/cart.svg";
 import starIcon from "/assets/images/profile/star.svg";
 
 const ProfilePage = () => {
-  const defaultUser = {
-    name: "John",
-    surname: "Doe",
-    email: "1",
-    phone: "2",
-  };
+  const { user } = useAuth();
   const location = useLocation();
-  const user = location.state ?? defaultUser;
+
+  const { cartItems, toggleCart } = useCart();
   return (
     <section className={styles["profile"]}>
+      <AccountSettings user={user} />
       <div className={styles.header}>
         <img src={defaultAvatar} alt="User Avatar" />
         <h2 className={styles.username}>
-          {user.name} {user.surname} lorem
+          {user.name} {user.surname}
         </h2>
       </div>
-      <ChangeWindow user={user} />
       <section className={styles.actions}>
-        <div>
+        <div className={styles["action-buttons-group"]}>
           <button className={styles["action-button"]}>Settings</button>
           <button className={styles["action-button"]}>Support</button>
         </div>
-        <button className={styles["action-button"]}>
-          Cart <img src={cartIcon} alt="Cart icon" />
-        </button>
-        <button className={styles["action-button"]}>
-          Order history <img src={starIcon} alt="star icon" />
-        </button>
+        <div className={styles["action-buttons-group"]}>
+          <button className={styles["action-button"]} onClick={toggleCart}>
+            <div className={styles["button-text"]}>
+              <p>Cart</p>
+              <p>
+                {cartItems.length} {cartItems.length === 0 ? "item" : "items"}
+              </p>
+            </div>
+            <img src={cartIcon} alt="Cart icon" />
+          </button>
+          <button className={styles["action-button"]}>
+            <div className={styles["button-text"]}>
+              <p>Order history</p>
+              <p>n orders</p>
+              {/* -- Replace 'n' with the actual number of orders --> */}
+            </div>
+            <img src={starIcon} alt="star icon" />
+          </button>
+        </div>
+        <div className={styles["action-buttons-group"]}>
+          <Link to="/" className={styles["action-button"]}>
+            <button>Back to homepage</button>
+          </Link>
+        </div>
       </section>
-      <section className={styles.recommendations}>
-        <h2>You might be interested</h2>
-        <div className={styles["recommendation-list"]}></div>
-      </section>
+      <Recommendations count={6} />
     </section>
   );
 };
