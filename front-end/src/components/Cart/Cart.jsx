@@ -49,11 +49,7 @@ const Cart = () => {
         </div>
         <div className={styles["cart-items"]}>
           {cartProducts.map((item) => (
-            <CartCard
-              key={item.id}
-              product={item}
-              onUpdateQuantity={updateQuantity}
-            />
+            <CartCard key={item.id} product={item} />
           ))}
         </div>
         <div className={styles["cart-footer"]}>

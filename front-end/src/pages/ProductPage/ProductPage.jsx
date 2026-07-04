@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import styles from "./ProductPage.module.scss";
 
 import notInCart from "/assets/images/products/notLiked.svg";
@@ -9,7 +10,9 @@ import tick2 from "/assets/images/products/tick2.svg";
 import cartIcon from "/assets/images/products/cart.svg";
 
 import Card from "../../components/Card/Card.jsx";
+import Recommendations from "../../components/Recommendations/Recommendations.jsx";
 
+import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 import { useProducts } from "../../context/ProductContext";
 
@@ -77,15 +80,26 @@ const getPublicPath = (path) => {
   return `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
 };
 
-export default function ProductPage({ id }) {
+export default function ProductPage() {
+  const { productId } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  function redirectToLogin() {
+    navigate("/login", {
+      state: { from: location.pathname + location.search },
+    });
+  }
+
+  const { isAuth, authLoading } = useAuth();
   const { cartItems, addToCart, removeFromCart, openCart, cartActionLoading } =
     useCart();
 
   const { products, productsLoading, productsError } = useProducts();
 
-  const productData = id
-    ? products.find((product) => String(product.id) === String(id))
-    : products[0];
+  const productData = products.find(
+    (product) => String(product.id) === String(productId),
+  );
 
   const [memorySelect, setMemorySelect] = React.useState("");
   const [colorSelect, setColorSelect] = React.useState("");
@@ -129,18 +143,22 @@ export default function ProductPage({ id }) {
 
   const cart = inBasket ? isInCart : notInCart;
 
-  const handleCartClick = () => {
-    if (inBasket) {
-      removeFromCart(productData.id);
-    } else {
-      addToCart(productData.id);
+  async function handleCartClick() {
+    if (authLoading) {
+      return;
     }
-  };
 
-  const handleBuyClick = () => {
-    addToCart(productData.id);
-    openCart();
-  };
+    if (!isAuth) {
+      redirectToLogin();
+      return;
+    }
+
+    if (inBasket) {
+      await removeFromCart(productData.id);
+    } else {
+      await addToCart(productData.id);
+    }
+  }
 
   const recommendedProducts = products
     .filter((product) => product.id !== productData.id)
@@ -275,7 +293,6 @@ export default function ProductPage({ id }) {
 
           <button
             className={styles["add-to-cart-button"]}
-            onClick={handleBuyClick}
             disabled={cartActionLoading}
           >
             <img src={cartIcon} className="cart-icon" alt="cart icon" />
@@ -325,33 +342,7 @@ export default function ProductPage({ id }) {
           </div>
         </div>
       </section>
-
-      <section className={styles["product-recs"]}>
-        <h2 className={styles["product-recs-title"]}>You may also like</h2>
-
-        <div className={styles["product-recs-wrapper"]}>
-          {recommendedProducts.map((product) => {
-            const productInBasket = cartItems.some((item) => {
-              return String(item.productId) === String(product.id);
-            });
-
-            return (
-              <Card
-                key={product.id}
-                id={product.id}
-                title={product.title}
-                price={product.price}
-                imageUrl={product.imageUrls[0]}
-                inBasket={productInBasket}
-                category={product.category}
-                brand={product.brand}
-                onSale={product.onSale}
-                originalPrice={product.oldPrice}
-              />
-            );
-          })}
-        </div>
-      </section>
+      <Recommendations count={6} />
     </main>
   );
 }

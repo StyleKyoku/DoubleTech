@@ -20,7 +20,7 @@ export function AuthProvider({ children }) {
   const loadCurrentUser = React.useCallback(async () => {
     setAuthLoading(true);
     try {
-      const currentUser = await findCurrentUser();
+      const currentUser = await getCurrentUser();
       setUser(currentUser.user);
       setAuthError(null);
       setToken(currentUser.token);
@@ -110,6 +110,12 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  const clearAuth = React.useCallback(() => {
+    setUser(null);
+    setToken(null);
+    setAuthError(null);
+  }, []);
+
   const value = React.useMemo(
     () => ({
       user,
@@ -122,6 +128,7 @@ export function AuthProvider({ children }) {
       register,
       logout,
       updateProfile,
+      clearAuth,
     }),
     [
       user,
@@ -133,6 +140,7 @@ export function AuthProvider({ children }) {
       register,
       logout,
       updateProfile,
+      clearAuth,
     ],
   );
 

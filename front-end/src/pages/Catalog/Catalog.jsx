@@ -95,12 +95,12 @@ const Catalog = () => {
               className={`${styles["item-heading"]} ${isMenuOpen === "type" ? styles["active"] : ""}`}
             >
               Type of product
+              <img
+                src={arrowIcon}
+                alt="arrow icon"
+                className={`${styles["arrow-icon"]} ${isMenuOpen === "type" ? styles["active"] : ""}`}
+              />
             </button>
-            <img
-              src={arrowIcon}
-              alt="arrow icon"
-              className={`${styles["arrow-icon"]} ${isMenuOpen === "type" ? styles["active"] : ""}`}
-            />
           </div>
           <div
             className={`${styles["item-options"]} ${isMenuOpen === "type" ? styles["open"] : ""}`}
@@ -127,12 +127,12 @@ const Catalog = () => {
               className={`${styles["item-heading"]} ${isMenuOpen === "price" ? styles["active"] : ""}`}
             >
               Price
+              <img
+                src={arrowIcon}
+                alt="arrow icon"
+                className={`${styles["arrow-icon"]} ${isMenuOpen === "price" ? styles["active"] : ""}`}
+              />
             </button>
-            <img
-              src={arrowIcon}
-              alt="arrow icon"
-              className={`${styles["arrow-icon"]} ${isMenuOpen === "price" ? styles["active"] : ""}`}
-            />
           </div>
           <div
             className={`${styles["item-options"]} ${isMenuOpen === "price" ? styles["open"] : ""}`}
@@ -208,12 +208,12 @@ const Catalog = () => {
               className={`${styles["item-heading"]} ${isMenuOpen === "category" ? styles["active"] : ""}`}
             >
               Category
+              <img
+                src={arrowIcon}
+                alt="arrow icon"
+                className={`${styles["arrow-icon"]} ${isMenuOpen === "category" ? styles["active"] : ""}`}
+              />
             </button>
-            <img
-              src={arrowIcon}
-              alt="arrow icon"
-              className={`${styles["arrow-icon"]} ${isMenuOpen === "category" ? styles["active"] : ""}`}
-            />
           </div>
           <div
             className={`${styles["item-options"]} ${isMenuOpen === "category" ? styles["open"] : ""}`}
@@ -242,12 +242,12 @@ const Catalog = () => {
               className={`${styles["item-heading"]} ${isMenuOpen === "brand" ? styles["active"] : ""}`}
             >
               Brand
+              <img
+                src={arrowIcon}
+                alt="arrow icon"
+                className={`${styles["arrow-icon"]} ${isMenuOpen === "brand" ? styles["active"] : ""}`}
+              />
             </button>
-            <img
-              src={arrowIcon}
-              alt="arrow icon"
-              className={`${styles["arrow-icon"]} ${isMenuOpen === "brand" ? styles["active"] : ""}`}
-            />
           </div>
           <div
             className={`${styles["item-options"]} ${isMenuOpen === "brand" ? styles["open"] : ""}`}

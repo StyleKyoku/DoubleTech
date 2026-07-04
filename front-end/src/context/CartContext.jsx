@@ -6,6 +6,7 @@ import {
   updateQuantityItem,
   clearCartItem,
 } from "../api/cartApi";
+import { useAuth } from "./AuthContext";
 
 const CartContext = React.createContext(null);
 
@@ -14,6 +15,9 @@ export const CartProvider = ({ children }) => {
   const [cartLoading, setCartLoading] = React.useState(false);
   const [cartActionLoading, setCartActionLoading] = React.useState(false);
   const [cartError, setCartError] = React.useState(null);
+
+  const { user, authLoading } = useAuth();
+  const [cartItems, setCartItems] = React.useState([]);
 
   const toggleCart = React.useCallback(() => {
     setIsCartOpen((prev) => !prev);
@@ -27,17 +31,15 @@ export const CartProvider = ({ children }) => {
     setIsCartOpen(false);
   }, []);
 
-  const [cartItems, setCartItems] = React.useState([
-    { productId: 123435, quantity: 3 },
-    { productId: 123438, quantity: 1 },
-    { productId: 123433, quantity: 2 },
-    { productId: 123434, quantity: 1 },
-  ]);
-
   const getCart = React.useCallback(async () => {
+    if (!user) {
+      setCartItems([]);
+      return;
+    }
+
     try {
       setCartLoading(true);
-      const data = await getCartItems();
+      const data = await getCartItems(user.id);
       setCartItems(data.cartItems);
     } catch (error) {
       setCartError(error.message);
@@ -45,70 +47,116 @@ export const CartProvider = ({ children }) => {
     } finally {
       setCartLoading(false);
     }
-  }, []);
+  }, [user]);
 
   React.useEffect(() => {
+    if (authLoading) {
+      return;
+    }
+
     getCart();
-  }, [getCart]);
+  }, [authLoading, getCart]);
 
-  const addToCart = React.useCallback(async (productId) => {
-    try {
-      setCartActionLoading(true);
-      const data = await addToCartItem(productId);
-
-      setCartItems(data.cartItems);
-    } catch (error) {
-      setCartError(error.message);
-      console.error("Error adding to cart:", error);
-    } finally {
-      setCartActionLoading(false);
+  React.useEffect(() => {
+    if (authLoading) {
+      return;
     }
-  }, []);
 
-  const removeFromCart = React.useCallback(async (productId) => {
-    try {
-      setCartActionLoading(true);
-      const data = await removeFromCartItem(productId);
-      setCartItems(data.cartItems);
-    } catch (error) {
-      setCartError(error.message);
-      console.error("Error removing from cart:", error);
-    } finally {
-      setCartActionLoading(false);
+    if (!user) {
+      setCartItems([]);
+      setIsCartOpen(false);
+      setCartError(null);
     }
-  }, []);
+  }, [authLoading, user]);
 
-  const updateQuantity = React.useCallback(
-    async (productId, quantity) => {
+  const addToCart = React.useCallback(
+    async (productId) => {
+      if (!user) {
+        setCartError("User not authenticated");
+        return false;
+      }
+
       try {
         setCartActionLoading(true);
-        if (quantity <= 0) {
-          return await removeFromCart(productId);
-        }
+        const data = await addToCartItem(user.id, productId);
 
-        const data = await updateQuantityItem(productId, quantity);
         setCartItems(data.cartItems);
+        return true;
       } catch (error) {
         setCartError(error.message);
-        console.error("Error updating cart quantity:", error);
+        console.error("Error adding to cart:", error);
+        return false;
       } finally {
         setCartActionLoading(false);
       }
     },
-    [removeFromCart],
+    [user],
+  );
+
+  const removeFromCart = React.useCallback(
+    async (productId) => {
+      if (!user) {
+        setCartError("User not authenticated");
+        return false;
+      }
+      try {
+        setCartActionLoading(true);
+        const data = await removeFromCartItem(user.id, productId);
+        setCartItems(data.cartItems);
+        return true;
+      } catch (error) {
+        setCartError(error.message);
+        console.error("Error removing from cart:", error);
+        return false;
+      } finally {
+        setCartActionLoading(false);
+      }
+    },
+    [user],
+  );
+
+  const updateQuantity = React.useCallback(
+    async (productId, quantity) => {
+      if (!user) {
+        setCartError("User not authenticated");
+        return false;
+      }
+      try {
+        setCartActionLoading(true);
+        const data = await updateQuantityItem(user.id, productId, quantity);
+        setCartItems(data.cartItems);
+        return true;
+      } catch (error) {
+        setCartError(error.message);
+        console.error("Error updating cart quantity:", error);
+        return false;
+      } finally {
+        setCartActionLoading(false);
+      }
+    },
+    [user],
   );
 
   const clearCart = React.useCallback(async () => {
+    if (!user) {
+      setCartError("User not authenticated");
+      return false;
+    }
     try {
       setCartActionLoading(true);
-      const data = await clearCartItem();
+      setCartError(null);
+
+      const data = await clearCartItem(user.id);
       setCartItems(data.cartItems);
+      return true;
     } catch (error) {
+      setCartError(error.message);
       console.error("Error clearing cart:", error);
+      return false;
     } finally {
       setCartActionLoading(false);
     }
-  }, []);
+  }, [user]);
 
   const value = React.useMemo(
     () => ({

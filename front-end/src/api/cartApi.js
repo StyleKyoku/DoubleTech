@@ -1,6 +1,95 @@
+import { cartItems } from "../data/cartItems";
+
+function getPublicUserCart(userId) {
+  const userCartItems = cartItems.filter((item) => item.userId === userId);
+
+  return userCartItems.map(toPublicCartItem);
+}
+
+function toPublicCartItem(cartItem) {
+  return {
+    productId: cartItem.productId,
+    quantity: cartItem.quantity,
+  };
+}
+
+export async function getCartItems(userId) {
+  return {
+    cartItems: getPublicUserCart(userId),
+  };
+}
+
+export async function addToCartItem(userId, productId) {
+  const existingCartItem = cartItems.find(
+    (item) => item.userId === userId && item.productId === productId,
+  );
+
+  if (existingCartItem) {
+    existingCartItem.quantity += 1;
+  } else {
+    const newCartItem = {
+      id: Date.now(),
+      userId,
+      productId,
+      quantity: 1,
+    };
+    cartItems.push(newCartItem);
+  }
+
+  return {
+    cartItems: getPublicUserCart(userId),
+  };
+}
+
+export async function removeFromCartItem(userId, productId) {
+  const existingCartItem = cartItems.find(
+    (item) => item.userId === userId && item.productId === productId,
+  );
+
+  if (existingCartItem) {
+    const index = cartItems.indexOf(existingCartItem);
+    cartItems.splice(index, 1);
+  }
+
+  return {
+    cartItems: getPublicUserCart(userId),
+  };
+}
+
+export async function updateQuantityItem(userId, productId, quantity) {
+  if (quantity <= 0) {
+    return removeFromCartItem(userId, productId);
+  }
+
+  const existingCartItem = cartItems.find(
+    (item) => item.userId === userId && item.productId === productId,
+  );
+
+  if (existingCartItem) {
+    existingCartItem.quantity = quantity;
+  }
+
+  return {
+    cartItems: getPublicUserCart(userId),
+  };
+}
+
+export async function clearCartItem(userId) {
+  const userCartItems = cartItems.filter((item) => item.userId === userId);
+  userCartItems.forEach((item) => {
+    const index = cartItems.indexOf(item);
+    cartItems.splice(index, 1);
+  });
+
+  return {
+    cartItems: [],
+  };
+}
+
+/*
 const API_URL_BASE = "http://localhost:3000/api/cart";
 
-async function handleResponse(response) {
+  async function handleResponse(response) {
   if (!response.ok) {
     throw new Error("API request failed");
   }
@@ -49,3 +138,5 @@ export async function clearCartItem() {
   });
   return handleResponse(response);
 }
+
+*/

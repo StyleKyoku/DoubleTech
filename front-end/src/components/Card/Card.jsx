@@ -1,8 +1,9 @@
 import React from "react";
+import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/AuthContext";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import styles from "./Card.module.scss";
-// import api from "../../api/api";
 
 import sale from "/assets/images/products/sales.svg";
 import cart from "/assets/images/products/cart.svg";
@@ -12,40 +13,44 @@ const Card = ({
   title,
   price,
   imageUrl,
-  inBasket = false,
   category = "everything",
   onSale,
   originalPrice = "",
 }) => {
-  const [isInBasket, setIsInBasket] = React.useState(Boolean(inBasket));
+  const { cartItems, addToCart, removeFromCart, openCart } = useCart();
+  const { isAuth, authLoading } = useAuth();
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  function redirectToLogin() {
+    navigate("/login", {
+      state: { from: location.pathname + location.search },
+    });
+  }
+
+  const isInBasket = cartItems.some((item) => item.productId === id);
 
   const [cardInfo, setCardInfo] = React.useState({
     title: "",
     description: "",
   });
 
-  /*  React.useEffect(() => {
-    async function fetchCard() {
-      try {
-        const response = await api.get("/card");
-        setCardInfo((data) => ({
-          title: response.data.title || "",
-          description: response.data.description || "",
-        }));
-      } catch (error) {
-        console.error("Error: ", error);
-      }
+  async function handleBasket() {
+    if (authLoading) {
+      return;
     }
-    fetchCard();
-  }, []);*/
 
-  const handleBasket = () => {
-    setIsInBasket((prev) => !prev);
-  };
-
-  const handleBuy = () => {
-    setIsInBasket(true);
-  };
+    if (!isAuth) {
+      redirectToLogin();
+      return;
+    }
+    if (isInBasket) {
+      await removeFromCart(id);
+    } else {
+      await addToCart(id);
+    }
+  }
 
   return (
     <div className={styles.card}>
@@ -63,11 +68,13 @@ const Card = ({
             className={styles["like-icon"]}
           />
         </button>
-        <img
-          src={import.meta.env.BASE_URL + imageUrl}
-          alt={title}
-          className={styles["card-image"]}
-        />
+        <Link to={`/product/${id}`}>
+          <img
+            src={import.meta.env.BASE_URL + imageUrl}
+            alt={title}
+            className={styles["card-image"]}
+          />
+        </Link>
       </div>
       <div className={styles["card-info"]}>
         <div className={styles["card-price-container"]}>
@@ -89,13 +96,14 @@ const Card = ({
         </div>
         <p className={styles["card-category"]}>for {category}</p>
       </div>
-      <small className={styles["card-title"]}>{title}</small>
-      <Link to="/product">
-        <button className={styles["card-buy"]} onClick={handleBuy}>
-          <img src={cart} alt="Cart icon" className={styles["cart-icon"]} />
-          Buy
-        </button>
-      </Link>
+      <small className={styles["card-title"]}>
+        {" "}
+        <Link to={`/product/${id}`}>{title}</Link>
+      </small>
+      <button className={styles["card-buy"]}>
+        <img src={cart} alt="Cart icon" className={styles["cart-icon"]} />
+        Buy
+      </button>
     </div>
   );
 };

@@ -3,12 +3,14 @@ import styles from "./LoginPage.module.scss";
 
 import { useAuth } from "../../../context/AuthContext";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import logo from "/assets/images/logo.svg";
 
 export default function LoginPage() {
   const navigate = useNavigate();
+  const location = useLocation();
+
   const { login, register, isAuth, authActionLoading } = useAuth();
   const [chooseAction, setChooseAction] = React.useState("login");
 

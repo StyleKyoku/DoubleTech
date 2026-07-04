@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./CartCard.module.scss";
 import { useCart } from "../../context/CartContext";
 
-const CartCard = ({ product, quantity, onUpdateQuantity }) => {
+const CartCard = ({ product }) => {
   const getPublicPath = (path) => {
     if (!path) return "";
 
@@ -12,6 +12,8 @@ const CartCard = ({ product, quantity, onUpdateQuantity }) => {
 
     return `${import.meta.env.BASE_URL}${path.replace(/^\//, "")}`;
   };
+
+  const { cartActionLoading, updateQuantity, removeFromCart } = useCart();
 
   return (
     <section className={styles["cart-card"]}>
@@ -30,17 +32,21 @@ const CartCard = ({ product, quantity, onUpdateQuantity }) => {
       </div>
       <div className={styles["product-controls"]}>
         <div className={styles["quantity-controls"]}>
-          <button onClick={() => onUpdateQuantity(product.id, quantity - 1)}>
+          <button
+            onClick={() => updateQuantity(product.id, product.quantity - 1)}
+          >
             -
           </button>
           <span>{product.quantity}</span>
-          <button onClick={() => onUpdateQuantity(product.id, quantity + 1)}>
+          <button
+            onClick={() => updateQuantity(product.id, product.quantity + 1)}
+          >
             +
           </button>
         </div>
         <button
           className={styles["remove-button"]}
-          onClick={() => onRemove(product.id)}
+          onClick={() => removeFromCart(product.id)}
         >
           Remove
         </button>
