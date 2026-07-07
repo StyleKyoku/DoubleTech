@@ -3,6 +3,7 @@ import styles from "./ProfilePage.module.scss";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import { useCart } from "../../../context/CartContext";
+import { useOrders } from "../../../context/OrdersContext";
 import { useLocation } from "react-router-dom";
 
 import Card from "../../../components/Card/Card";
@@ -18,6 +19,7 @@ const ProfilePage = () => {
   const location = useLocation();
 
   const { cartItems, toggleCart } = useCart();
+  const { orders, ordersCount, activeOrdersCount } = useOrders();
   return (
     <section className={styles["profile"]}>
       <AccountSettings user={user} />
@@ -44,9 +46,12 @@ const ProfilePage = () => {
           </button>
           <button className={styles["action-button"]}>
             <div className={styles["button-text"]}>
-              <p>Order history</p>
-              <p>n orders</p>
-              {/* -- Replace 'n' with the actual number of orders --> */}
+              <p>My orders</p>
+              <p>
+                {activeOrdersCount > 0
+                  ? `${activeOrdersCount} ${activeOrdersCount === 1 ? "active order" : "active orders"}`
+                  : `${ordersCount} ${ordersCount === 1 ? "order" : "orders"}`}
+              </p>{" "}
             </div>
             <img src={starIcon} alt="star icon" />
           </button>

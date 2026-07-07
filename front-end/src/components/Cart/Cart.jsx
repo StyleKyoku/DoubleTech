@@ -1,15 +1,20 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCart } from "../../context/CartContext";
 import styles from "./Cart.module.scss";
 
 import closeIcon from "/assets/images/global_icons/close-icon.svg";
 import CartCard from "../Card/CartCard";
 import { useProducts } from "../../context/ProductContext";
+import { useOrders } from "../../context/OrdersContext";
 
 const Cart = () => {
-  const { isCartOpen, closeCart, cartItems, updateQuantity } = useCart();
+  const navigate = useNavigate();
+
+  const { isCartOpen, closeCart, cartItems, updateQuantity, clearCart } =
+    useCart();
   const { productById, productsLoading } = useProducts();
+  const { createOrdersFromItems, orderActionLoading } = useOrders();
 
   const cartProducts = productsLoading
     ? []
@@ -28,6 +33,22 @@ const Cart = () => {
           };
         })
         .filter(Boolean);
+
+  async function handleCheckout() {
+    if (cartItems.length === 0) {
+      return;
+    }
+
+    const createdOrders = await createOrdersFromItems(cartItems);
+
+    if (!createdOrders.length) {
+      return;
+    }
+
+    await clearCart();
+    closeCart();
+    navigate("/orders");
+  }
 
   return (
     <div
@@ -64,9 +85,14 @@ const Cart = () => {
             </p>
           </div>
           <div className={styles["continue-shopping"]}>
-            <Link to="/checkout" className={styles["checkout-button"]}>
-              Proceed to Checkout
-            </Link>
+            <button
+              type="button"
+              className={styles["checkout-button"]}
+              onClick={handleCheckout}
+              disabled={cartItems.length === 0 || orderActionLoading}
+            >
+              {orderActionLoading ? "Processing..." : "Proceed to Checkout"}
+            </button>
           </div>
         </div>
       </div>

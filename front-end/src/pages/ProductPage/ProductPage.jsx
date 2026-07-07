@@ -15,6 +15,7 @@ import Recommendations from "../../components/Recommendations/Recommendations.js
 import { useAuth } from "../../context/AuthContext";
 import { useCart } from "../../context/CartContext";
 import { useProducts } from "../../context/ProductContext";
+import { useOrders } from "../../context/OrdersContext";
 
 const colorMap = {
   midnight: "#1f2937",
@@ -96,6 +97,7 @@ export default function ProductPage() {
     useCart();
 
   const { products, productsLoading, productsError } = useProducts();
+  const { buyNow, orderActionLoading } = useOrders();
 
   const productData = products.find(
     (product) => String(product.id) === String(productId),
@@ -143,7 +145,7 @@ export default function ProductPage() {
 
   const cart = inBasket ? isInCart : notInCart;
 
-  async function handleCartClick() {
+  async function handleBuyNow() {
     if (authLoading) {
       return;
     }
@@ -153,11 +155,13 @@ export default function ProductPage() {
       return;
     }
 
-    if (inBasket) {
-      await removeFromCart(productData.id);
-    } else {
-      await addToCart(productData.id);
+    const createdOrders = await buyNow(productData.id, 1);
+
+    if (!createdOrders.length) {
+      return;
     }
+
+    navigate("/orders");
   }
 
   const recommendedProducts = products
@@ -211,7 +215,6 @@ export default function ProductPage() {
               <img src={cart} alt="in cart icon" />
             </button>
           </div>
-
           <div className={styles["product-price-section"]}>
             <div className={styles["product-price-container"]}>
               {productData.onSale ? (
@@ -239,7 +242,6 @@ export default function ProductPage() {
               )}
             </div>
           </div>
-
           <div className={styles["product-color-section"]}>
             <div className={styles["product-color-icons"]}>
               {productData.productSpecs.color.map((color, index) => (
@@ -272,7 +274,6 @@ export default function ProductPage() {
               color: {colorSelect.toLowerCase()}
             </p>
           </div>
-
           <div className={styles["product-memory-section"]}>
             {productData.productSpecs.memory.map((mem, index) => (
               <button
@@ -286,18 +287,17 @@ export default function ProductPage() {
               </button>
             ))}
           </div>
-
           <p className={styles["product-description"]}>
             {productData.smallDescription}
           </p>
-
           <button
             className={styles["add-to-cart-button"]}
-            disabled={cartActionLoading}
+            onClick={handleBuyNow}
+            disabled={cartActionLoading || orderActionLoading}
           >
             <img src={cartIcon} className="cart-icon" alt="cart icon" />
-            Buy
-          </button>
+            {orderActionLoading ? "Processing..." : "Buy"}
+          </button>{" "}
         </div>
       </section>
 
