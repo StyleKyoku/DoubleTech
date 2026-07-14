@@ -7,7 +7,7 @@ export const products = [
     fullDescription:
       "Apple MacBook Air M3 is a thin and efficient laptop with strong battery life, a bright display, and enough performance for study, office work, browsing, and light creative tasks.",
     type: "laptop",
-    category: "gaming",
+    category: "everyday",
     brand: "Apple",
     onSale: true,
     price: 999,

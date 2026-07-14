@@ -89,6 +89,8 @@ function buildOrderItem(item) {
     title: product.title,
     price: product.price,
     quantity: item.quantity,
+    smallDescription: product.smallDescription,
+    category: product.category,
     imageUrl: product.imageUrls?.[0] || "",
   };
 }

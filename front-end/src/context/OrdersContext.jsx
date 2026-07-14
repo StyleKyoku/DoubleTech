@@ -148,7 +148,7 @@ export function OrdersProvider({ children }) {
       ordersError,
       loadOrders,
       createOrdersFromItems,
-      buyNow,
+      buyNow,      
       changeOrderStatus,
     ],
   );

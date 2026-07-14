@@ -13,6 +13,9 @@ export const orders = [
         title: "Apple MacBook Air M3",
         price: 999,
         quantity: 1,
+        smallDescription:
+          "Lightweight laptop for study, work, and everyday productivity.",
+        category: "everyday",
         imageUrl: "/assets/images/products/sample1.png",
       },
     ],
@@ -30,7 +33,10 @@ export const orders = [
         productId: 123435,
         title: "ASUS ROG Strix G16",
         price: 1499,
-        quantity: 1,
+        quantity: 2,
+        smallDescription:
+          "High-performance gaming laptop with a powerful GPU and fast display.",
+        category: "gaming",
         imageUrl: "/assets/images/products/sample4.png",
       },
     ],
@@ -50,6 +56,9 @@ export const orders = [
         title: "Logitech MX Keys Mini",
         price: 189,
         quantity: 1,
+        smallDescription:
+          "Compact wireless keyboard with backlit keys and ergonomic design.",
+        category: "everyday",
         imageUrl: "/assets/images/products/sample1.png",
       },
     ],
@@ -69,6 +78,9 @@ export const orders = [
         title: "Samsung Galaxy S24",
         price: 1099,
         quantity: 1,
+        smallDescription:
+          "Flagship smartphone with a sleek design, powerful camera, and fast performance.",
+        category: "education",
         imageUrl: "/assets/images/products/sample2.png",
       },
     ],
@@ -88,6 +100,9 @@ export const orders = [
         title: "Xiaomi Pad 6",
         price: 459,
         quantity: 1,
+        smallDescription:
+          "Affordable tablet for entertainment, notes, and multitasking.",
+        category: "business",
         imageUrl: "/assets/images/products/sample3.png",
       },
     ],

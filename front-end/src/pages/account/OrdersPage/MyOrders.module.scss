@@ -1,0 +1,62 @@
+@use "sass:map";
+@use "../../../styles/tokens" as t;
+@use "../../../styles/mixins" as mx;
+@use "../../../styles/mixins/elevation" as elev;
+
+.my-orders {
+  padding: t.space(xl) t.space(4xl);
+
+  @include mx.mqDown(tb) {
+    padding: t.space(l) t.space(l);
+  }
+
+  @include mx.mqDown(mb) {
+    padding: t.space(l) t.space(6);
+  }
+
+  &-header {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: t.space(6);
+
+    &-title {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      & h1 {
+        @include mx.fluid-text(h2);
+      }
+
+      & p {
+        @include mx.fluid-text(h5);
+        font-weight: t.font-weight(regular);
+      }
+    }
+  }
+  &-content {
+    display: flex;
+    flex-direction: column;
+
+    margin-top: t.space(6);
+    gap: t.space(xl);
+
+    &-category {
+      display: flex;
+      flex-direction: column;
+      gap: t.space(6);
+
+      & h2 {
+        @include mx.fluid-text(h3);
+      }
+
+      .orders-list {
+        display: flex;
+        flex-direction: column;
+        gap: t.space(4);
+      }
+    }
+  }
+}

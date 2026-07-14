@@ -93,7 +93,7 @@ export default function ProductPage() {
   }
 
   const { isAuth, authLoading } = useAuth();
-  const { cartItems, addToCart, removeFromCart, openCart, cartActionLoading } =
+  const { cartItems, toggleCart, addToCart, removeFromCart, openCart, cartActionLoading } =
     useCart();
 
   const { products, productsLoading, productsError } = useProducts();
@@ -144,6 +144,23 @@ export default function ProductPage() {
   });
 
   const cart = inBasket ? isInCart : notInCart;
+
+  async function handleCartClick() {
+    if (authLoading) {
+      return;
+    }
+
+    if (!isAuth) {
+      redirectToLogin();
+      return;
+    }
+
+    if (inBasket) {
+      await removeFromCart(productData.id);
+    } else {
+      await addToCart(productData.id);
+    }
+  }
 
   async function handleBuyNow() {
     if (authLoading) {
@@ -342,7 +359,9 @@ export default function ProductPage() {
           </div>
         </div>
       </section>
+      <div className={styles["product-recommendations"]}>
       <Recommendations count={6} />
+      </div>
     </main>
   );
 }

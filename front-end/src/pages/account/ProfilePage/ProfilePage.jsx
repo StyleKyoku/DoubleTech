@@ -44,17 +44,19 @@ const ProfilePage = () => {
             </div>
             <img src={cartIcon} alt="Cart icon" />
           </button>
-          <button className={styles["action-button"]}>
-            <div className={styles["button-text"]}>
-              <p>My orders</p>
-              <p>
-                {activeOrdersCount > 0
-                  ? `${activeOrdersCount} ${activeOrdersCount === 1 ? "active order" : "active orders"}`
-                  : `${ordersCount} ${ordersCount === 1 ? "order" : "orders"}`}
-              </p>{" "}
-            </div>
-            <img src={starIcon} alt="star icon" />
-          </button>
+          <Link to="/orders" className={styles["action-button"]}>
+
+              <div className={styles["button-text"]}>
+                <p>My orders</p>
+                <p>
+                  {activeOrdersCount > 0
+                    ? `${activeOrdersCount} ${activeOrdersCount === 1 ? "active order" : "active orders"}`
+                    : `${ordersCount} ${ordersCount === 1 ? "order" : "orders"}`}
+                </p>
+              </div>
+              <img src={starIcon} alt="star icon" />
+
+          </Link>
         </div>
         <div className={styles["action-buttons-group"]}>
           <Link to="/" className={styles["action-button"]}>

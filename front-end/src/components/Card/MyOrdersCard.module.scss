@@ -1,0 +1,132 @@
+@use "sass:map";
+@use "../../styles/tokens" as t;
+@use "../../styles/mixins" as mx;
+@use "../../styles/mixins/elevation" as elev;
+
+.my-orders-card {
+  display: flex;
+  flex-direction: column;
+
+  border-radius: t.rad(lg);
+  background-color: t.color(surface-1);
+
+  border: 1px solid t.color(border-dark);
+
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: t.space(4) t.space(6);
+
+    border-bottom: 1px solid t.color(border-dark);
+
+    & h2 {
+      @include mx.fluid-text(h4);
+    }
+
+    & p {
+      @include mx.fluid-text(h6);
+      font-weight: t.font-weight(regular);
+    }
+  }
+
+  &-body {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: t.space(5) t.space(4);
+    
+    .card-description {
+      display: flex;
+      gap: calc(t.space(2xl) + t.space(8));
+
+      .card-intro {
+        max-width: 400px;
+        display: flex;
+
+        gap: t.space(4);
+
+        img {
+          width: 140px;
+        }
+
+        &>div {
+          display: flex;
+          flex-direction: column;
+
+          gap: t.space(2);
+
+          & h3 {
+            @include mx.fluid-text(h6);
+          }
+
+          & p {
+            @include mx.fluid-text(body);
+            font-weight: t.font-weight(regular);
+          }
+
+          & p:last-child {
+            color: t.color(text-secondary);
+            margin-top: t.space(1);
+          }
+        }
+      }
+
+      .card-qty {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: t.space(1);
+
+        & p {
+          @include mx.fluid-text(body);
+          font-weight: t.font-weight(regular);
+        }
+      }
+
+      .card-price {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: t.space(1);
+
+        & p {
+          @include mx.fluid-text(body);
+          font-weight: t.font-weight(regular);
+        }
+      }
+
+    }
+    .card-button {
+      @include mx.button-base(ghost, sm, false);
+      font-weight: t.font-weight(regular);
+      border: 1px solid t.color(border-dark);
+      border-radius: t.rad(lg);
+      padding: t.space(2) t.space(3);
+      
+      &:hover {
+        color: t.color(white);
+        background-color: t.color(thirdly);
+        border: none
+      }
+    }
+  }
+
+  .paid {
+    color: t.color(success);
+  }
+
+  .onTheWay {
+    color: t.color(info);
+  }
+
+  .delivered {
+    color: t.color(success);
+  }
+
+  .cancelled {
+    color: t.color(danger);
+  }
+}

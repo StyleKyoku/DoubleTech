@@ -5,6 +5,7 @@ import HomePage from "./pages/HomePage/HomePage.jsx";
 import LoginPage from "./pages/auth/LoginPage/LoginPage";
 import Catalog from "./pages/Catalog/Catalog";
 import ProfilePage from "./pages/account/ProfilePage/ProfilePage";
+import MyOrders from "./pages/account/OrdersPage/MyOrders";
 import Test1 from "./pages/Tests/test1.jsx";
 import ProductPage from "./pages/ProductPage/ProductPage.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
@@ -24,6 +25,7 @@ export default function App() {
       <Route element={<ProtectedRoute />}>
         <Route element={<ProfileLayout />}>
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/orders" element={<MyOrders />} />
         </Route>
       </Route>
     </Routes>
