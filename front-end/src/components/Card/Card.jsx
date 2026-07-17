@@ -78,21 +78,24 @@ const Card = ({
       </div>
       <div className={styles["card-info"]}>
         <div className={styles["card-price-container"]}>
-          {onSale ? (
-            <img
-              src={sale}
-              alt="Sales img"
-              className={styles["card-sales-image"]}
-            />
-          ) : null}
-          <p
-            className={`${styles["card-price"]} ${onSale ? styles["on-sale"] : ""}`}
-          >
-            ${price}
-          </p>
-          {onSale ? (
-            <p className={styles["card-price-original"]}>${originalPrice}</p>
-          ) : null}
+          <div className={styles["card-price-wrapper"]}>
+            {onSale ? (
+              <img
+                src={sale}
+                alt="Sales img"
+                className={styles["card-sales-image"]}
+              />
+            ) : null}
+            <p
+              className={`${styles["card-price"]} ${onSale ? styles["on-sale"] : ""}`}
+            >
+              ${price}
+            </p>
+          
+            {onSale ? (
+              <p className={styles["card-price-original"]}>${originalPrice}</p>
+            ) : null}
+          </div>
         </div>
         <p className={styles["card-category"]}>for {category}</p>
       </div>

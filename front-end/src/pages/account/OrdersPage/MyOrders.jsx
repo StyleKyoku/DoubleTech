@@ -40,30 +40,38 @@ const MyOrders = () => {
         </div>
       </div>
       <div className={styles["my-orders-content"]}>
-        <div className={styles["my-orders-content-category"]}>
-          <h2>Active Orders</h2>
-          {activeOrdersCount > 0 ? (
-            <div className={styles["orders-list"]}>
-              {activeOrders.map((order) => (
-                <MyOrdersCard key={order.id} order={order} />
-              ))}
-            </div>
-          ) : (
-            <p>No active orders</p>
-          )}
-        </div>
-        <div className={styles["my-orders-content-category"]}>
-          <h2>Past Orders</h2>
-          {pastOrdersCount > 0 ? (
-            <div className={styles["orders-list"]}>
-              {pastOrders.map((order) => (
-                <MyOrdersCard key={order.id} order={order} />
-              ))}
-            </div>
-          ) : (
-            <p>No past orders</p>
-          )}
-        </div>
+        {activeOrdersCount === 0 && pastOrdersCount === 0 ? (
+          <div className={styles["my-orders-content-empty"]}>
+            <p>You have no orders yet.</p>
+          </div>
+        ) : (
+          <>
+          <div className={styles["my-orders-content-category"]}>
+            <h2>Active Orders</h2>
+            {activeOrdersCount > 0 ? (
+              <div className={styles["orders-list"]}>
+                {activeOrders.map((order) => (
+                  <MyOrdersCard key={order.id} order={order} />
+                ))}
+              </div>
+            ) : (
+              <p>No active orders</p>
+            )}
+          </div>
+          <div className={styles["my-orders-content-category"]}>
+            <h2>Past Orders</h2>
+            {pastOrdersCount > 0 ? (
+              <div className={styles["orders-list"]}>
+                {pastOrders.map((order) => (
+                  <MyOrdersCard key={order.id} order={order} />
+                ))}
+              </div>
+            ) : (
+              <p>No past orders</p>
+            )}
+          </div>
+          </>
+        )}
       </div>
     </section>
   );

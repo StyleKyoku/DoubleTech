@@ -11,6 +11,7 @@ export const orders = [
       {
         productId: 123432,
         title: "Apple MacBook Air M3",
+        onSale: true,
         price: 999,
         quantity: 1,
         smallDescription:
@@ -32,6 +33,7 @@ export const orders = [
       {
         productId: 123435,
         title: "ASUS ROG Strix G16",
+        onSale: false,
         price: 1499,
         quantity: 2,
         smallDescription:
@@ -54,6 +56,7 @@ export const orders = [
       {
         productId: 123439,
         title: "Logitech MX Keys Mini",
+        onSale: false,
         price: 189,
         quantity: 1,
         smallDescription:
@@ -76,6 +79,7 @@ export const orders = [
       {
         productId: 123433,
         title: "Samsung Galaxy S24",
+        onSale: true,
         price: 1099,
         quantity: 1,
         smallDescription:
@@ -98,6 +102,7 @@ export const orders = [
       {
         productId: 123437,
         title: "Xiaomi Pad 6",
+        onSale: false,
         price: 459,
         quantity: 1,
         smallDescription:

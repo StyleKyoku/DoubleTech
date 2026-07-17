@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./MyOrdersCard.module.scss";
 
+import sale from "/assets/images/products/sales.svg";
+
 const MyOrdersCard = ({ order }) => {
   console.log("Rendering MyOrdersCard for order:", order);
   return (
@@ -12,11 +14,13 @@ const MyOrdersCard = ({ order }) => {
       <div className={styles["my-orders-card-body"]}>
         <div className={styles["card-description"]}>
           <div className={styles["card-intro"]}>
-            <img src={import.meta.env.BASE_URL + order.items[0].imageUrl} alt="order's icon"/>
-            <div>
-              <h3>{order.items[0].title}</h3>
-              <p>{order.items[0].smallDescription}</p>
-              <p>for {order.items[0].category}</p>
+            <div className={styles["product-image-wrapper"]}>
+              <img src={import.meta.env.BASE_URL + order.items[0].imageUrl} alt="order's icon"/>
+            </div>
+            <div className={styles["product-info"]}>
+              <h3 className={styles["product-title"]}>{order.items[0].title}</h3>
+              <p className={styles["product-desc"]}>{order.items[0].smallDescription}</p>
+              <p className={styles["product-category"]}>for {order.items[0].category}</p>
             </div>
           </div>
           <div className={styles["card-qty"]}>
@@ -25,10 +29,16 @@ const MyOrdersCard = ({ order }) => {
           </div>
           <div className={styles["card-price"]}>
             <p>Total</p>
-            <p>{order.total}</p>
+            <div>
+              {order.items[0].onSale ? (<img src={sale} alt="on sale icon"/>) : null} 
+              <p className={order.items[0].onSale ? styles["onSale"] : null}>${order.total}</p>
+            </div>
           </div>
         </div>
-        <button className={styles["card-button"]}>View Details</button>
+        <button className={styles["card-button"]}>
+          <span>View</span> 
+          <span>Details</span>
+        </button>
       </div>
     </div>
   );

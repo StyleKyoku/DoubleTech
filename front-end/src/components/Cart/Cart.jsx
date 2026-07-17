@@ -67,9 +67,13 @@ const Cart = () => {
           <button onClick={closeCart} className={styles["close-button"]}>
             <img src={closeIcon} alt="close icon" />
           </button>
-        </div>
+        </div> 
         <div className={styles["cart-items"]}>
-          {cartProducts.map((item) => (
+          {cartProducts.length === 0 ? (
+            <div className={styles["empty-cart-container"]}>
+              <p className={styles["empty-cart"]}>Your cart is empty.</p>
+            </div>
+          ) : cartProducts.map((item) => (
             <CartCard key={item.id} product={item} />
           ))}
         </div>

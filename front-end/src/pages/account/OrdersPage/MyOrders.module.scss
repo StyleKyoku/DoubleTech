@@ -11,7 +11,7 @@
   }
 
   @include mx.mqDown(mb) {
-    padding: t.space(l) t.space(6);
+    padding: t.space(l) t.space(4);
   }
 
   &-header {
@@ -42,6 +42,10 @@
 
     margin-top: t.space(6);
     gap: t.space(xl);
+
+    &-empty {
+      height: 40vh;
+    }
 
     &-category {
       display: flex;

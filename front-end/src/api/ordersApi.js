@@ -87,6 +87,7 @@ function buildOrderItem(item) {
   return {
     productId: product.id,
     title: product.title,
+    onSale: product.onSale,
     price: product.price,
     quantity: item.quantity,
     smallDescription: product.smallDescription,
