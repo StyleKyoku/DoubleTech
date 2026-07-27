@@ -3,13 +3,12 @@ import styles from "./LoginPage.module.scss";
 
 import { useAuth } from "../../../context/AuthContext";
 
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import logo from "/assets/images/logo.svg";
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const location = useLocation();
 
   const { login, register, isAuth, authActionLoading } = useAuth();
   const [chooseAction, setChooseAction] = React.useState("login");
@@ -25,7 +24,6 @@ export default function LoginPage() {
   });
 
   const [touched, setTouched] = React.useState({});
-  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const [errors, setErrors] = React.useState({});
 
@@ -70,77 +68,37 @@ export default function LoginPage() {
     return err;
   };
 
-  const validateField = (name, value, data, mode) => {
-    const fieldData = { ...data, [name]: value };
-    switch (name) {
-      case "email":
-        if (!fieldData.email) return "Enter your email";
-        else if (!/^\S+@\S+\.\S+$/.test(fieldData.email))
-          return "Invalid e-mail";
-        return "";
-      case "password":
-        if (!fieldData.password) return "Invalid password";
-        else if (fieldData.password.length < 8) return "Min 8 characters";
-        if (mode === "register") {
-          if (
-            !/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}/.test(
-              fieldData.password,
-            )
-          ) {
-            return "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character";
-          }
-        }
-        return "";
-      case "confirmPassword":
-        if (mode === "login") return "";
-        if (!fieldData.confirmPassword) return "Confirm your password";
-        if (fieldData.password !== fieldData.confirmPassword)
-          return "Passwords do not match";
-        return "";
-      case "name":
-        if (mode === "login") return "";
-        if (!fieldData.name) return "Enter your name";
-        if (fieldData.name.length < 3) return "Min 3 characters";
-        return "";
-      case "surname":
-        if (mode === "login") return "";
-        if (!fieldData.surname) return "Enter your surname";
-        if (fieldData.surname.length < 3) return "Min 3 characters";
-        return "";
-      case "phone":
-        if (mode === "login") return "";
-        if (!fieldData.phone || !/^[\d\s()+-]{7,}$/.test(fieldData.phone))
-          return "Invalid phone number";
-        return "";
-      default:
-        return "";
-    }
-  };
-
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const nextValue = type === "checkbox" ? checked : value;
 
-    setFormData((prev) => {
-      const nextData = { ...prev, [name]: nextValue };
-      if (touched[name]) {
-        const err = validateField(name, nextValue, nextData, chooseAction);
-        upsertFieldError(name, err);
-      }
-      return nextData;
-    });
+    const nextData = {
+      ...formData,
+      [name]: nextValue,
+    };
+
+    setFormData(nextData);
+
+    if (touched[name]) {
+      const error = validate(nextData, chooseAction)[name] || "";
+      upsertFieldError(name, error);
+    }
   };
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
-    setTouched((p) => ({ ...p, [name]: true }));
 
-    const error = validateField(
-      name,
-      value,
-      { ...formData, [name]: value },
-      chooseAction,
-    );
+    const nextData = {
+      ...formData,
+      [name]: value,
+    };
+
+    setTouched((prev) => ({
+      ...prev,
+      [name]: true,
+    }));
+
+    const error = validate(nextData, chooseAction)[name] || "";
     upsertFieldError(name, error);
   };
 
@@ -156,7 +114,6 @@ export default function LoginPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitting(true);
 
     const allTouched = Object.keys(formData).reduce(
       (acc, k) => ((acc[k] = true), acc),
@@ -168,7 +125,6 @@ export default function LoginPage() {
     setErrors(errs);
 
     if (Object.keys(errs).length > 0) {
-      setIsSubmitting(false);
       return;
     }
 
@@ -190,21 +146,7 @@ export default function LoginPage() {
         ...prev,
         form: error.message || "Something went wrong",
       }));
-    } finally {
-      setIsSubmitting(false);
     }
-
-    setFormData({
-      email: "",
-      password: "",
-      name: "",
-      surname: "",
-      phone: "",
-      confirmPassword: "",
-      rememberMe: false,
-    });
-    setTouched({});
-    setIsSubmitting(false);
   };
 
   return (
@@ -234,9 +176,9 @@ export default function LoginPage() {
               placeholder="e-mail"
               required
             />
-            {(touched.email || isSubmitting) && errors.email && (
-              <div className={styles["input-error"]}>{errors.email}</div>
-            )}
+            <div className={styles["input-error"]}>
+              {touched.email && errors.email ? errors.email : ""}
+            </div>
             <input
               type="password"
               name="password"
@@ -247,9 +189,9 @@ export default function LoginPage() {
               placeholder="password"
               required
             />
-            {(touched.password || isSubmitting) && errors.password && (
-              <div className={styles["input-error"]}>{errors.password}</div>
-            )}
+            <div className={styles["input-error"]}>
+              {touched.password && errors.password ? errors.password : ""}
+            </div>
             <div className={styles["remember-me-wrapper"]}>
               <input
                 type="checkbox"
@@ -262,13 +204,13 @@ export default function LoginPage() {
                 remember me
               </label>
             </div>
-            {errors.form && (
-              <div className={styles["input-error"]}>{errors.form}</div>
-            )}
+            <div className={styles["input-error"]}>
+              {errors.form}
+            </div>   
             <button
-              disabled={isSubmitting || authActionLoading}
+              disabled={authActionLoading || Object.keys(errors).length > 0 }
               type="submit"
-              className={`${styles["button-submit"]} ${Object.keys(errors).length > 0 || isSubmitting ? styles["button-disabled"] : ""}`}
+              className={styles["button-submit"]}
             >
               Sign in
             </button>
@@ -317,12 +259,14 @@ export default function LoginPage() {
               />
             </div>
             <div className={styles["name-surname-errors"]}>
-              {(touched.name || isSubmitting) && errors.name && (
-                <div className={styles["input-error"]}>{errors.name}</div>
-              )}
-              {(touched.surname || isSubmitting) && errors.surname && (
-                <div className={styles["input-error"]}>{errors.surname}</div>
-              )}
+              <div className={`${styles["input-error"]} ${styles["one-field-error"]}`}>
+                <div>
+                  {touched.name && errors.name ? errors.name : ""}
+                </div>
+                <div>
+                    {touched.surname && errors.surname ? errors.surname : ""}
+                </div>
+              </div>
             </div>
             <input
               type="text"
@@ -333,9 +277,9 @@ export default function LoginPage() {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {(touched.phone || isSubmitting) && errors.phone && (
-              <div className={styles["input-error"]}>{errors.phone}</div>
-            )}
+            <div className={styles["input-error"]}>
+              {touched.phone && errors.phone ? errors.phone : ""}
+            </div>
             <input
               type="email"
               name="email"
@@ -345,9 +289,9 @@ export default function LoginPage() {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {(touched.email || isSubmitting) && errors.email && (
-              <div className={styles["input-error"]}>{errors.email}</div>
-            )}
+            <div className={styles["input-error"]}>
+              {touched.email && errors.email ? errors.email : ""}
+            </div>
             <input
               type="password"
               name="password"
@@ -357,9 +301,9 @@ export default function LoginPage() {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {(touched.password || isSubmitting) && errors.password && (
-              <div className={styles["input-error"]}>{errors.password}</div>
-            )}
+            <div className={styles["input-error"]}>
+              {touched.password && errors.password ? errors.password : ""}
+            </div>
             <input
               type="password"
               name="confirmPassword"
@@ -369,19 +313,16 @@ export default function LoginPage() {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-            {(touched.confirmPassword || isSubmitting) &&
-              errors.confirmPassword && (
-                <div className={styles["input-error"]}>
-                  {errors.confirmPassword}
-                </div>
-              )}
-            {errors.form && (
-              <div className={styles["input-error"]}>{errors.form}</div>
-            )}
-            <button
-              disabled={isSubmitting || authActionLoading}
+            <div className={styles["input-error"]}>
+              {touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : ""}
+            </div>
+            <div className={styles["input-error"]}>
+              {errors.form}
+            </div>            
+              <button
+              disabled={authActionLoading || Object.keys(errors).length > 0 }
               type="submit"
-              className={`${styles["button-submit"]} ${Object.keys(errors).length > 0 || isSubmitting ? styles["button-disabled"] : ""}`}
+              className={styles["button-submit"]}
             >
               Sign up
             </button>

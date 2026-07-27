@@ -48,10 +48,10 @@
   }
 
   &-body {
+    width: 100%;
     flex: 1;
     min-height: 0;
     box-sizing: border-box;
-    display: flex;
     justify-content: space-between;
     align-items: center;
 
@@ -65,15 +65,8 @@
     
     .card-description {
       display: flex;
-      gap: calc(t.space(2xl) + t.space(8));
-
-      @include mx.mqDown(tb) {
-        gap: t.space(7);
-      }
-
-      @include mx.mqDown(mb) {
-        gap: t.space(4);
-      }
+      justify-content: space-between;
+      height: 100%;
 
       .card-intro {
         max-width: 400px;
@@ -103,13 +96,13 @@
           overflow: hidden;
 
           @include mx.mqDown(tb) {
-            width: 100px;
-            height: 100px;
+            width: 90px;
+            height: 90px;
           }
 
           @include mx.mqDown(mb) {
-            width: 70px;
-            height: 70px;
+            width: 60px;
+            height: 60px;
           }
         
           img {
@@ -143,7 +136,6 @@
           }
 
           .product-category {
-
             @include mx.fluid-text(body);
             color: t.color(text-secondary);
             margin-top: t.space(1);
@@ -205,27 +197,33 @@
 
         }
       }
-
-    }
-    .card-button {
-      @include mx.button-base(ghost, sm, false);
-      font-weight: t.font-weight(regular);
-      border: 1px solid t.color(border-dark);
-      border-radius: t.rad(lg);
-      padding: t.space(2) t.space(3);
-      gap: 0;
-      
-      &:hover {
-        color: t.color(white);
-        background-color: t.color(thirdly);
-        border: none;
-      }
-
-      @include mx.mqDown(mb) {
-        @include mx.fluid-text(small);
-        padding: t.space(1) t.space(2);
+      .card-button-wrapper {
         display: flex;
         flex-direction: column;
+        justify-content: center;
+      
+        .card-button {
+          @include mx.button-base(ghost, sm, false);
+          font-weight: t.font-weight(regular);
+          border: 1px solid t.color(border-dark);
+          border-radius: t.rad(lg);
+          padding: t.space(2) t.space(3);
+          gap: t.space(1);
+      
+          &:hover {
+            color: t.color(white);
+            background-color: t.color(thirdly);
+            border: none;
+          }
+
+          @include mx.mqDown(mb) {
+            @include mx.fluid-text(small);
+            padding: t.space(1) t.space(2);
+            gap: 0;
+            display: flex;
+            flex-direction: column;
+          }
+        }
       }
     }
   }

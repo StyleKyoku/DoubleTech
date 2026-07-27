@@ -62,7 +62,6 @@
   }
 
   .form-input {
-    margin-top: t.space(2);
     padding: t.space(4);
 
     border-radius: t.rad(lg);
@@ -215,18 +214,15 @@
   }
 
   .input-error {
+    height: 20px; 
     color: t.color(danger);
     @include mx.fluid-text(small);
+    margin: 0;
+    padding: 0;
 
-    padding: t.space(2) 0 0 0;
-
-    @include mx.mqDown(mb) {
-      padding: t.space(1) 0 0 0;
+    &.one-field-error {
+      display: flex;
+      justify-content: space-between;
     }
-  }
-
-  .button-disabled {
-    background-color: t.color(primary);
-    cursor: not-allowed;
   }
 }

@@ -34,11 +34,13 @@ const MyOrdersCard = ({ order }) => {
               <p className={order.items[0].onSale ? styles["onSale"] : null}>${order.total}</p>
             </div>
           </div>
+          <div className={styles["card-button-wrapper"]}>
+            <button className={styles["card-button"]}>
+              <span>View</span> 
+              <span>Details</span>
+            </button>
+          </div>
         </div>
-        <button className={styles["card-button"]}>
-          <span>View</span> 
-          <span>Details</span>
-        </button>
       </div>
     </div>
   );

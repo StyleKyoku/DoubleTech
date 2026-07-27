@@ -1,0 +1,173 @@
+@use "sass:map";
+@use "../../../styles/tokens" as t;
+@use "../../../styles/mixins" as mx;
+@use "../../../styles/mixins/elevation" as elev;
+
+
+.account-settings {
+  padding: t.space(l) t.space(4xl);
+
+  @include mx.mqDown(tb) {
+    padding: t.space(l) t.space(l);
+  }
+
+  @include mx.mqDown(mb) {
+    padding: t.space(l) t.space(6);
+  }
+  &-header {
+    padding-bottom: t.space(4);
+
+    & img {
+      width: 40px;
+      height: auto;
+    }
+  }
+
+  &-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: t.space(2xl);
+
+    .account-settings-form {
+      display: flex;
+      flex-direction: column;
+      gap: t.space(4);
+
+      .account-settings-form-group {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        padding: t.space(4);
+        gap: t.space(2);
+
+        border: 1px solid t.color(border-dark);
+        border-radius: t.rad(lg);
+
+        .profile-photo-option {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+          align-items: center;
+
+          .profile-photo-option-label {
+            display: flex;
+            align-items: center;
+
+            gap: t.space(4);
+
+            @include mx.fluid-text(body);
+            font-weight: t.font-weight(regular);
+          }
+
+          .avatar-preview-wrapper {
+            width: 40px;
+            height: 40px;
+
+            .avatar-preview-img {
+              display: block;
+              width: 100%;
+              height: 100%;
+              border-radius: t.rad(full);
+              object-fit: contain;
+            }
+          }
+
+          .choose-avatar-button-wrapper {
+            justify-self: end;
+
+            .choose-avatar-button {
+              @include mx.button-base(ghost, sm);
+              font-weight: t.font-weight(regular);
+              padding: t.space(1) t.space(2);
+              border: 1px solid t.color(border-dark);
+              border-radius: t.rad(md);
+            }
+
+            input {
+              display: none;
+            }
+          }
+        }
+
+        .account-settings-title-wrapper {
+          margin: t.space(4) 0;
+
+          .account-settings-title {
+            @include mx.fluid-text(h5);
+            font-weight: t.font-weight(regular);
+          }
+        }
+
+        .name-surname-option {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: t.space(6);
+        }
+
+        .option-group {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: t.space(1);
+
+          input {
+            width: 100%;
+            padding: t.space(4) t.space(3);
+            border: 1px solid t.color(border-dark);
+            border-radius: t.rad(md);
+          }
+        }
+
+        .action-buttons-wrapper {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          align-items: center;
+          margin: t.space(5) 0 t.space(2) 0;
+
+          p {
+            @include mx.fluid-text(body);
+            font-weight: t.font-weight(regular);
+
+            justify-self: start;
+
+            &.error-message {
+              color: t.color(danger);
+            }
+
+            &.success-message {
+              color: t.color(success);
+            }
+          }
+
+          .submit-button {
+            justify-self: end;
+            @include mx.button-base(primary, lg);
+            @include mx.fluid-text(body);
+            font-weight: t.font-weight(regular);
+            width: 300px;
+            height: 60px;
+            padding: t.space(4) t.space(5);
+            border-radius: t.rad(md);
+          }
+        }
+      }
+
+      .input-error {
+        height: 18px;
+        display: flex;
+        align-items: center;
+
+        margin: 0;
+        padding: 0;
+
+        color: t.color(danger);
+        @include mx.fluid-text(body);
+        font-weight: t.font-weight(regular);
+      }
+    }
+  }
+
+  
+}

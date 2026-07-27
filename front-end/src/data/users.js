@@ -6,6 +6,7 @@ export const users = [
     email: "testemail@mail.com",
     phone: "+353934343",
     password: "Password123!",
+    avatarUr: null,
   },
   {
     id: 2,
@@ -14,6 +15,7 @@ export const users = [
     email: "testemail2@mail.com",
     phone: "+353934344",
     password: "Password123!",
+    avatarUrl: `${import.meta.env.BASE_URL}assets/images/profile/test-avatar.jpeg`,
   },
   {
     id: 3,
@@ -22,5 +24,6 @@ export const users = [
     email: "testemail3@mail.com",
     phone: "+353934345",
     password: "Password123!",
+    avatarUrl: null,
   },
 ];

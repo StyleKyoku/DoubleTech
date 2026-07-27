@@ -8,30 +8,36 @@ import { useLocation } from "react-router-dom";
 
 import Card from "../../../components/Card/Card";
 import Recommendations from "../../../components/Recommendations/Recommendations";
-import AccountSettings from "./Modals/AccountSettings";
-
 import defaultAvatar from "/assets/images/profile/default-avatar.svg";
 import cartIcon from "/assets/images/profile/cart.svg";
 import starIcon from "/assets/images/profile/star.svg";
+import logoutIcon from "/assets/images/profile/window/log-out-icon.svg";
+
 
 const ProfilePage = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const location = useLocation();
 
   const { cartItems, toggleCart } = useCart();
   const { orders, ordersCount, activeOrdersCount } = useOrders();
   return (
     <section className={styles["profile"]}>
-      <AccountSettings user={user} />
       <div className={styles.header}>
-        <img src={defaultAvatar} alt="User Avatar" />
-        <h2 className={styles.username}>
-          {user.name} {user.surname}
-        </h2>
+        <div className={styles["user-info"]}>        
+          <img src={user.avatarUrl || defaultAvatar} alt="User Avatar" />
+          <h2 className={styles.username}>
+            {user.name} {user.surname}
+          </h2>
+        </div>
+        <div className={styles["logout-button-wrapper"]}>
+          <button className={styles["logout-button"]} onClick={logout}>
+            <img src={logoutIcon} alt="Logout icon" />
+          </button>
+        </div>
       </div>
       <section className={styles.actions}>
         <div className={styles["action-buttons-group"]}>
-          <button className={styles["action-button"]}>Settings</button>
+          <Link to="/profile/settings" className={styles["action-button"]}>Settings</Link>
           <button className={styles["action-button"]}>Support</button>
         </div>
         <div className={styles["action-buttons-group"]}>
@@ -44,8 +50,7 @@ const ProfilePage = () => {
             </div>
             <img src={cartIcon} alt="Cart icon" />
           </button>
-          <Link to="/orders" className={styles["action-button"]}>
-
+          <Link to="/profile/orders" className={styles["action-button"]}>
               <div className={styles["button-text"]}>
                 <p>My orders</p>
                 <p>
@@ -55,12 +60,11 @@ const ProfilePage = () => {
                 </p>
               </div>
               <img src={starIcon} alt="star icon" />
-
           </Link>
         </div>
         <div className={styles["action-buttons-group"]}>
-          <Link to="/" className={styles["action-button"]}>
-            <button>Back to homepage</button>
+          <Link to="/" className={`${styles["action-button"]} ${styles["back-homepage-button"]}`}>
+            Back to homepage
           </Link>
         </div>
       </section>

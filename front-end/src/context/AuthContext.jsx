@@ -97,9 +97,11 @@ export function AuthProvider({ children }) {
   const updateProfile = React.useCallback(async (updatedData) => {
     try {
       setAuthActionLoading(true);
+      setAuthError(null);
+      
       const response = await updateUser(updatedData);
       setUser(response.user);
-      setAuthError(null);
+
 
       return response.user;
     } catch (error) {

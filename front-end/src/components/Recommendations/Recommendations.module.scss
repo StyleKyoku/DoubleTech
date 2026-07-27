@@ -16,7 +16,7 @@
   }
 
   .product-recs-title {
-    @include mx.fluid-text(h2);
+    @include mx.fluid-text(h3);
     margin-bottom: t.space(8);
 
     @include mx.mqDown(mb) {

@@ -2,6 +2,7 @@ import { users } from "../data/users";
 
 let activeSession = null;
 
+
 function wait(ms = 400) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
@@ -72,6 +73,7 @@ export async function registerUser(name, surname, email, phone, password) {
     email: normalizedEmail,
     phone: phone.trim(),
     password,
+    avatarUrl: null,
   };
 
   users.push(newUser);
@@ -116,10 +118,16 @@ export async function updateUser(updatedData) {
     throw new Error("No active session");
   }
 
-  currentUser.name = updatedData.name.trim();
-  currentUser.surname = updatedData.surname.trim();
-  currentUser.email = updatedData.email.trim().toLowerCase();
-  currentUser.phone = updatedData.phone.trim();
+  const { name, surname, email, phone, avatarUrl, newPassword } = updatedData;
+
+  currentUser.name = name.trim();
+  currentUser.surname = surname.trim();
+  currentUser.email = email.trim().toLowerCase();
+  currentUser.phone = phone.trim();
+  currentUser.avatarUrl = avatarUrl || currentUser.avatarUrl;
+  if (newPassword) {
+    currentUser.password = newPassword;
+  }
 
   return {
     user: sanitizeUser(currentUser),
