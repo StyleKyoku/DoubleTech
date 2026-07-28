@@ -7,9 +7,8 @@ import iconBack from "/assets/images/global_icons/arrow-back.svg";
 import defaultAvatar from "/assets/images/profile/default-avatar.svg";
 import { useAuth } from "../../../context/AuthContext";
 
-
-const ProfileChangeWindow = () => {
-  const { user, updateProfile, authActionLoading } = useAuth();
+const AccountSettings = () => {
+  const { user, logout, updateProfile, authActionLoading } = useAuth();
 
   const [formData, setFormData] = React.useState({
     email: user.email,
@@ -29,9 +28,10 @@ const ProfileChangeWindow = () => {
 
   const MAX_AVATAR_SIZE = 2 * 1024 * 1024; // 2MB
 
-
   const [avatarFile, setAvatarFile] = React.useState(null);
-  const [avatarPreview, setAvatarPreview] = React.useState(user.avatarUrl || defaultAvatar);
+  const [avatarPreview, setAvatarPreview] = React.useState(
+    user.avatarUrl || defaultAvatar,
+  );
 
   const avatarInputRef = React.useRef(null);
 
@@ -63,7 +63,7 @@ const ProfileChangeWindow = () => {
       setAvatarPreview(user.avatarUrl || defaultAvatar);
       return;
     }
-    
+
     const objectUrl = URL.createObjectURL(avatarFile);
     setAvatarPreview(objectUrl);
 
@@ -91,7 +91,7 @@ const ProfileChangeWindow = () => {
 
     if (!data.phone.trim() || !/^[\d\s()+-]{7,}$/.test(data.phone.trim()))
       err.phone = "Invalid phone number";
-    
+
     if (data.newPassword != "") {
       if (data.newPassword.length < 8) err.newPassword = "Min 8 characters";
       else if (
@@ -105,7 +105,6 @@ const ProfileChangeWindow = () => {
     }
     return err;
   };
-
 
   const handleFieldChange = (e) => {
     const { name, value } = e.target;
@@ -147,7 +146,6 @@ const ProfileChangeWindow = () => {
     setSubmitSuccess(null);
   };
 
-
   const handleBlur = (e) => {
     const { name, value } = e.target;
 
@@ -175,85 +173,108 @@ const ProfileChangeWindow = () => {
     });
   };
 
-const handleSubmit = async (event) => {
-  event.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const validationErrors = validate(formData, avatarFile);
+    const validationErrors = validate(formData, avatarFile);
 
-  setErrors(validationErrors);
+    setErrors(validationErrors);
 
-  setTouched({
-    name: true,
-    surname: true,
-    email: true,
-    phone: true,
-    newPassword: true,
-    avatar: true,
-  });
-
-  if (Object.keys(validationErrors).length > 0) {
-    return;
-  }
-
-  setSubmitError(null);
-  setSubmitSuccess(null);
-
-  try {
-    const avatarUrl = avatarFile ? await fileToDataUrl(avatarFile) : user.avatarUrl;
-    await updateProfile({
-      ...formData,
-      avatarUrl,
+    setTouched({
+      name: true,
+      surname: true,
+      email: true,
+      phone: true,
+      newPassword: true,
+      avatar: true,
     });
 
-    setFormData((currentFormData) => ({
-      ...currentFormData,
-      newPassword: "",
-    }));
-
-    setAvatarFile(null);
-    setErrors({});
-    setTouched({});
-
-    if (avatarInputRef.current) {
-      avatarInputRef.current.value = "";
+    if (Object.keys(validationErrors).length > 0) {
+      return;
     }
 
-    setSubmitSuccess("Changes saved successfully");
-  } catch (error) {
-    setSubmitError(error.message);
-    setAvatarFile(null);
-    setAvatarPreview(user.avatarUrl || defaultAvatar);
-  }
-};
+    setSubmitError(null);
+    setSubmitSuccess(null);
+
+    try {
+      const avatarUrl = avatarFile
+        ? await fileToDataUrl(avatarFile)
+        : user.avatarUrl;
+      await updateProfile({
+        ...formData,
+        avatarUrl,
+      });
+
+      setFormData((currentFormData) => ({
+        ...currentFormData,
+        newPassword: "",
+      }));
+
+      setAvatarFile(null);
+      setErrors({});
+      setTouched({});
+
+      if (avatarInputRef.current) {
+        avatarInputRef.current.value = "";
+      }
+
+      setSubmitSuccess("Changes saved successfully");
+    } catch (error) {
+      setSubmitError(error.message);
+      setAvatarFile(null);
+      setAvatarPreview(user.avatarUrl || defaultAvatar);
+    }
+  };
 
   return (
     <section className={styles["account-settings"]}>
       <div className={styles["account-settings-header"]}>
+        <div className={styles["header-title-wrapper"]}>
+          <h1 className={styles["header-title"]}>Account Settings</h1>
+          <p className={styles["header-subtitle"]}>
+            Update your profile details and login information.
+          </p>
+        </div>
         <Link to="/profile">
           <img src={iconBack} alt="icon close" />
         </Link>
       </div>
       <div className={styles["account-settings-content"]}>
-        <form 
+        <form
           className={styles["account-settings-form"]}
           onSubmit={handleSubmit}
           noValidate
         >
-          <div className={styles["account-settings-form-group"]}>
+          <div
+            className={`${styles["account-settings-form-group"]} ${styles["profile-photo"]}`}
+          >
             <div className={styles["profile-photo-option"]}>
-              <div className={styles["profile-photo-option-label"]}>
-                <label htmlFor="avatar">Profile photo</label>
-                <div className={styles["input-error"]}>
-                  {touched.avatar ? errors.avatar : ""}
+              <div className={styles["profile-photo-option-wrapper"]}>
+                <div className={styles["avatar-preview-wrapper"]}>
+                  <img
+                    src={avatarPreview}
+                    className={styles["avatar-preview-img"]}
+                    alt="User Avatar"
+                  />
+                </div>
+                <div className={styles["profile-photo-option-text"]}>
+                  <p className={styles["user-name-surname"]}>
+                    {user.name} {user.surname}
+                  </p>
+                  <p className={styles["user-email"]}>{user.email}</p>
                 </div>
               </div>
-              <div className={styles["avatar-preview-wrapper"]}>
-                <img src={avatarPreview} className={styles["avatar-preview-img"]} alt="User Avatar" />
-              </div>
               <div className={styles["choose-avatar-button-wrapper"]}>
-                <label htmlFor="avatar" className={styles["choose-avatar-button"]}>
-                  Choose a file
+                <label
+                  htmlFor="avatar"
+                  className={styles["choose-avatar-button"]}
+                >
+                  Change Avatar
                 </label>
+                {touched.avatar && errors.avatar && (
+                  <div className={styles["input-error"]}>{errors.avatar}</div>
+                )}
+
                 <input
                   ref={avatarInputRef}
                   type="file"
@@ -262,25 +283,27 @@ const handleSubmit = async (event) => {
                   accept="image/png,image/jpeg,image/webp,image/svg+xml"
                   onChange={handleAvatarChange}
                   disabled={authActionLoading}
-                />              
+                />
               </div>
             </div>
           </div>
           <div className={styles["account-settings-form-group"]}>
             <div className={styles["account-settings-title-wrapper"]}>
-              <h2 className={styles["account-settings-title"]}>Personal Information</h2>
+              <h2 className={styles["account-settings-title"]}>
+                Personal Information
+              </h2>
             </div>
             <div className={styles["name-surname-option"]}>
               <div className={styles["option-group"]}>
                 <label htmlFor="name">Name</label>
-                <input 
-                  type="text" 
-                  id="name" 
-                  name="name" 
-                  value={formData.name} 
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
                   onChange={handleFieldChange}
                   onBlur={handleBlur}
-                  required 
+                  required
                 />
                 <div className={styles["input-error"]}>
                   {touched.name ? errors.name : ""}
@@ -288,14 +311,14 @@ const handleSubmit = async (event) => {
               </div>
               <div className={styles["option-group"]}>
                 <label htmlFor="surname">Surname</label>
-                <input 
-                  type="text" 
-                  id="surname" 
-                  name="surname" 
-                  value={formData.surname} 
+                <input
+                  type="text"
+                  id="surname"
+                  name="surname"
+                  value={formData.surname}
                   onChange={handleFieldChange}
                   onBlur={handleBlur}
-                  required 
+                  required
                 />
                 <div className={styles["input-error"]}>
                   {touched.surname ? errors.surname : ""}
@@ -304,14 +327,14 @@ const handleSubmit = async (event) => {
             </div>
             <div className={styles["option-group"]}>
               <label htmlFor="email">Email</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                value={formData.email} 
-                onChange={handleFieldChange} 
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                onChange={handleFieldChange}
                 onBlur={handleBlur}
-                required 
+                required
               />
               <div className={styles["input-error"]}>
                 {touched.email ? errors.email : ""}
@@ -319,12 +342,12 @@ const handleSubmit = async (event) => {
             </div>
             <div className={styles["option-group"]}>
               <label htmlFor="phone">Phone</label>
-              <input 
-                type="tel" 
-                id="phone" 
-                name="phone" 
-                value={formData.phone} 
-                onChange={handleFieldChange} 
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                value={formData.phone}
+                onChange={handleFieldChange}
                 onBlur={handleBlur}
                 required
               />
@@ -343,18 +366,50 @@ const handleSubmit = async (event) => {
                 onBlur={handleBlur}
                 placeholder="Enter new password"
                 autoComplete="new-password"
-              />        
+              />
               <div className={styles["input-error"]}>
                 {touched.newPassword ? errors.newPassword : ""}
               </div>
-
             </div>
-            <div className={styles["action-buttons-wrapper"]}>
-              <div>
-                {submitError && <p className={styles["error-message"]}>{submitError}</p>}
-                {submitSuccess && <p className={styles["success-message"]}>{submitSuccess}</p>}
+            <div className={styles["submit-section"]}>
+              <div className={styles["submit-section-elements"]}>
+                <div className={styles["submit-button-wrapper"]}>
+                  <button
+                    disabled={authActionLoading || hasErrors}
+                    type="submit"
+                    className={styles["submit-button"]}
+                  >
+                    Save Changes
+                  </button>
+                </div>
+                <div className={styles["submit-message-wrapper"]}>
+                  {submitError && (
+                    <p className={styles["error-message"]}>{submitError}</p>
+                  )}
+                  {submitSuccess && (
+                    <p className={styles["success-message"]}>{submitSuccess}</p>
+                  )}
+                </div>
               </div>
-              <button disabled={authActionLoading || hasErrors } type="submit" className={styles["submit-button"]}>Save Changes</button>
+            </div>
+          </div>
+          <div
+            className={`${styles["account-settings-form-group"]} ${styles["account-access"]}`}
+          >
+            <div className={styles["account-access-title-wrapper"]}>
+              <h2 className={styles["account-access-title"]}>Account access</h2>
+              <p className={styles["account-access-subtitle"]}>
+                Log out of this account on this device.
+              </p>
+            </div>
+            <div className={styles["logout-button-wrapper"]}>
+              <button
+                type="button"
+                className={styles["logout-button"]}
+                onClick={logout}
+              >
+                Log Out
+              </button>
             </div>
           </div>
         </form>
@@ -363,4 +418,4 @@ const handleSubmit = async (event) => {
   );
 };
 
-export default ProfileChangeWindow;
+export default AccountSettings;

@@ -38,7 +38,7 @@ const Footer = () => {
           <div className={styles["footer-content"]}>
             <ul>
               <li className={styles["footer-links"]}>
-                <a href="#">Front: Nikita Zhdanov</a>
+                <a href="https://t.me/stylekyoku">Front: Nikita Zhdanov</a>
               </li>
               <li className={styles["footer-links"]}>
                 <a href="#">Back: Yaroslav Skachko</a>
@@ -61,7 +61,7 @@ const Footer = () => {
         <div className={styles["footer-content-wrapper"]}>
           <div className={styles["footer-content"]}>
             <p>
-              &copy; 2025 DoubleTech <br />
+              &copy; 2026 DoubleTech <br />
               All rights reserved
             </p>
           </div>

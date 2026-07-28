@@ -24,7 +24,7 @@ export default function HomePage() {
             <h2 className={styles["intro-text"]}>
               Smartphones and Laptops <br /> with Quality Guarantee
             </h2>
-            <Link to="/test1">
+            <Link to="/catalog">
               <button className={styles["intro-button"]}>Catalog</button>
             </Link>
           </div>

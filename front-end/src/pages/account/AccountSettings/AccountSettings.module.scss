@@ -3,7 +3,6 @@
 @use "../../../styles/mixins" as mx;
 @use "../../../styles/mixins/elevation" as elev;
 
-
 .account-settings {
   padding: t.space(l) t.space(4xl);
 
@@ -14,12 +13,41 @@
   @include mx.mqDown(mb) {
     padding: t.space(l) t.space(6);
   }
+
   &-header {
+    display: flex;
+    flex-direction: column;
+    gap: t.space(5);
     padding-bottom: t.space(4);
 
+    .header-title-wrapper {
+      display: flex;
+      flex-direction: column;
+      gap: t.space(2);
+
+      .header-title {
+        @include mx.fluid-text(h2);
+        font-weight: t.font-weight(bold);
+      }
+
+      .header-subtitle {
+        @include mx.fluid-text(body);
+        color: t.color(text-secondary);
+        font-weight: t.font-weight(regular);
+      }
+    }
+
     & img {
-      width: 40px;
+      width: 60px;
       height: auto;
+
+      @include mx.mqDown(tb) {
+        width: 50px;
+      }
+
+      @include mx.mqDown(mb) {
+        width: 40px;
+      }
     }
   }
 
@@ -27,75 +55,154 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: t.space(2xl);
 
     .account-settings-form {
       display: flex;
       flex-direction: column;
-      gap: t.space(4);
+      gap: t.space(6);
+
+      @include mx.mqDown(tb) {
+        gap: t.space(5);
+      }
+
+      @include mx.mqDown(mb) {
+        gap: t.space(4);
+      }
 
       .account-settings-form-group {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
 
-        padding: t.space(4);
+        padding: t.space(6);
         gap: t.space(2);
 
         border: 1px solid t.color(border-dark);
         border-radius: t.rad(lg);
 
-        .profile-photo-option {
-          display: grid;
-          grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-          align-items: center;
+        @include mx.mqDown(tb) {
+          padding: t.space(5);
+        }
 
-          .profile-photo-option-label {
+        @include mx.mqDown(mb) {
+          padding: t.space(4);
+        }
+
+        &.profile-photo {
+          justify-content: center;
+
+          @include mx.mqDown(mb) {
+            align-items: center;
+          }
+
+          .profile-photo-option {
             display: flex;
+            justify-content: space-between;
             align-items: center;
 
-            gap: t.space(4);
-
-            @include mx.fluid-text(body);
-            font-weight: t.font-weight(regular);
-          }
-
-          .avatar-preview-wrapper {
-            width: 40px;
-            height: 40px;
-
-            .avatar-preview-img {
-              display: block;
-              width: 100%;
-              height: 100%;
-              border-radius: t.rad(full);
-              object-fit: contain;
+            @include mx.mqDown(mb) {
+              display: flex;
+              flex-direction: column;
+              gap: t.space(2);
             }
-          }
 
-          .choose-avatar-button-wrapper {
-            justify-self: end;
+            .profile-photo-option-wrapper {
+              display: flex;
+              align-items: center;
+              justify-content: flex-start;
 
-            .choose-avatar-button {
-              @include mx.button-base(ghost, sm);
+              gap: t.space(5);
+
+              @include mx.fluid-text(body);
               font-weight: t.font-weight(regular);
-              padding: t.space(1) t.space(2);
-              border: 1px solid t.color(border-dark);
-              border-radius: t.rad(md);
+
+              @include mx.mqDown(tb) {
+                gap: t.space(4);
+              }
+
+              @include mx.mqDown(mb) {
+                flex-direction: column;
+                justify-content: center;
+
+                gap: t.space(3);
+              }
+
+              .avatar-preview-wrapper {
+                width: 80px;
+                height: 80px;
+
+                @include mx.mqDown(tb) {
+                  width: 70px;
+                  height: 70px;
+                }
+
+                @include mx.mqDown(mb) {
+                  width: 60px;
+                  height: 60px;
+                }
+
+                .avatar-preview-img {
+                  display: block;
+                  width: 100%;
+                  height: 100%;
+                  border-radius: t.rad(full);
+                  object-fit: cover;
+                }
+              }
+
+              .profile-photo-option-text {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .user-name-surname {
+                  @include mx.fluid-text(h5);
+                  font-weight: t.font-weight(semibold);
+                }
+
+                .user-email {
+                  @include mx.fluid-text(body);
+                  color: t.color(text-secondary);
+                }
+
+                @include mx.mqDown(mb) {
+                  align-items: center;
+                }
+              }
             }
 
-            input {
-              display: none;
+            .choose-avatar-button-wrapper {
+              justify-self: end;
+
+              .choose-avatar-button {
+                @include mx.button-base(ghost, sm);
+                font-weight: t.font-weight(semibold);
+                padding: t.space(3) t.space(7);
+                border: 1px solid t.color(border-dark);
+                border-radius: t.rad(md);
+
+                @include mx.mqDown(tb) {
+                  padding: t.space(3) t.space(5);
+                }
+
+                @include mx.mqDown(mb) {
+                  padding: t.space(2) t.space(4);
+                }
+              }
+
+              input {
+                display: none;
+              }
             }
           }
         }
 
         .account-settings-title-wrapper {
-          margin: t.space(4) 0;
+          margin-bottom: t.space(5);
 
           .account-settings-title {
             @include mx.fluid-text(h5);
-            font-weight: t.font-weight(regular);
+            font-weight: t.font-weight(semibold);
           }
         }
 
@@ -112,6 +219,11 @@
           flex-direction: column;
           gap: t.space(1);
 
+          label {
+            @include mx.fluid-text(body);
+            font-weight: t.font-weight(semibold);
+          }
+
           input {
             width: 100%;
             padding: t.space(4) t.space(3);
@@ -120,36 +232,129 @@
           }
         }
 
-        .action-buttons-wrapper {
-          display: grid;
-          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-          align-items: center;
+        .submit-section {
+          display: flex;
+          justify-content: flex-end;
           margin: t.space(5) 0 t.space(2) 0;
 
-          p {
-            @include mx.fluid-text(body);
-            font-weight: t.font-weight(regular);
+          .submit-section-elements {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
 
-            justify-self: start;
+            gap: t.space(3);
 
-            &.error-message {
-              color: t.color(danger);
+            @include mx.mqDown(mb) {
+              width: 100%;
             }
 
-            &.success-message {
-              color: t.color(success);
+            .submit-button-wrapper {
+              width: 100%;
+              display: flex;
+              justify-content: center;
+
+              .submit-button {
+                @include mx.button-base(primary, lg);
+                @include mx.fluid-text(body);
+                font-weight: t.font-weight(regular);
+                width: 300px;
+                height: 60px;
+                padding: t.space(4) t.space(5);
+                border-radius: t.rad(md);
+
+                @include mx.mqDown(tb) {
+                  width: 250px;
+                  height: 50px;
+                }
+
+                @include mx.mqDown(mb) {
+                  width: 100%;
+                  height: 50px;
+                }
+              }
+            }
+
+            .submit-message-wrapper {
+              height: 18px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+
+              p {
+                @include mx.fluid-text(body);
+                font-weight: t.font-weight(regular);
+
+                justify-self: start;
+
+                &.error-message {
+                  color: t.color(danger);
+                }
+
+                &.success-message {
+                  color: t.color(success);
+                }
+              }
+            }
+          }
+        }
+
+        &.account-access {
+          display: grid;
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          justify-content: space-between;
+
+          .account-access-title-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: t.space(3);
+
+            @include mx.mqDown(mb) {
+              gap: t.space(2);
+            }
+
+            .account-access-title {
+              @include mx.fluid-text(h5);
+              font-weight: t.font-weight(semibold);
+            }
+
+            .account-access-subtitle {
+              @include mx.fluid-text(body);
+              color: t.color(text-secondary);
+              font-weight: t.font-weight(regular);
             }
           }
 
-          .submit-button {
-            justify-self: end;
-            @include mx.button-base(primary, lg);
-            @include mx.fluid-text(body);
-            font-weight: t.font-weight(regular);
-            width: 300px;
-            height: 60px;
-            padding: t.space(4) t.space(5);
-            border-radius: t.rad(md);
+          .logout-button-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            height: auto;
+            width: auto;
+
+            .logout-button {
+              @include mx.button-base(ghost, sm);
+              @include mx.fluid-text(body);
+              color: t.color(danger-light);
+              border-color: t.color(danger-light);
+              font-weight: t.font-weight(regular);
+              padding: t.space(3) t.space(l);
+              border-radius: t.rad(md);
+
+              @include mx.mqDown(tb) {
+                padding: t.space(3) t.space(5);
+              }
+
+              @include mx.mqDown(mb) {
+                padding: t.space(2) t.space(4);
+              }
+
+              &:hover {
+                background-color: t.color(danger-light);
+                color: t.color(white);
+              }
+            }
           }
         }
       }
@@ -168,6 +373,4 @@
       }
     }
   }
-
-  
 }

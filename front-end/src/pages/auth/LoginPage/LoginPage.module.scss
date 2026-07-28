@@ -22,6 +22,7 @@
   flex-direction: column;
 
   box-sizing: border-box;
+  overflow: hidden;
   width: 500px;
   height: 800px;
 
@@ -31,8 +32,8 @@
   padding: t.space(8) t.space(xl);
 
   @include mx.mqDown(mb) {
-    min-height: 500px;
-    max-height: 700px;
+    min-height: 450px;
+    max-height: 600px;
     width: 350px;
 
     padding: t.space(6) t.space(6);
@@ -79,12 +80,15 @@
       outline: 1px solid t.color(border-light);
       border: 1px solid t.color(border-light);
     }
+
+    @include mx.mqDown(mb) {
+      padding: t.space(3);
+    }
   }
 
   .remember-me-wrapper {
     display: flex;
     align-items: center;
-    margin-top: t.space(4);
 
     & .form-input {
       border: none;
@@ -214,7 +218,7 @@
   }
 
   .input-error {
-    height: 20px; 
+    height: 18px;
     color: t.color(danger);
     @include mx.fluid-text(small);
     margin: 0;

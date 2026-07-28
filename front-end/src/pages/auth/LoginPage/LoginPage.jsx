@@ -204,11 +204,9 @@ export default function LoginPage() {
                 remember me
               </label>
             </div>
-            <div className={styles["input-error"]}>
-              {errors.form}
-            </div>   
+            <div className={styles["input-error"]}>{errors.form}</div>
             <button
-              disabled={authActionLoading || Object.keys(errors).length > 0 }
+              disabled={authActionLoading || Object.keys(errors).length > 0}
               type="submit"
               className={styles["button-submit"]}
             >
@@ -259,12 +257,12 @@ export default function LoginPage() {
               />
             </div>
             <div className={styles["name-surname-errors"]}>
-              <div className={`${styles["input-error"]} ${styles["one-field-error"]}`}>
+              <div
+                className={`${styles["input-error"]} ${styles["one-field-error"]}`}
+              >
+                <div>{touched.name && errors.name ? errors.name : ""}</div>
                 <div>
-                  {touched.name && errors.name ? errors.name : ""}
-                </div>
-                <div>
-                    {touched.surname && errors.surname ? errors.surname : ""}
+                  {touched.surname && errors.surname ? errors.surname : ""}
                 </div>
               </div>
             </div>
@@ -314,13 +312,13 @@ export default function LoginPage() {
               onBlur={handleBlur}
             />
             <div className={styles["input-error"]}>
-              {touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : ""}
+              {touched.confirmPassword && errors.confirmPassword
+                ? errors.confirmPassword
+                : ""}
             </div>
-            <div className={styles["input-error"]}>
-              {errors.form}
-            </div>            
-              <button
-              disabled={authActionLoading || Object.keys(errors).length > 0 }
+            <div className={styles["input-error"]}>{errors.form}</div>
+            <button
+              disabled={authActionLoading || Object.keys(errors).length > 0}
               type="submit"
               className={styles["button-submit"]}
             >
