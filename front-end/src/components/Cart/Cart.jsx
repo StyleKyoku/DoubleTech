@@ -11,8 +11,7 @@ import { useOrders } from "../../context/OrdersContext";
 const Cart = () => {
   const navigate = useNavigate();
 
-  const { isCartOpen, closeCart, cartItems, updateQuantity, clearCart } =
-    useCart();
+  const { isCartOpen, closeCart, cartItems, clearCart } = useCart();
   const { productById, productsLoading } = useProducts();
   const { createOrdersFromItems, orderActionLoading } = useOrders();
 
@@ -67,15 +66,17 @@ const Cart = () => {
           <button onClick={closeCart} className={styles["close-button"]}>
             <img src={closeIcon} alt="close icon" />
           </button>
-        </div> 
+        </div>
         <div className={styles["cart-items"]}>
           {cartProducts.length === 0 ? (
             <div className={styles["empty-cart-container"]}>
               <p className={styles["empty-cart"]}>Your cart is empty.</p>
             </div>
-          ) : cartProducts.map((item) => (
-            <CartCard key={item.id} product={item} />
-          ))}
+          ) : (
+            cartProducts.map((item) => (
+              <CartCard key={item.id} product={item} />
+            ))
+          )}
         </div>
         <div className={styles["cart-footer"]}>
           <div className={styles["total-price"]}>

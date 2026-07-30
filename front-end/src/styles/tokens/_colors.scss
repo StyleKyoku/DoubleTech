@@ -26,6 +26,7 @@ $colors: (
   border-dark: rgba(0, 0, 0, 0.3),
   white: #ffffff,
   black: #000000,
+  black-hover: rgba(0, 0, 0, 0.8),
 );
 
 @function color($name) {
