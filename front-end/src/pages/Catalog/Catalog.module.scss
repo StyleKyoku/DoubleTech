@@ -28,6 +28,7 @@
     @include mx.mqDown(tb) {
       padding: t.space(4) t.space(xl);
     }
+
     @include mx.mqDown(mb) {
       padding: t.space(4) t.space(5);
     }
@@ -59,6 +60,7 @@
         font-weight: map.get(t.$font-weights, regular);
         text-align: center;
         padding: t.space(5) t.space(l);
+        outline: none;
         border-top: 1px solid t.color(black);
         border-bottom: 1px solid t.color(black);
         border-radius: 0;
@@ -77,6 +79,9 @@
       .item-options {
         margin-top: t.space(5);
         display: none;
+        flex-direction: column;
+
+        height: 225px;
         width: 100%;
         position: absolute;
         z-index: t.zindex(dropdown);
@@ -84,8 +89,12 @@
         border-radius: t.rad(xl);
         overflow: hidden;
 
+        @include mx.mqDown(mb) {
+          height: 215px;
+        }
+
         &.open {
-          display: block;
+          display: flex;
         }
 
         .option-heading {
@@ -105,6 +114,9 @@
           gap: t.space(3);
           background-color: t.color(surface-3);
           padding: t.space(3);
+          flex: 1;
+          min-height: 0;
+          overflow-y: auto;
 
           .option {
             & button {
@@ -114,11 +126,13 @@
               padding: t.space(4);
               border-radius: t.rad(2xl);
             }
+
             &.selected button {
               background-color: t.color(primary);
               color: t.color(white);
             }
           }
+
           &.price-options {
             .price-range {
               background-color: t.color(white);
@@ -209,6 +223,7 @@
               height: 6px;
               background: transparent;
             }
+
             &::-webkit-slider-thumb {
               -webkit-appearance: none;
               appearance: none;
@@ -221,10 +236,12 @@
               cursor: pointer;
               margin-top: -5px;
             }
+
             &::-moz-range-track {
               height: 6px;
               background: transparent;
             }
+
             &::-moz-range-thumb {
               pointer-events: auto;
               width: 16px;
@@ -239,6 +256,7 @@
       }
     }
   }
+
   .catalog-content {
     margin-top: t.space(2xl);
     padding: 0 t.space(3xl);
@@ -246,6 +264,7 @@
     @include mx.mqDown(tb) {
       padding: 0 t.space(l);
     }
+
     @include mx.mqDown(mb) {
       padding: 0 t.space(5);
     }
@@ -262,6 +281,10 @@
       @include mx.mqDown(mb) {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+    }
+
+    .no-products {
+      @include mx.fluid-text(h4);
     }
   }
 }

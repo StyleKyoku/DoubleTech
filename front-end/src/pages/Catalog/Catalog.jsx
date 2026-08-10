@@ -7,15 +7,30 @@ import Card from "../../components/Card/Card.jsx";
 import arrowIcon from "/assets/images/global_icons/arrow-down.svg";
 
 const Catalog = () => {
-  const types = ["Laptops", "Smartphones"];
-  const categories = ["Gaming", "Business", "Everyday"];
-  const brands = ["Brand A", "Brand B", "Brand C"];
   const MinPrice = 0;
   const MaxPrice = 3000;
   const step = 50;
 
   const { cartItems } = useCart();
   const { products, productsLoading } = useProducts();
+
+  const types = React.useMemo(
+    () => [...new Set(products.map((product) => product.type))],
+    [products],
+  );
+
+  const categories = React.useMemo(
+    () => [...new Set(products.map((product) => product.category))],
+    [products],
+  );
+
+  const brands = React.useMemo(
+    () => [...new Set(products.map((product) => product.brand))],
+    [products],
+  );
+
+  const formatOption = (value) =>
+    value.charAt(0).toUpperCase() + value.slice(1);
 
   const [isMenuOpen, setIsMenuOpen] = React.useState("None");
 
@@ -50,6 +65,29 @@ const Catalog = () => {
   const [selectedType, setSelectedType] = React.useState([]);
   const [selectedCategory, setSelectedCategory] = React.useState([]);
   const [selectedBrand, setSelectedBrand] = React.useState([]);
+
+  const filteredProducts = React.useMemo(() => {
+    return products.filter((product) => {
+      const matchesType =
+        selectedType.length === 0 || selectedType.includes(product.type);
+      const matchesCategory =
+        selectedCategory.length === 0 ||
+        selectedCategory.includes(product.category);
+      const matchesBrand =
+        selectedBrand.length === 0 || selectedBrand.includes(product.brand);
+      const matchesPrice =
+        product.price >= minValue && product.price <= maxValue;
+
+      return matchesType && matchesCategory && matchesBrand && matchesPrice;
+    });
+  }, [
+    products,
+    selectedType,
+    selectedCategory,
+    selectedBrand,
+    minValue,
+    maxValue,
+  ]);
 
   const handleTypeChange = (type) =>
     setSelectedType((prevSelected) => {
@@ -114,7 +152,9 @@ const Catalog = () => {
                   key={type}
                   className={`${styles["option"]} ${selectedType.includes(type) ? styles["selected"] : ""}`}
                 >
-                  <button onClick={() => handleTypeChange(type)}>{type}</button>
+                  <button onClick={() => handleTypeChange(type)}>
+                    {formatOption(type)}
+                  </button>
                 </div>
               ))}
             </div>
@@ -228,7 +268,7 @@ const Catalog = () => {
                   className={`${styles["option"]} ${selectedCategory.includes(type) ? styles["selected"] : ""}`}
                 >
                   <button onClick={() => handleCategoryChange(type)}>
-                    {type}
+                    {formatOption(type)}
                   </button>
                 </div>
               ))}
@@ -262,7 +302,7 @@ const Catalog = () => {
                   className={`${styles["option"]} ${selectedBrand.includes(type) ? styles["selected"] : ""}`}
                 >
                   <button onClick={() => handleBrandChange(type)}>
-                    {type}
+                    {formatOption(type)}
                   </button>
                 </div>
               ))}
@@ -272,7 +312,7 @@ const Catalog = () => {
       </div>
       <div className={styles["catalog-content"]}>
         <div className={styles["product-list"]}>
-          {products.map((card) => {
+          {filteredProducts.map((card) => {
             const isInCart = cartItems.some((item) => {
               return item.productId === card.id;
             });
@@ -292,6 +332,11 @@ const Catalog = () => {
             );
           })}
         </div>
+        {!productsLoading && filteredProducts.length === 0 && (
+          <p className={styles["no-products"]}>
+            No products match the selected filters
+          </p>
+        )}
       </div>
     </div>
   );

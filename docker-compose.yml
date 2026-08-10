@@ -3,6 +3,9 @@ services:
     build: ./front-end
     ports:
       - "5173:5173"
+    volumes:
+      - ./front-end:/app
+      - /app/node_modules
     depends_on:
       - backend
 
@@ -28,9 +31,9 @@ services:
       MYSQL_DATABASE: mydb
     ports:
       - "3306:3306"
-    user: "0:0" 
+    user: "0:0"
     volumes:
-      - mysql_data:/var/lib/mysql  
+      - mysql_data:/var/lib/mysql
 
 volumes:
-  mysql_data:  
+  mysql_data:
