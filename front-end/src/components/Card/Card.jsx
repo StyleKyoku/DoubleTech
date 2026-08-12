@@ -1,4 +1,3 @@
-import React from "react";
 import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
 
@@ -8,16 +7,8 @@ import styles from "./Card.module.scss";
 import sale from "/assets/images/products/sales.svg";
 import cart from "/assets/images/products/cart.svg";
 
-const Card = ({
-  id,
-  title,
-  price,
-  imageUrl,
-  category = "everything",
-  onSale,
-  originalPrice = "",
-}) => {
-  const { cartItems, addToCart, removeFromCart, openCart } = useCart();
+const Card = ({ product }) => {
+  const { cartItems, addToCart, removeFromCart } = useCart();
   const { isAuth, authLoading } = useAuth();
 
   const navigate = useNavigate();
@@ -29,12 +20,7 @@ const Card = ({
     });
   }
 
-  const isInBasket = cartItems.some((item) => item.productId === id);
-
-  const [cardInfo, setCardInfo] = React.useState({
-    title: "",
-    description: "",
-  });
+  const isInCart = cartItems.some((item) => item.productId === product.id);
 
   async function handleBasket() {
     if (authLoading) {
@@ -45,10 +31,10 @@ const Card = ({
       redirectToLogin();
       return;
     }
-    if (isInBasket) {
-      await removeFromCart(id);
+    if (isInCart) {
+      await removeFromCart(product.id);
     } else {
-      await addToCart(id);
+      await addToCart(product.id);
     }
   }
 
@@ -58,20 +44,20 @@ const Card = ({
         <button className={styles["like-button"]} onClick={handleBasket}>
           <img
             src={
-              isInBasket
+              isInCart
                 ? import.meta.env.BASE_URL +
-                  "/assets/images/products/isLiked.svg"
+                "/assets/images/products/isLiked.svg"
                 : import.meta.env.BASE_URL +
-                  "/assets/images/products/notLiked.svg"
+                "/assets/images/products/notLiked.svg"
             }
             alt="like icon"
             className={styles["like-icon"]}
           />
         </button>
-        <Link to={`/product/${id}`}>
+        <Link to={"/product/" + product.id}>
           <img
-            src={import.meta.env.BASE_URL + imageUrl}
-            alt={title}
+            src={import.meta.env.BASE_URL + product.imageUrls[0]}
+            alt={product.title}
             className={styles["card-image"]}
           />
         </Link>
@@ -79,7 +65,7 @@ const Card = ({
       <div className={styles["card-info"]}>
         <div className={styles["card-price-container"]}>
           <div className={styles["card-price-wrapper"]}>
-            {onSale ? (
+            {product.onSale ? (
               <img
                 src={sale}
                 alt="Sales img"
@@ -87,21 +73,22 @@ const Card = ({
               />
             ) : null}
             <p
-              className={`${styles["card-price"]} ${onSale ? styles["on-sale"] : ""}`}
+              className={`${styles["card-price"]} ${product.onSale ? styles["on-sale"] : ""}`}
             >
-              ${price}
+              ${product.price}
             </p>
-          
-            {onSale ? (
-              <p className={styles["card-price-original"]}>${originalPrice}</p>
+
+            {product.onSale ? (
+              <p className={styles["card-price-original"]}>
+                ${product.oldPrice}
+              </p>
             ) : null}
           </div>
         </div>
-        <p className={styles["card-category"]}>for {category}</p>
+        <p className={styles["card-category"]}>for {product.category}</p>
       </div>
       <small className={styles["card-title"]}>
-        {" "}
-        <Link to={`/product/${id}`}>{title}</Link>
+        <Link to={`/product/${product.id}`}>{product.title}</Link>
       </small>
       <button className={styles["card-buy"]}>
         <img src={cart} alt="Cart icon" className={styles["cart-icon"]} />

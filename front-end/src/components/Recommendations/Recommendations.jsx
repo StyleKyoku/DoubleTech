@@ -14,19 +14,7 @@ const Recommendations = ({ count }) => {
       <h2 className={styles["product-recs-title"]}>You may also like</h2>
       <div className={styles["product-recs-wrapper"]}>
         {recommendedProducts.map((product) => {
-          return (
-            <Card
-              key={product.id}
-              id={product.id}
-              title={product.title}
-              price={product.price}
-              imageUrl={product.imageUrls[0]}
-              category={product.category}
-              brand={product.brand}
-              onSale={product.onSale}
-              originalPrice={product.oldPrice}
-            />
-          );
+          return <Card key={product.id} product={product} />;
         })}
       </div>
     </section>

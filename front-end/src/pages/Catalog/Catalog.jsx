@@ -1,5 +1,5 @@
 import React from "react";
-import { useCart } from "../../context/CartContext";
+
 import { useProducts } from "../../context/ProductContext";
 
 import styles from "./Catalog.module.scss";
@@ -11,7 +11,6 @@ const Catalog = () => {
   const MaxPrice = 3000;
   const step = 50;
 
-  const { cartItems } = useCart();
   const { products, productsLoading } = useProducts();
 
   const types = React.useMemo(
@@ -312,24 +311,8 @@ const Catalog = () => {
       </div>
       <div className={styles["catalog-content"]}>
         <div className={styles["product-list"]}>
-          {filteredProducts.map((card) => {
-            const isInCart = cartItems.some((item) => {
-              return item.productId === card.id;
-            });
-            return (
-              <Card
-                key={card.id}
-                id={card.id}
-                title={card.title}
-                price={card.price}
-                imageUrl={card.imageUrls[0]}
-                inBasket={isInCart}
-                category={card.category}
-                brand={card.brand}
-                onSale={card.onSale}
-                originalPrice={card.originalPrice}
-              />
-            );
+          {filteredProducts.map((product) => {
+            return <Card key={product.id} product={product} />;
           })}
         </div>
         {!productsLoading && filteredProducts.length === 0 && (
