@@ -26,7 +26,7 @@ const AccountSettings = () => {
     "image/svg+xml",
   ];
 
-  const MAX_AVATAR_SIZE = 2 * 1024 * 1024; // 2MB
+  const MAX_AVATAR_SIZE = 2 * 1024; // 2MB
 
   const [avatarFile, setAvatarFile] = React.useState(null);
   const [avatarPreview, setAvatarPreview] = React.useState(

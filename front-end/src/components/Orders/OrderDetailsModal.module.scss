@@ -4,8 +4,6 @@
 @use "../../styles/mixins/elevation" as elev;
 
 .order-details {
-  height: 100vh;
-  width: 100vw;
   inset: 0;
 
   display: flex;
@@ -35,7 +33,7 @@
     overflow: hidden;
     inset: 0;
     padding: t.space(5);
-    height: min(590px, calc(90dvh - 12rem));
+    height: min(590px, calc(100dvh - 12rem));
     width: min(560px, calc(100vw - 3rem));
     background-color: t.color(white);
 
@@ -83,7 +81,17 @@
       display: flex;
       flex-direction: column;
       overflow-y: auto;
-      margin-top: t.space(6);
+      padding-top: t.space(4);
+      margin-top: t.space(2);
+
+      @include mx.mqDown(tb) {
+        padding-top: t.space(3);
+      }
+
+      @include mx.mqDown(mb) {
+        padding-top: t.space(2);
+        margin-top: t.space(1);
+      }
 
       .order-details-item {
         display: grid;
@@ -126,6 +134,14 @@
           background-color: t.color(black);
           padding: t.space(3) t.space(7);
           border-radius: t.rad(lg);
+
+          @include mx.mqDown(tb) {
+            padding: t.space(3) t.space(5);
+          }
+
+          @include mx.mqDown(mb) {
+            padding: t.space(2) t.space(5);
+          }
 
           &:hover {
             background-color: t.color(black-hover);

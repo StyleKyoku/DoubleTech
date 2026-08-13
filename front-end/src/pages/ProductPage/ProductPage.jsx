@@ -1,5 +1,10 @@
 import React from "react";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import {
+  Navigate,
+  useParams,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
 import styles from "./ProductPage.module.scss";
 
 import notInCart from "/assets/images/products/notLiked.svg";
@@ -93,8 +98,7 @@ export default function ProductPage() {
   }
 
   const { isAuth, authLoading } = useAuth();
-  const { cartItems, toggleCart, addToCart, removeFromCart, openCart, cartActionLoading } =
-    useCart();
+  const { cartItems, addToCart, removeFromCart, cartActionLoading } = useCart();
 
   const { products, productsLoading, productsError } = useProducts();
   const { buyNow, orderActionLoading } = useOrders();
@@ -130,13 +134,8 @@ export default function ProductPage() {
       </main>
     );
   }
-
   if (!productData) {
-    return (
-      <main className={styles["product-page"]}>
-        <p>Product not found.</p>
-      </main>
-    );
+    return <Navigate to="/404" replace />;
   }
 
   const inBasket = cartItems.some((item) => {
@@ -208,11 +207,10 @@ export default function ProductPage() {
                   <img
                     src={getPublicPath(url)}
                     alt={`thumbnail ${index + 1}`}
-                    className={`${styles["product-thumbnail"]} ${
-                      currentImage === getPublicPath(url)
+                    className={`${styles["product-thumbnail"]} ${currentImage === getPublicPath(url)
                         ? styles["selected"]
                         : ""
-                    }`}
+                      }`}
                   />
                 </button>
               ))}
@@ -264,9 +262,8 @@ export default function ProductPage() {
               {productData.productSpecs.color.map((color, index) => (
                 <button
                   key={index}
-                  className={`${styles["product-color-button"]} ${
-                    colorSelect === color ? styles["selected"] : ""
-                  }`}
+                  className={`${styles["product-color-button"]} ${colorSelect === color ? styles["selected"] : ""
+                    }`}
                   style={{ background: getColorValue(color) }}
                   onClick={() => setColorSelect(color)}
                 >
@@ -295,9 +292,8 @@ export default function ProductPage() {
             {productData.productSpecs.memory.map((mem, index) => (
               <button
                 key={index}
-                className={`${styles["product-memory-button"]} ${
-                  memorySelect === mem ? styles["selected"] : ""
-                }`}
+                className={`${styles["product-memory-button"]} ${memorySelect === mem ? styles["selected"] : ""
+                  }`}
                 onClick={() => setMemorySelect(mem)}
               >
                 {mem}
@@ -360,7 +356,7 @@ export default function ProductPage() {
         </div>
       </section>
       <div className={styles["product-recommendations"]}>
-      <Recommendations count={6} />
+        <Recommendations count={6} />
       </div>
     </main>
   );

@@ -1,15 +1,11 @@
 import { Outlet } from "react-router-dom";
-import Footer from "../components/Footer/Footer";
-import Cart from "../components/Cart/Cart";
 
 export default function ProfileLayout() {
   return (
     <>
       <main>
-        <Cart />
         <Outlet />
       </main>
-      <Footer />
     </>
   );
 }
