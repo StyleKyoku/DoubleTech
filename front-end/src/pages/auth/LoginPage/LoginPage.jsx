@@ -10,7 +10,7 @@ import logo from "/assets/images/logo.svg";
 export default function LoginPage() {
   const navigate = useNavigate();
 
-  const { login, register, isAuth, authActionLoading } = useAuth();
+  const { user, login, register, isAuth, authActionLoading } = useAuth();
   const [chooseAction, setChooseAction] = React.useState("login");
 
   const [formData, setFormData] = React.useState({
@@ -28,10 +28,12 @@ export default function LoginPage() {
   const [errors, setErrors] = React.useState({});
 
   React.useEffect(() => {
-    if (isAuth) {
-      navigate("/profile", { replace: true });
+    if (!isAuth || !user) {
+      return;
     }
-  }, [isAuth, navigate]);
+
+    navigate(user.isAdmin ? "/admin" : "/profile", { replace: true });
+  }, [isAuth, user, navigate]);
 
   const validate = (data, mode) => {
     const err = {};
@@ -140,7 +142,6 @@ export default function LoginPage() {
           formData.password,
         );
       }
-      navigate("/profile", { replace: true });
     } catch (error) {
       setErrors((prev) => ({
         ...prev,

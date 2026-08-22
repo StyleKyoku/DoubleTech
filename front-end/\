@@ -1,0 +1,81 @@
+import React from "react";
+import styles from "./Sidebar.module.scss";
+import { NavLink, Link } from "react-router-dom";
+
+import { useAuth } from "../../../context/AuthContext";
+
+import Logo from "/assets/images/logo.svg";
+
+const Sidebar = () => {
+  const { logout } = useAuth();
+  const linkClassName = ({ isActive }) =>
+    `${styles["sidebar-link"]} ${isActive ? styles["active"] : ""}`;
+
+  return (
+    <aside className={styles.sidebar}>
+      <div className={styles["main-content"]}>
+        <div className={styles.logo}>
+          <div className={styles["logo-wrapper"]}>
+            <img src={Logo} alt="Logo" />
+          </div>
+        </div>
+        <div className={styles["main-area"]}>
+          <div className={styles["title-wrapper"]}>
+            <h2> Main area </h2>
+          </div>
+          <div className={styles["area-content-list"]}>
+            <div className={styles["area-content-item"]}>
+              <NavLink to="/admin" end className={linkClassName}>
+                {" "}
+                Dashboard{" "}
+              </NavLink>
+            </div>
+          </div>
+        </div>
+        <div className={styles["products-area"]}>
+          <div className={styles["title-wrapper"]}>
+            <h2> Products area </h2>
+          </div>
+          <div className={styles["area-content-list"]}>
+            <div className={styles["area-content-item"]}>
+              <NavLink to="/admin/products" className={linkClassName}>
+                {" "}
+                Products{" "}
+              </NavLink>
+            </div>
+            <div className={styles["area-content-item"]}>
+              <NavLink to="/admin/products/add" className={linkClassName}>
+                {" "}
+                Add Product{" "}
+              </NavLink>
+            </div>
+          </div>
+        </div>
+        <div className={styles["users-area"]}>
+          <div className={styles["title-wrapper"]}>
+            <h2> Users area </h2>
+          </div>
+          <div className={styles["area-content-list"]}>
+            <div className={styles["area-content-item"]}>
+              <NavLink to="/admin/users" className={linkClassName}>
+                {" "}
+                Users{" "}
+              </NavLink>
+            </div>
+            <div className={styles["area-content-item"]}>
+              <NavLink to="/admin/users/add" className={linkClassName}>
+                {" "}
+                Add User{" "}
+              </NavLink>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className={styles["logout-area"]}>
+        <button onClick={logout}>Logout</button>
+      </div>
+    </aside>
+  );
+};
+
+export default Sidebar;

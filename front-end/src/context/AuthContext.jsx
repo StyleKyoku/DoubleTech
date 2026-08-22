@@ -98,10 +98,9 @@ export function AuthProvider({ children }) {
     try {
       setAuthActionLoading(true);
       setAuthError(null);
-      
+
       const response = await updateUser(updatedData);
       setUser(response.user);
-
 
       return response.user;
     } catch (error) {
@@ -122,6 +121,7 @@ export function AuthProvider({ children }) {
     () => ({
       user,
       isAuth: Boolean(user),
+      isAdmin: Boolean(user?.isAdmin),
       token,
       authLoading,
       authActionLoading,

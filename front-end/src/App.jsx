@@ -1,17 +1,19 @@
 import { Routes, Route } from "react-router-dom";
-import RootLayout from "./layouts/RootLayout.jsx";
-import ProfileLayout from "./layouts/ProfileLayout.jsx";
-import NotFoundLayout from "./layouts/NotFoundLayout.jsx";
+import RootLayout from "./layouts/RootLayout";
+import ProfileLayout from "./layouts/ProfileLayout";
+import EmptyLayout from "./layouts/EmptyLayout";
+import AdminLayout from "./layouts/AdminLayout";
 
-import NotFoundPage from "./pages/NotFoundPage/NotFoundPage.jsx";
-import HomePage from "./pages/HomePage/HomePage.jsx";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import HomePage from "./pages/HomePage/HomePage";
 import LoginPage from "./pages/auth/LoginPage/LoginPage";
 import Catalog from "./pages/Catalog/Catalog";
 import ProfilePage from "./pages/account/ProfilePage/ProfilePage";
 import AccountSettings from "./pages/account/AccountSettings/AccountSettings";
+
+import AdminDashboard from "./pages/Admin/AdminDashboard/AdminDashboard";
 import MyOrders from "./pages/account/OrdersPage/MyOrders";
-import Test1 from "./pages/Tests/test1.jsx";
-import ProductPage from "./pages/ProductPage/ProductPage.jsx";
+import ProductPage from "./pages/ProductPage/ProductPage";
 
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 
@@ -21,7 +23,6 @@ export default function App() {
       <Route element={<RootLayout />}>
         <Route index element={<HomePage />} />
         <Route path="/catalog" element={<Catalog />} />
-        <Route path="/test1" element={<Test1 />} />
         <Route path="/product/:productId" element={<ProductPage />} />
       </Route>
       <Route element={<ProfileLayout />}>
@@ -34,7 +35,12 @@ export default function App() {
           <Route path="/profile/orders" element={<MyOrders />} />
         </Route>
       </Route>
-      <Route element={<NotFoundLayout />}>
+      <Route element={<ProtectedRoute adminOnly={true} />}>
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+        </Route>
+      </Route>
+      <Route element={<EmptyLayout />}>
         <Route path="/404" element={<NotFoundPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>

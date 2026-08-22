@@ -1,0 +1,9 @@
+@use "sass:map";
+@use "../../../styles/tokens" as t;
+@use "../../../styles/mixins" as mx;
+@use "../../../styles/mixins/elevation" as elev;
+
+.admin-dashboard {
+  flex: 1;
+  background-color: t.color(primary);
+}
