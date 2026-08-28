@@ -1,9 +1,369 @@
 @use "sass:map";
 @use "../../../styles/tokens" as t;
 @use "../../../styles/mixins" as mx;
-@use "../../../styles/mixins/elevation" as elev;
 
 .admin-dashboard {
-  flex: 1;
-  background-color: t.color(primary);
+  flex: 1 1 0;
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  padding: t.space(xl);
+
+  background-color: t.color(canvas-2);
+
+  @include mx.mqDown(mb) {
+    padding: t.space(5);
+  }
+
+  .main-content {
+    display: flex;
+    flex-direction: column;
+
+    gap: t.space(6);
+
+    @include mx.mqDown(mb) {
+      gap: t.space(4);
+    }
+
+    .dashboard-header {
+      display: flex;
+      flex-direction: column;
+
+      padding: 0 t.space(6);
+      gap: t.space(1);
+
+      @include mx.mqDown(mb) {
+        padding: 0 t.space(4);
+      }
+
+      h1 {
+        @include mx.fluid-text(h3);
+      }
+
+      p {
+        @include mx.fluid-text(body);
+        color: t.color(text-secondary);
+      }
+    }
+
+    .dashboard-content {
+      display: flex;
+      flex-direction: column;
+      gap: t.space(6);
+
+      .dashboard-cards-wrapper {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+        gap: t.space(6);
+
+        @include mx.mqDown(mb) {
+          grid-template-columns: minmax(0, 1fr);
+          gap: t.space(4);
+        }
+      }
+
+      .dashboard-card {
+        display: flex;
+        flex-direction: column;
+
+        padding: t.space(5);
+        background-color: t.color(white);
+        border-radius: t.rad(md);
+
+        border: 1px solid t.color(border-light);
+
+        @include mx.mqDown(mb) {
+          padding: t.space(4);
+          min-width: 0;
+        }
+
+        &.general-info {
+          display: flex;
+
+          .card-content {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            .card-info {
+              display: flex;
+              flex-direction: row;
+              align-items: center;
+              justify-content: flex-start;
+              gap: t.space(5);
+
+              .card-image-wrapper {
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                background-color: t.color(primary-light);
+
+                border-radius: t.rad(md);
+
+                .card-icon {
+                  color: t.color(primary);
+                }
+              }
+
+              .card-text {
+                display: flex;
+                flex-direction: column;
+
+                gap: t.space(1);
+
+                h3 {
+                  @include mx.fluid-text(small);
+                  color: t.color(text-secondary);
+                }
+
+                p {
+                  @include mx.fluid-text(h5);
+                  font-weight: t.font-weight(bold);
+                }
+              }
+            }
+
+            .view-all-button-wrapper {
+              .view-all-button {
+                @include mx.button-base(ghost, sm);
+                color: t.color(primary);
+                font-weight: t.font-weight(bold);
+
+                &:hover {
+                  text-decoration: underline;
+                }
+              }
+            }
+          }
+        }
+
+        .card-header {
+          display: flex;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+          gap: t.space(4);
+
+          .title-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: t.space(1);
+
+            @include mx.mqDown(mb) {
+              max-width: 60%;
+            }
+
+            h3 {
+              @include mx.fluid-text(h6);
+              font-weight: t.font-weight(bold);
+            }
+
+            p {
+              @include mx.fluid-text(small);
+              color: t.color(text-secondary);
+            }
+          }
+
+          .action-buttons-wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: t.space(4);
+
+            @include mx.mqDown(mb) {
+              gap: t.space(2);
+            }
+
+            .action-button {
+              height: 40px;
+              padding: 0 !important;
+              font-weight: t.font-weight(bold);
+
+              @include mx.mqDown(mb) {
+                height: 25px;
+              }
+
+              &.view-action {
+                width: 120px;
+                @include mx.button-base(ghost, sm);
+                @include mx.fluid-text(small);
+                border: 1px solid t.color(border-dark);
+
+                @include mx.mqDown(mb) {
+                  width: 70px;
+                }
+
+                &:hover {
+                  color: t.color(primary);
+                  border-color: t.color(primary);
+                }
+              }
+
+              &.add-action {
+                @include mx.button-base(primary, sm);
+                @include mx.fluid-text(small);
+                width: 150px;
+
+                @include mx.mqDown(mb) {
+                  width: 70px;
+                }
+
+                &:hover {
+                  background-color: t.color(thirdly);
+                }
+              }
+            }
+          }
+        }
+
+        .card-content {
+          .items-table-wrapper {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            overscroll-behavior-inline: contain;
+
+            .items-table {
+              width: 100%;
+              min-width: 0;
+              border-collapse: collapse;
+              table-layout: fixed;
+
+              @include mx.mqDown(mb) {
+                min-width: 600px;
+              }
+
+              th,
+              td {
+                @include mx.fluid-text(small);
+                padding: t.space(3) t.space(2);
+                min-width: 0;
+                border-bottom: 1px solid t.color(border-light);
+                text-align: left;
+                vertical-align: middle;
+
+                &:first-child {
+                  width: 35%;
+                  padding-left: 0;
+
+                  @include mx.mqDown(mb) {
+                    width: 25%;
+                  }
+                }
+
+                &:last-child {
+                  padding-right: 0;
+                  text-align: right;
+                }
+              }
+
+              td.loading-item {
+                width: auto;
+                padding: t.space(6);
+                text-align: center;
+              }
+
+              th {
+                @include mx.fluid-text(small);
+                color: t.color(text-secondary);
+                font-weight: t.font-weight(semibold);
+                text-transform: uppercase;
+              }
+
+              .item-info {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: t.space(4);
+
+                @include mx.mqDown(mb) {
+                  gap: t.space(2);
+                }
+
+                .item-image-wrapper {
+                  width: 48px;
+                  height: 48px;
+                  flex-shrink: 0;
+
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+
+                  @include mx.mqDown(mb) {
+                    width: 32px;
+                    height: 32px;
+                  }
+
+                  .item-image {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                  }
+                }
+
+                .item-name {
+                  @include mx.fluid-text(small);
+                  font-weight: t.font-weight(semibold);
+                  min-width: 0;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  white-space: nowrap;
+                }
+              }
+
+              .item-old-price.on-sale {
+                color: t.color(primary);
+                font-weight: t.font-weight(semibold);
+              }
+
+              .item-status-badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+
+                padding: t.space(2) t.space(3);
+                border-radius: t.rad(md);
+
+                @include mx.fluid-text(small);
+                font-weight: t.font-weight(semibold);
+
+                &.on-sale {
+                  color: t.color(primary);
+                  background-color: t.color(primary-light);
+                }
+
+                &.regular {
+                  color: t.color(text-secondary);
+                  background-color: t.color(surface-3);
+                }
+              }
+
+              .item-edit-button {
+                @include mx.button-base(ghost, sm);
+                @include mx.fluid-text(small);
+                padding: t.space(2) t.space(6);
+                border: 1px solid t.color(border-dark);
+
+                @include mx.mqDown(mb) {
+                  padding: t.space(2) t.space(4);
+                }
+
+                &:hover {
+                  color: t.color(primary);
+                  border-color: t.color(primary);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
 }

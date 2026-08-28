@@ -22,14 +22,22 @@ function useAutoClose(active, setActive, refs) {
       if (!clickedInside) setActive(false);
     };
 
+    const handleEscapeKey = (event) => {
+      if (event.key === "Escape") {
+        setActive(false);
+      }
+    };
+
     const handleScroll = () => setActive(false);
 
+    document.addEventListener("keydown", handleEscapeKey);
     document.addEventListener("mousedown", handleClick);
     window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       document.removeEventListener("mousedown", handleClick);
       window.removeEventListener("scroll", handleScroll);
+      document.removeEventListener("keydown", handleEscapeKey);
     };
   }, [active, setActive, refs]);
 }

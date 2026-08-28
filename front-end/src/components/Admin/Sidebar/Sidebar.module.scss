@@ -20,10 +20,80 @@
 
   overflow-y: auto;
 
+  background-color: t.color(white);
+
+  @include mx.mqDown(tb) {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: t.zindex(modal);
+
+    width: 280px;
+    height: 100dvh;
+    flex: none;
+
+    overflow: visible;
+
+    transform: translateX(-100%);
+    transition: transform 250ms ease;
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  .toggle-sidebar-button-wrapper {
+    display: none;
+
+    @include mx.mqDown(tb) {
+      display: block;
+
+      position: absolute;
+      top: t.space(5);
+      right: -28px;
+      z-index: t.zindex(dropdown);
+
+      .toggle-sidebar-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 28px;
+        height: 40px;
+
+        border-radius: 0 t.rad(full) t.rad(full) 0;
+
+        background-color: t.color(white);
+        color: t.color(primary);
+
+        cursor: pointer;
+
+        .toggle-sidebar-icon {
+          width: 20px;
+          height: 20px;
+
+          transform: rotate(0deg);
+          transform-origin: center;
+          transition: transform 250ms ease;
+
+          &.rotated {
+            transform: rotate(180deg);
+          }
+        }
+      }
+    }
+  }
+
   .main-content {
     display: flex;
     flex-direction: column;
     gap: t.space(6);
+
+    @include mx.mqDown(tb) {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+    }
 
     .logo-wrapper {
       display: flex;
@@ -84,17 +154,23 @@
     flex-direction: column;
     flex-shrink: 0;
 
-    padding: t.space(5);
+    padding: t.space(4) 0;
 
     border-top: 0.5px solid t.color(surface-5);
 
-    button {
+    .logout-button-wrapper {
       @include mx.button-base(ghost, sm, true);
       justify-content: flex-start;
+
+      padding: t.space(3) t.space(4);
+      border-radius: t.rad(md);
+      cursor: pointer;
+
       color: t.color(surface-5);
 
       &:hover {
-        color: t.color(black);
+        background-color: t.color(danger-light);
+        color: t.color(white);
       }
     }
   }

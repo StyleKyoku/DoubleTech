@@ -4,6 +4,7 @@ import {
   logoutUser,
   registerUser,
   getCurrentUser,
+  getUsers,
   updateUser,
 } from "../api/authApi";
 
@@ -16,6 +17,10 @@ export function AuthProvider({ children }) {
   const [authLoading, setAuthLoading] = React.useState(true);
   const [authActionLoading, setAuthActionLoading] = React.useState(false);
   const [authError, setAuthError] = React.useState(null);
+
+  const [users, setUsers] = React.useState([]);
+  const [usersLoading, setUsersLoading] = React.useState(false);
+  const [usersError, setUsersError] = React.useState(null);
 
   const loadCurrentUser = React.useCallback(async () => {
     setAuthLoading(true);
@@ -111,6 +116,23 @@ export function AuthProvider({ children }) {
     }
   }, []);
 
+  const loadUsers = React.useCallback(async () => {
+    try {
+      setUsersLoading(true);
+      setUsersError(null);
+
+      const loadedUsers = await getUsers();
+      setUsers(loadedUsers);
+
+      return loadedUsers;
+    } catch (error) {
+      setUsersError(error.message);
+      console.error("Error fetching users:", error);
+    } finally {
+      setUsersLoading(false);
+    }
+  }, []);
+
   const clearAuth = React.useCallback(() => {
     setUser(null);
     setToken(null);
@@ -126,10 +148,14 @@ export function AuthProvider({ children }) {
       authLoading,
       authActionLoading,
       authError,
+      users,
+      usersLoading,
+      usersError,
       login,
       register,
       logout,
       updateProfile,
+      loadUsers,
       clearAuth,
     }),
     [
@@ -138,10 +164,14 @@ export function AuthProvider({ children }) {
       authLoading,
       authActionLoading,
       authError,
+      users,
+      usersLoading,
+      usersError,
       login,
       register,
       logout,
       updateProfile,
+      loadUsers,
       clearAuth,
     ],
   );

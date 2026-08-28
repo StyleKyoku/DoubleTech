@@ -70,6 +70,12 @@ export async function getCurrentUser() {
   };
 }
 
+export async function getUsers() {
+  const response = await api.get("/api/users/");
+
+  return response.data.map(normalizeUser);
+}
+
 export async function updateUser(updatedData) {
   const response = await api.put("/api/me/", updatedData);
 

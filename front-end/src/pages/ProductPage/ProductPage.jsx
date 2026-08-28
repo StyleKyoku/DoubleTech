@@ -14,7 +14,6 @@ import tick1 from "/assets/images/products/tick1.svg";
 import tick2 from "/assets/images/products/tick2.svg";
 import cartIcon from "/assets/images/products/cart.svg";
 
-import Card from "../../components/Card/Card.jsx";
 import Recommendations from "../../components/Recommendations/Recommendations.jsx";
 
 import { useAuth } from "../../context/AuthContext";
